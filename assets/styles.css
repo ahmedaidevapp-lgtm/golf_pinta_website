@@ -788,7 +788,8 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .place:nth-child(2n+1){padding-left:0}
   .place:nth-child(2n){padding-left:24px}
   .cond-grid{grid-template-columns:1fr}
-  .cnd{border-right:none;border-bottom:1px solid var(--rule-turf);padding-left:0;padding-right:0}
+  .cnd,.cnd:not(:first-child){border-right:none;border-bottom:1px solid var(--rule-turf);
+    padding:26px 0}
   .cnd:last-child{border-bottom:none}
   .tarifs-hero{padding:150px 0 60px}
 }
