@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Golf with Pinta — Académies de golf au Maroc</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="image-slot.js"></script>
+
+<style>
+:root {
+  --ink:        #0B1322;
+  --ink-soft:   #101A2E;
+  --ink-softer: #1A2440;
+  --cream:      #F6F2E9;
+  --cream-deep: #EDE6D5;
+  --champ:      #C5A35A;
+  --champ-soft: #D9BC78;
+  --champ-deep: #A88742;
+  --champ-tint: rgba(197,163,90,0.10);
+  --text:       #0B1322;
+  --muted:      #6E7689;
+  --on-ink:     #FFFFFF;
+  --on-ink-mut: rgba(255,255,255,0.55);
+  --on-ink-dim: rgba(255,255,255,0.32);
+  --hair:       rgba(11,19,34,0.08);
+  --hair-str:   rgba(11,19,34,0.14);
+  --hair-gold:  rgba(197,163,90,0.28);
+  --hair-onink: rgba(255,255,255,0.08);
+  --serif: 'Newsreader', Georgia, serif;
+  --sans:  'Public Sans', -apple-system, system-ui, sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: var(--cream-deep); }
+::-webkit-scrollbar-thumb { background: rgba(11,19,34,0.18); border-radius: 10px; border: 3px solid var(--cream-deep); background-clip: padding-box; }
+
+/* ── Shared atoms ───────────────────────────────────── */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--champ);
+}
+.eyebrow.dim { color: var(--on-ink-mut); }
+.eyebrow .dash { width: 22px; height: 1px; background: currentColor; opacity: 0.7; }
+
+.serif { font-family: var(--serif); font-weight: 400; }
+.italic { font-style: italic; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--sans); font-weight: 600; font-size: 12.5px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 15px 26px; border-radius: 11px; border: none; cursor: pointer;
+  transition: transform 140ms ease, filter 140ms ease;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.98); }
+.btn-gold {
+  background: linear-gradient(180deg, var(--champ-soft), var(--champ));
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--champ-deep), 0 6px 16px rgba(197,163,90,0.28);
+}
+.btn-gold:hover { filter: brightness(1.04); }
+.btn-dark {
+  background: linear-gradient(180deg, var(--ink), var(--ink-soft));
+  color: var(--champ);
+  box-shadow: inset 0 0 0 1px var(--hair-gold), 0 6px 16px rgba(11,19,34,0.16);
+}
+.btn-ghost-onink {
+  background: transparent; color: var(--on-ink);
+  box-shadow: inset 0 0 0 1px var(--hair-onink);
+}
+.btn-ghost-onink:hover { background: rgba(255,255,255,0.05); }
+.btn-ghost {
+  background: transparent; color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--hair-str);
+}
+.btn-ghost:hover { background: #fff; }
+.arrow { width: 15px; height: 15px; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+
+.monogram {
+  width: var(--m, 56px); height: var(--m, 56px); border-radius: calc(var(--m, 56px) * 0.24);
+  background: linear-gradient(160deg, var(--ink), var(--ink-soft));
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 0 0 1px var(--hair-gold);
+  position: relative; flex-shrink: 0;
+}
+.monogram span {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: calc(var(--m, 56px) * 0.58); color: var(--champ); line-height: 1;
+  padding-bottom: 2px;
+}
+.monogram::after {
+  content: ''; position: absolute; top: 12%; right: 12%;
+  width: 3px; height: 3px; border-radius: 3px; background: var(--champ); opacity: 0.5;
+}
+
+/* ── Nav ────────────────────────────────────────────── */
+header.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  transition: background 280ms ease, box-shadow 280ms ease, border-color 280ms;
+  border-bottom: 1px solid transparent;
+}
+header.nav.scrolled {
+  background: rgba(11,19,34,0.86);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid var(--hair-onink);
+}
+.nav-inner {
+  max-width: 1240px; margin: 0 auto; padding: 18px 40px;
+  display: flex; align-items: center; justify-content: space-between; gap: 30px;
+}
+.brand { display: inline-flex; align-items: center; gap: 11px; }
+.brand .mark {
+  width: 34px; height: 34px; border-radius: 17px;
+  border: 1px solid var(--champ);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-style: italic; font-size: 19px; color: var(--champ);
+  padding-right: 1px; padding-bottom: 2px; flex-shrink: 0;
+}
+.brand .name {
+  font-family: var(--sans); font-weight: 600; font-size: 13px;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--on-ink);
+}
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-family: var(--sans); font-size: 12.5px; font-weight: 500;
+  letter-spacing: 0.06em; color: var(--on-ink-mut);
+  transition: color 160ms; position: relative; padding: 4px 0;
+}
+.nav-links a:hover { color: var(--on-ink); }
+.nav-links a.active { color: var(--champ); }
+.nav-cta { display: flex; align-items: center; gap: 12px; }
+
+.menu-toggle { display: none; }
+
+/* ── Hero ───────────────────────────────────────────── */
+.hero {
+  position: relative; min-height: 100vh;
+  background: linear-gradient(165deg, var(--ink) 0%, var(--ink-soft) 55%, var(--ink-softer) 100%);
+  color: var(--on-ink); overflow: hidden;
+  display: flex; align-items: center;
+  padding: 140px 0 80px;
+}
+.hero .glow {
+  position: absolute; top: -220px; right: -180px; width: 720px; height: 720px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197,163,90,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero .grid-lines {
+  position: absolute; inset: 0; opacity: 0.5; pointer-events: none;
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+  background-size: 88px 100%;
+}
+.hero-inner {
+  position: relative; max-width: 1240px; margin: 0 auto; padding: 0 40px; width: 100%;
+  display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center;
+}
+.hero h1 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(44px, 6vw, 82px); line-height: 0.98; letter-spacing: -0.02em;
+  margin: 22px 0 24px;
+}
+.hero h1 .italic { color: var(--champ); }
+.hero p.lede {
+  font-size: 17px; line-height: 1.6; color: var(--on-ink-mut);
+  max-width: 480px; margin: 0 0 36px;
+}
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+.hero-stats { display: flex; gap: 52px; }
+.hero-stats .stat .n {
+  font-family: var(--serif); font-style: italic; font-size: 38px; color: var(--champ); line-height: 1;
+}
+.hero-stats .stat .l {
+  font-family: var(--sans); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--on-ink-mut); margin-top: 10px;
+}
+.hero-visual { position: relative; }
+.hero-visual image-slot {
+  width: 100%; height: 540px;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.4), inset 0 0 0 1px var(--hair-onink);
+}
+.hero-visual .badge {
+  position: absolute; left: -26px; bottom: 40px;
+  background: rgba(11,19,34,0.82);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--hair-gold); border-radius: 14px;
+  padding: 16px 20px; display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+.hero-visual .badge .quote {
+  font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--on-ink); max-width: 220px; line-height: 1.35;
+}
+.scroll-hint {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-family: var(--sans); font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.24em; text-transform: uppercase; color: var(--on-ink-dim);
+}
+.scroll-hint .line { width: 1px; height: 36px; background: linear-gradient(var(--champ), transparent); }
+
+/* ── Section scaffolding ────────────────────────────── */
+section { position: relative; }
+.section-pad { padding: 110px 0; }
+.section-head { max-width: 680px; margin-bottom: 56px; }
+.section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+.section-head h2 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(34px, 4.4vw, 56px); line-height: 1.04; letter-spacing: -0.018em;
+  margin: 16px 0 18px;
+}
+.section-head p {
+  font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0;
+}
+.center .eyebrow { justify-content: center; }
+.gold-rule { height: 1px; background: linear-gradient(90deg, var(--hair-gold), var(--hair) 40%, transparent); }
+
+/* ── À propos ───────────────────────────────────────── */
+.about { background: var(--cream); }
+.about-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: center; }
+.about-visual { position: relative; }
+.about-visual image-slot {
+  width: 100%; height: 520px;
+  box-shadow: 0 30px 70px rgba(11,19,34,0.16), inset 0 0 0 1px var(--hair);
+}
+.about-visual .sig {
+  position: absolute; right: -24px; bottom: 36px;
+  background: var(--ink); color: var(--on-ink);
+  border: 1px solid var(--hair-gold); border-radius: 14px;
+  padding: 18px 22px; box-shadow: 0 20px 50px rgba(11,19,34,0.25);
+}
+.about-visual .sig .nm { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--champ); }
+.about-visual .sig .ti { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-ink-mut); margin-top: 6px; }
+.about p.body { font-size: 16.5px; line-height: 1.7; color: var(--text); margin: 0 0 20px; max-width: 540px; }
+.about p.body .lead { font-family: var(--serif); font-size: 24px; line-height: 1.5; color: var(--text); }
+.about-points { display: flex; flex-direction: column; gap: 2px; margin: 28px 0 32px; max-width: 540px; }
+.about-point { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--hair); }
+.about-point:last-child { border-bottom: none; }
+.about-point .ic { width: 30px; height: 30px; flex-shrink: 0; border-radius: 8px; background: var(--champ-tint); border: 1px solid var(--hair-gold); display: flex; align-items: center; justify-content: center; color: var(--champ-deep); }
+.about-point .tx h4 { font-family: var(--serif); font-size: 19px; font-weight: 500; margin: 0 0 3px; }
+.about-point .tx p { font-size: 13.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+
+/* ── Académies ──────────────────────────────────────── */
+.academies { background: var(--ink); color: var(--on-ink); overflow: hidden; }
+.academies .glow {
+  position: absolute; top: -160px; left: -140px; width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(197,163,90,0.10) 0%, transparent 60%); pointer-events: none;
+}
+.academies .section-head h2 { color: var(--on-ink); }
+.academies .section-head p { color: var(--on-ink-mut); }
+.acad-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; position: relative; }
+.acad-card {
+  background: linear-gradient(165deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+  border: 1px solid var(--hair-onink); border-radius: 18px; overflow: hidden;
+  transition: transform 280ms cubic-bezier(.2,.7,.3,1), border-color 280ms; cursor: pointer;
+  display: flex; flex-direction: column;
+}
+.acad-card:hover { transform: translateY(-4px); border-color: var(--hair-gold); }
+.acad-card image-slot { width: 100%; height: 200px; border-radius: 0; }
+.acad-card .body { padding: 24px 26px 26px; position: relative; }
+.acad-card .top-line { position: absolute; top: 0; left: 26px; right: 26px; height: 2px; background: var(--champ); opacity: 0; transition: opacity 280ms; }
+.acad-card:hover .top-line { opacity: 0.9; }
+.acad-card .head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.acad-card h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; letter-spacing: -0.015em; line-height: 1.05; margin: 0 0 4px; color: var(--on-ink); }
+.acad-card .city { font-family: var(--sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--champ); }
+.acad-card .meta { display: flex; gap: 28px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--hair-onink); }
+.acad-card .meta .it .v { font-family: var(--serif); font-size: 19px; color: var(--on-ink); }
+.acad-card .meta .it .k { font-family: var(--sans); font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-ink-dim); margin-top: 4px; }
+.acad-card .go { margin-left: auto; align-self: center; color: var(--champ); display: flex; }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 100px;
+  background: var(--champ-tint); color: var(--champ);
+  font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  border: 1px solid var(--hair-gold);
+}
+
+/* ── Programme / events ─────────────────────────────── */
+.programme { background: var(--cream); }
+.event-row {
+  display: grid; grid-template-columns: 150px 1fr auto; gap: 32px; align-items: center;
+  padding: 28px 0; border-bottom: 1px solid var(--hair);
+  transition: padding 200ms;
+}
+.event-row:first-of-type { border-top: 1px solid var(--hair); }
+.event-row:hover { padding-left: 12px; }
+.event-date { display: flex; flex-direction: column; }
+.event-date .d { font-family: var(--serif); font-size: 44px; line-height: 0.9; color: var(--text); }
+.event-date .m { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--champ); margin-top: 8px; }
+.event-info h3 { font-family: var(--serif); font-weight: 500; font-size: 25px; letter-spacing: -0.01em; margin: 0 0 8px; }
+.event-info .det { display: flex; gap: 18px; flex-wrap: wrap; font-family: var(--sans); font-size: 13px; color: var(--muted); }
+.event-info .det span { display: inline-flex; align-items: center; gap: 7px; }
+
+/* ── Témoignages ────────────────────────────────────── */
+.temoins { background: var(--ink); color: var(--on-ink); overflow: hidden; }
+.temoins .glow { position: absolute; bottom: -200px; right: -160px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(197,163,90,0.10), transparent 60%); pointer-events: none; }
+.temoins .section-head h2 { color: var(--on-ink); }
+.temoins .section-head p { color: var(--on-ink-mut); }
+.temoin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; position: relative; }
+.temoin {
+  background: linear-gradient(165deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+  border: 1px solid var(--hair-onink); border-radius: 18px; padding: 30px 28px;
+  display: flex; flex-direction: column;
+}
+.temoin .stars { color: var(--champ); font-size: 14px; letter-spacing: 3px; margin-bottom: 18px; }
+.temoin .q { font-family: var(--serif); font-style: italic; font-size: 21px; line-height: 1.5; color: var(--on-ink); flex: 1; }
+.temoin .who { display: flex; align-items: center; gap: 13px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--hair-onink); }
+.avatar {
+  width: 42px; height: 42px; border-radius: 21px; flex-shrink: 0;
+  background: linear-gradient(160deg, var(--champ), var(--champ-deep));
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--hair-gold);
+}
+.temoin .who .nm { font-family: var(--sans); font-size: 13.5px; font-weight: 600; color: var(--on-ink); }
+.temoin .who .dt { font-family: var(--sans); font-size: 11.5px; color: var(--on-ink-dim); margin-top: 2px; }
+
+/* ── Contact / CTA ──────────────────────────────────── */
+.contact { background: var(--cream); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.contact-card { background: #fff; border: 1px solid var(--hair); border-radius: 20px; padding: 36px; box-shadow: 0 20px 50px rgba(11,19,34,0.05); }
+.field { margin-bottom: 18px; }
+.field label { display: block; font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.field input, .field textarea {
+  width: 100%; font-family: var(--sans); font-size: 14.5px; color: var(--text);
+  padding: 13px 15px; border-radius: 10px; border: 1px solid var(--hair); background: var(--cream);
+  outline: none; transition: border-color 160ms, box-shadow 160ms, background 160ms;
+}
+.field input:focus, .field textarea:focus { border-color: var(--champ); background: #fff; box-shadow: 0 0 0 3px var(--champ-tint); }
+.field textarea { resize: vertical; min-height: 110px; }
+.contact-info .row { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--hair); }
+.contact-info .row:last-child { border-bottom: none; }
+.contact-info .ic { width: 42px; height: 42px; flex-shrink: 0; border-radius: 11px; background: var(--ink); display: flex; align-items: center; justify-content: center; color: var(--champ); }
+.contact-info .k { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.contact-info .v { font-family: var(--serif); font-size: 20px; color: var(--text); line-height: 1.3; }
+.contact-info .v.sm { font-size: 16px; }
+
+/* ── Footer ─────────────────────────────────────────── */
+footer.foot { background: var(--ink); color: var(--on-ink); padding: 64px 0 30px; position: relative; overflow: hidden; }
+footer.foot .glow { position: absolute; top: -180px; left: 50%; transform: translateX(-50%); width: 700px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(197,163,90,0.10), transparent 65%); pointer-events: none; }
+.foot-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; position: relative; padding-bottom: 44px; border-bottom: 1px solid var(--hair-onink); }
+.foot-brand .name { font-family: var(--sans); font-weight: 600; font-size: 14px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--on-ink); }
+.foot-brand p { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--on-ink-mut); margin: 16px 0 24px; max-width: 320px; line-height: 1.5; }
+.foot-social { display: flex; gap: 10px; }
+.foot-social a { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--hair-onink); display: flex; align-items: center; justify-content: center; color: var(--on-ink-mut); transition: all 160ms; }
+.foot-social a:hover { color: var(--champ); border-color: var(--hair-gold); }
+.foot-col h5 { font-family: var(--sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--champ); margin: 0 0 18px; }
+.foot-col a { display: block; font-family: var(--sans); font-size: 13.5px; color: var(--on-ink-mut); padding: 7px 0; transition: color 160ms; }
+.foot-col a:hover { color: var(--on-ink); }
+.foot-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 26px; position: relative; flex-wrap: wrap; gap: 14px; }
+.foot-bottom .legal { display: flex; gap: 24px; flex-wrap: wrap; }
+.foot-bottom .legal a, .foot-bottom .copy { font-family: var(--sans); font-size: 11.5px; color: var(--on-ink-dim); }
+.foot-bottom .legal a:hover { color: var(--on-ink-mut); }
+
+/* ── Reveal animation ───────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms cubic-bezier(.2,.7,.3,1), transform 700ms cubic-bezier(.2,.7,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 980px) {
+  .hero-inner, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { display: none; }
+  .acad-grid, .temoin-grid { grid-template-columns: 1fr; }
+  .foot-top { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+  .menu-toggle { display: inline-flex; }
+}
+@media (max-width: 620px) {
+  .wrap, .nav-inner, .hero-inner { padding-left: 22px; padding-right: 22px; }
+  .section-pad { padding: 72px 0; }
+  .event-row { grid-template-columns: 80px 1fr; }
+  .event-row .btn { display: none; }
+  .temoin-grid { grid-template-columns: 1fr; }
+  .foot-top { grid-template-columns: 1fr; }
+  .hero-stats { gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────── -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <span class="mark">P</span>
+      <span class="name">Golf&nbsp;·&nbsp;Pinta</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#top" class="active">Accueil</a>
+      <a href="#apropos">À propos</a>
+      <a href="#academies">Académies</a>
+      <a href="#programme">Événements</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="https://wa.me/212645585460" target="_blank" class="btn btn-gold">
+        Réserver
+        <svg class="arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<section class="hero" id="top">
+  <div class="glow"></div>
+  <div class="grid-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="dash"></span>Golf Academy · Maroc</div>
+      <h1>L'art du <span class="italic">swing</span>, enseigné par les maîtres.</h1>
+      <p class="lede">Cours individuels, collectifs et stages dans quatre académies signature à Casablanca, Rabat et Marrakech. Une pédagogie moderne, pour tous les niveaux.</p>
+      <div class="hero-ctas">
+        <a href="#academies" class="btn btn-gold">
+          Nos académies
+          <svg class="arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="https://wa.me/212645585460" target="_blank" class="btn btn-ghost-onink">Réserver via WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="n">04</div><div class="l">Académies</div></div>
+        <div class="stat"><div class="n">03</div><div class="l">Villes</div></div>
+        <div class="stat"><div class="n">∞</div><div class="l">Tous niveaux</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <image-slot id="hero" shape="rounded" radius="22" placeholder="Déposez une photo du parcours"></image-slot>
+      <div class="badge">
+        <span class="monogram" style="--m:42px"><span>P</span></span>
+        <span class="quote">« Rejoignez-nous et vivez l'expérience golf ! »</span>
+      </div>
+    </div>
+  </div>
+  <a href="#apropos" class="scroll-hint">
+    <span>Découvrir</span>
+    <span class="line"></span>
+  </a>
+</section>
+
+<!-- ── À PROPOS ─────────────────────────────────────── -->
+<section class="about section-pad" id="apropos">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <image-slot id="about" shape="rounded" radius="20" placeholder="Déposez une photo de Mustapha Pinta"></image-slot>
+        <div class="sig">
+          <div class="nm">Mustapha Pinta</div>
+          <div class="ti">Fondateur · Coach professionnel</div>
+        </div>
+      </div>
+      <div class="about-copy reveal">
+        <div class="eyebrow"><span class="dash"></span>À propos</div>
+        <h2 class="serif" style="font-size:clamp(34px,4.4vw,54px);line-height:1.05;letter-spacing:-0.018em;margin:16px 0 22px;">Golf with Pinta.</h2>
+        <p class="body"><span class="lead">Dirigée par M. Mustapha Pinta, coach et joueur professionnel, l'académie forme adultes et enfants à Casablanca, Marrakech et Rabat.</span></p>
+        <p class="body">Nos coachs certifiés proposent des cours individuels, collectifs et des stages adaptés à tous les niveaux — avec une pédagogie moderne et conviviale. Notre mission : rendre le golf accessible, ludique et performant pour chacun.</p>
+        <div class="about-points">
+          <div class="about-point">
+            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 4h10v5a5 5 0 01-10 0V4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3M9 20h6M12 14v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+            <div class="tx"><h4>Coachs certifiés</h4><p>Des professionnels passionnés, formés aux méthodes les plus actuelles.</p></div>
+          </div>
+          <div class="about-point">
+            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="8" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <div class="tx"><h4>Adultes & enfants</h4><p>Des programmes pensés pour chaque âge et chaque ambition.</p></div>
+          </div>
+          <div class="about-point">
+            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 3v18M5 4h11l-2 4 2 4H5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+            <div class="tx"><h4>Les plus beaux cadres</h4><p>Quatre parcours signature parmi les plus prestigieux du Maroc.</p></div>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-dark">
+          Rencontrer nos coachs
+          <svg class="arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ACADÉMIES ────────────────────────────────────── -->
+<section class="academies section-pad" id="academies">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="eyebrow"><span class="dash"></span>Nos académies<span class="dash"></span></div>
+      <h2>Quatre terrains, quatre signatures.</h2>
+      <p>Nous vous accueillons dans nos quatre académies à Casablanca, Rabat et Marrakech. Cours individuels, collectifs et stages, encadrés par des professionnels passionnés.</p>
+    </div>
+    <div class="acad-grid">
+      <!-- card -->
+      <a href="#contact" class="acad-card reveal">
+        <image-slot id="acad-cas" shape="rect" placeholder="Photo — Tony Jacklin Casablanca"></image-slot>
+        <div class="body">
+          <div class="top-line"></div>
+          <div class="head">
+            <span class="monogram" style="--m:48px"><span>T</span></span>
+            <span class="pill">9 trous</span>
+          </div>
+          <h3>Tony Jacklin</h3>
+          <div class="city">Casablanca · Bouskoura</div>
+          <div class="meta">
+            <div class="it"><div class="v">Jacklin</div><div class="k">Signature</div></div>
+            <div class="it"><div class="v">36</div><div class="k">Par</div></div>
+            <div class="it"><div class="v">Indiv. & collectif</div><div class="k">Cours</div></div>
+            <span class="go"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </div>
+      </a>
+      <!-- card -->
+      <a href="#contact" class="acad-card reveal">
+        <image-slot id="acad-rab" shape="rect" placeholder="Photo — Montgomerie Rabat"></image-slot>
+        <div class="body">
+          <div class="top-line"></div>
+          <div class="head">
+            <span class="monogram" style="--m:48px"><span>M</span></span>
+            <span class="pill">18 trous</span>
+          </div>
+          <h3>Montgomerie</h3>
+          <div class="city">Rabat</div>
+          <div class="meta">
+            <div class="it"><div class="v">Montgomerie</div><div class="k">Signature</div></div>
+            <div class="it"><div class="v">72</div><div class="k">Par</div></div>
+            <div class="it"><div class="v">Indiv. & collectif</div><div class="k">Cours</div></div>
+            <span class="go"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </div>
+      </a>
+      <!-- card -->
+      <a href="#contact" class="acad-card reveal">
+        <image-slot id="acad-marT" shape="rect" placeholder="Photo — Tony Jacklin Marrakech"></image-slot>
+        <div class="body">
+          <div class="top-line"></div>
+          <div class="head">
+            <span class="monogram" style="--m:48px"><span>T</span></span>
+            <span class="pill">18 trous</span>
+          </div>
+          <h3>Tony Jacklin</h3>
+          <div class="city">Marrakech</div>
+          <div class="meta">
+            <div class="it"><div class="v">Jacklin</div><div class="k">Signature</div></div>
+            <div class="it"><div class="v">71</div><div class="k">Par</div></div>
+            <div class="it"><div class="v">Indiv. & stages</div><div class="k">Cours</div></div>
+            <span class="go"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </div>
+      </a>
+      <!-- card -->
+      <a href="#contact" class="acad-card reveal">
+        <image-slot id="acad-marM" shape="rect" placeholder="Photo — Montgomerie Marrakech"></image-slot>
+        <div class="body">
+          <div class="top-line"></div>
+          <div class="head">
+            <span class="monogram" style="--m:48px"><span>M</span></span>
+            <span class="pill">18 trous</span>
+          </div>
+          <h3>Montgomerie</h3>
+          <div class="city">Marrakech</div>
+          <div class="meta">
+            <div class="it"><div class="v">Montgomerie</div><div class="k">Signature</div></div>
+            <div class="it"><div class="v">72</div><div class="k">Par</div></div>
+            <div class="it"><div class="v">Indiv. & stages</div><div class="k">Cours</div></div>
+            <span class="go"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROGRAMME ────────────────────────────────────── -->
+<section class="programme section-pad" id="programme">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="dash"></span>Programme 2025 / 2026</div>
+      <h2>Événements & portes ouvertes.</h2>
+      <p>Découvrez le golf, rencontrez nos coachs et vivez l'expérience Pinta lors de nos rendez-vous tout au long de la saison.</p>
+    </div>
+
+    <div class="events reveal">
+      <div class="event-row">
+        <div class="event-date"><span class="d">14</span><span class="m">Sept. 2025</span></div>
+        <div class="event-info">
+          <h3>Portes ouvertes — The Tony Jacklin Marrakech</h3>
+          <div class="det">
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> 10:00 – 17:00</span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.5-7-12a7 7 0 1114 0c0 5.5-7 12-7 12z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.25" fill="currentColor"/></svg> Km 4 route de Tahanaout, Marrakech</span>
+            <span>Venez découvrir le golf et l'académie</span>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-ghost">En savoir plus</a>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:40px;padding:26px 30px;background:var(--champ-tint);border:1px solid var(--hair-gold);border-radius:14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+      <span class="monogram" style="--m:44px"><span>P</span></span>
+      <div style="flex:1;min-width:240px;">
+        <div style="font-family:var(--serif);font-size:21px;line-height:1.3;">Le calendrier complet de la saison arrive bientôt.</div>
+        <div style="font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:4px;">Contactez-nous pour être informé des prochaines dates et stages.</div>
+      </div>
+      <a href="https://wa.me/212645585460" target="_blank" class="btn btn-dark">M'avertir</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TÉMOIGNAGES ──────────────────────────────────── -->
+<section class="temoins section-pad">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <div class="eyebrow"><span class="dash"></span>Nos clients<span class="dash"></span></div>
+      <h2>Ils progressent avec Pinta.</h2>
+    </div>
+    <div class="temoin-grid">
+      <div class="temoin reveal">
+        <div class="stars">★★★★★</div>
+        <div class="q">« Les stages sont parfaitement organisés. On apprend tout en s'amusant, et le cadre est exceptionnel. »</div>
+        <div class="who"><span class="avatar">M</span><div><div class="nm">Meriem L.</div><div class="dt">10 septembre 2025</div></div></div>
+      </div>
+      <div class="temoin reveal">
+        <div class="stars">★★★★★</div>
+        <div class="q">« Grâce à Pinta, j'ai corrigé mon swing rapidement. Une pédagogie claire et bienveillante. »</div>
+        <div class="who"><span class="avatar">Y</span><div><div class="nm">Yanis B.</div><div class="dt">9 septembre 2025</div></div></div>
+      </div>
+      <div class="temoin reveal">
+        <div class="stars">★★★★★</div>
+        <div class="q">« J'ai gagné mon premier tournoi. Merci à toute l'équipe pour l'accompagnement. »</div>
+        <div class="who"><span class="avatar">M</span><div><div class="nm">Mohamed E.</div><div class="dt">5 septembre 2025</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ──────────────────────────────────────── -->
+<section class="contact section-pad" id="contact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="dash"></span>Contact</div>
+      <h2>Réservez votre première session.</h2>
+      <p>Une question, une envie de progresser ? Écrivez-nous ou réservez directement par WhatsApp.</p>
+    </div>
+    <div class="contact-grid">
+      <form class="contact-card reveal" onsubmit="event.preventDefault(); this.querySelector('.sent').style.display='flex';">
+        <div class="field"><label>Nom complet</label><input type="text" placeholder="Prénom Nom" /></div>
+        <div class="field"><label>E-mail</label><input type="email" placeholder="vous@domaine.com" /></div>
+        <div class="field"><label>Académie souhaitée</label><input type="text" placeholder="Casablanca · Rabat · Marrakech" /></div>
+        <div class="field"><label>Message</label><textarea placeholder="Parlez-nous de votre niveau et de vos objectifs…"></textarea></div>
+        <button type="submit" class="btn btn-gold" style="width:100%;">
+          Envoyer ma demande
+          <svg class="arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="sent" style="display:none;align-items:center;gap:10px;margin-top:16px;color:var(--champ-deep);font-family:var(--sans);font-size:13px;font-weight:600;">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Merci pour votre envoi ! Nous vous répondrons rapidement.
+        </div>
+      </form>
+
+      <div class="contact-info reveal">
+        <div class="row">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.5-7-12a7 7 0 1114 0c0 5.5-7 12-7 12z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.25" fill="currentColor"/></svg></span>
+          <div><div class="k">Académie principale</div><div class="v">Tony Jacklin Casablanca<br><span style="font-family:var(--sans);font-size:14px;color:var(--muted);">27182 Bouskoura, Casablanca, Maroc</span></div></div>
+        </div>
+        <div class="row">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 4h3l2 5-2 1a10 10 0 005 5l1-2 5 2v3a2 2 0 01-2 2A14 14 0 014 6a2 2 0 012-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+          <div><div class="k">Téléphone · WhatsApp</div><a href="https://wa.me/212645585460" target="_blank" class="v sm">+212 645 585 460</a></div>
+        </div>
+        <div class="row">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 7l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+          <div><div class="k">E-mail</div><a href="mailto:mustaphapinta@gmail.com" class="v sm">mustaphapinta@gmail.com</a></div>
+        </div>
+        <div class="row">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          <div><div class="k">Villes</div><div class="v sm">Casablanca · Rabat · Marrakech</div></div>
+        </div>
+        <a href="https://wa.me/212645585460" target="_blank" class="btn btn-dark" style="width:100%;margin-top:24px;">
+          Réserver via WhatsApp
+          <svg class="arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ───────────────────────────────────────── -->
+<footer class="foot">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:0;">
+          <span class="brand" style="gap:11px;"><span class="mark">P</span><span class="name" style="font-size:14px;">Golf&nbsp;·&nbsp;Pinta</span></span>
+        </div>
+        <p>Rendre le golf accessible, ludique et performant — pour chacun, dans les plus beaux cadres du Maroc.</p>
+        <div class="foot-social">
+          <a href="https://www.facebook.com/share/1McN5GADyq/?mibextid=wwXIfr" target="_blank" aria-label="Facebook"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h2V5h-2c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.2l.8-3H14V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+          <a href="https://www.instagram.com/golfwithpinta" target="_blank" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.6" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="7" r="1.2" fill="currentColor"/></svg></a>
+          <a href="https://www.youtube.com/channel/UCy7ONifkKb8_cWLWgjub7Mg/featured" target="_blank" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 9.5l4.5 2.5L10 14.5z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Navigation</h5>
+        <a href="#top">Accueil</a>
+        <a href="#apropos">À propos</a>
+        <a href="#academies">Académies</a>
+        <a href="#programme">Événements</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Académies</h5>
+        <a href="#academies">Tony Jacklin Casablanca</a>
+        <a href="#academies">Montgomerie Rabat</a>
+        <a href="#academies">Tony Jacklin Marrakech</a>
+        <a href="#academies">Montgomerie Marrakech</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="copy">© 2026 Golf with Pinta · Pinta Golf Academy</span>
+      <div class="legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+        <a href="#">Cookies</a>
+        <a href="#">Conditions d'utilisation</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#0B1322"/>
+    <circle cx="50" cy="44" r="22" fill="none" stroke="#C5A35A" stroke-width="2"/>
+    <text x="50" y="54" font-family="Georgia, serif" font-style="italic" font-size="28" fill="#C5A35A" text-anchor="middle">P</text>
+    <text x="50" y="82" font-family="sans-serif" font-size="7" letter-spacing="3" fill="#C5A35A" text-anchor="middle">GOLF · PINTA</text>
+  </svg>
+</template>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Active nav link by section
+  const sections = ['top','apropos','academies','programme','contact'];
+  const linkFor = {};
+  document.querySelectorAll('.nav-links a').forEach(a => { linkFor[a.getAttribute('href').slice(1)] = a; });
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        const id = e.target.id === 'top' ? 'top' : e.target.id;
+        if (linkFor[id]) linkFor[id].classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
+</script>
+
+</body>
+</html>

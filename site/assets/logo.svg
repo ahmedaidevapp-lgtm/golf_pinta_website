@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 504 141" width="504" height="141" role="img" aria-label="Golf with Pinta">
+  <defs>
+    <!-- soft radial glow behind the mark, like the reference -->
+    <radialGradient id="gpBg" cx="42%" cy="46%" r="78%">
+      <stop offset="0%"  stop-color="#33453A"/>
+      <stop offset="100%" stop-color="#26332B"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="504" height="141" fill="url(#gpBg)"/>
+
+  <!-- flag mark -->
+  <g>
+    <!-- pole -->
+    <rect x="61" y="26" width="5" height="86" rx="2.5" fill="#EFE6D6"/>
+    <!-- ball at the base -->
+    <circle cx="86" cy="106" r="6" fill="#EFE6D6"/>
+    <!-- pennant -->
+    <path d="M66 30 L104 42.5 L66 55 Z" fill="#C15540"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="130" y="86"
+        font-family="'Cormorant Garamond','EB Garamond',Garamond,'Times New Roman',serif"
+        font-size="54" letter-spacing="1.5" fill="#EFE6D6">
+    <tspan>Golf with </tspan><tspan font-style="italic">Pinta</tspan>
+  </text>
+</svg>

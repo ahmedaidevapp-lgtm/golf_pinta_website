@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Raw source media (originals, not used by the built site)
+/homepage_video.mp4
+/company_offsite_1.jpg
+/company_offsite_2.jpg
+/home_page_section1.jpg
+/events_pic.jpg

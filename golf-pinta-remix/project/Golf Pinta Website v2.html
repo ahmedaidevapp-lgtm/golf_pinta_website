@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Golf with Pinta — Académies de golf · Maroc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+:root{
+--turf:#0F2419;--turf-2:#16311F;--turf-3:#1E4028;--fairway:#2F5E3A;
+--sand:#E7DCC6;--sand-2:#DCCFB4;--sand-3:#CFC0A0;--chalk:#F8F5ED;
+--flag:#C2402F;--flag-2:#A83526;
+--ink:#12211A;--ink-2:#3E4F44;--ink-3:#6B7A70;
+--on-turf:#F1EDE1;--on-turf-2:rgba(241,237,225,.62);--on-turf-3:rgba(241,237,225,.34);
+--rule:rgba(18,33,26,.16);--rule-2:rgba(18,33,26,.08);--rule-turf:rgba(241,237,225,.14);
+--display:'Bodoni Moda',Georgia,serif;--ui:'Archivo',-apple-system,system-ui,sans-serif;--num:'Space Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--sand);color:var(--ink);font-family:var(--ui);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--flag)}
+img{max-width:100%;display:block}
+::selection{background:var(--flag);color:var(--chalk)}
+::-webkit-scrollbar{width:12px}
+::-webkit-scrollbar-track{background:var(--sand-2)}
+::-webkit-scrollbar-thumb{background:var(--turf-3);border:3px solid var(--sand-2);border-radius:8px;background-clip:padding-box}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 44px}
+.pad{padding:104px 0}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums}
+
+/* labels — numbered like holes, no decorative dashes */
+.label{display:flex;align-items:baseline;gap:14px;font-family:var(--ui);font-size:10.5px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3)}
+.label b{font-family:var(--num);font-weight:700;font-size:11px;letter-spacing:.06em;color:var(--flag)}
+.label.on-turf{color:var(--on-turf-3)}
+.label.on-turf b{color:var(--sand-3)}
+
+h1,h2,h3,h4{font-family:var(--display);font-weight:400;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(36px,4.6vw,62px);line-height:1.02}
+.h-sub{font-size:16.5px;line-height:1.62;color:var(--ink-2);max-width:56ch;margin:20px 0 0}
+.hr{height:1px;background:var(--rule)}
+.hr-dot{height:1px;background:repeating-linear-gradient(90deg,var(--rule) 0 3px,transparent 3px 7px)}
+
+/* buttons — squared, signage-like */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;font-family:var(--ui);font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:16px 26px;border:none;cursor:pointer;border-radius:2px;transition:background .18s,color .18s,box-shadow .18s}
+.btn svg{width:14px;height:14px;flex-shrink:0}
+.btn-flag{background:var(--flag);color:var(--chalk)}
+.btn-flag:hover{background:var(--flag-2);color:var(--chalk)}
+.btn-turf{background:var(--turf);color:var(--on-turf)}
+.btn-turf:hover{background:var(--turf-3);color:var(--on-turf)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+.btn-line:hover{background:var(--ink);color:var(--sand);box-shadow:none}
+.btn-line-turf{background:transparent;color:var(--on-turf);box-shadow:inset 0 0 0 1px var(--rule-turf)}
+.btn-line-turf:hover{background:var(--on-turf);color:var(--turf);box-shadow:none}
+
+/* topographic contour backdrop */
+.topo{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.topo svg{position:absolute;width:140%;height:140%;top:-20%;left:-20%}
+
+/* crop marks — printed-card feel */
+.tick{position:absolute;width:9px;height:9px;border-color:var(--rule);border-style:solid;border-width:0}
+.tick.tl{top:0;left:0;border-top-width:1px;border-left-width:1px}
+.tick.tr{top:0;right:0;border-top-width:1px;border-right-width:1px}
+.tick.bl{bottom:0;left:0;border-bottom-width:1px;border-left-width:1px}
+.tick.br{bottom:0;right:0;border-bottom-width:1px;border-right-width:1px}
+
+/* ══ conditions strip ══ */
+.cond{background:var(--turf);color:var(--on-turf-2);font-family:var(--num);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--rule-turf);position:fixed;top:0;left:0;right:0;z-index:101}
+.cond-in{max-width:1280px;margin:0 auto;padding:9px 44px;display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+.cond i{color:var(--sand-3);font-style:normal}
+.cond .sp{margin-left:auto}
+
+/* ══ nav ══ */
+header.nav{position:fixed;top:33px;left:0;right:0;z-index:100;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+header.nav.on{background:rgba(15,36,25,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom-color:var(--rule-turf)}
+.nav-in{max-width:1280px;margin:0 auto;padding:20px 44px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.brand{display:flex;align-items:center;gap:13px}
+.brand .flagmark{width:30px;height:30px;flex-shrink:0}
+.brand .wm{font-family:var(--display);font-size:22px;letter-spacing:.02em;color:var(--on-turf);line-height:1}
+.brand .wm em{font-style:italic}
+.nav-links{display:flex;gap:34px}
+.nav-links a{font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--on-turf-2);padding:5px 0;position:relative;transition:color .18s}
+.nav-links a:hover{color:var(--on-turf)}
+.nav-links a.act{color:var(--sand-3)}
+.nav-links a.act::after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--flag)}
+
+/* ══ hero ══ */
+.hero{position:relative;background:var(--turf);color:var(--on-turf);padding:190px 0 0;overflow:hidden}
+.hero .topo svg path{fill:none;stroke:rgba(241,237,225,.055);stroke-width:1}
+.hero-in{position:relative;max-width:1280px;margin:0 auto;padding:0 44px;display:grid;grid-template-columns:1.12fr .88fr;gap:0}
+.hero-copy{padding-bottom:96px;padding-right:56px}
+.hero h1{font-size:clamp(46px,6.6vw,92px);line-height:.94;letter-spacing:-.03em;margin:26px 0 0;color:var(--on-turf)}
+.hero h1 em{font-style:italic;color:var(--sand-3)}
+.hero .lede{font-size:17px;line-height:1.62;color:var(--on-turf-2);max-width:46ch;margin:28px 0 0}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin:38px 0 0}
+/* yardage plates */
+.plates{display:flex;gap:0;margin:56px 0 0;border-top:1px solid var(--rule-turf)}
+.plate{padding:20px 26px 0 0;margin-right:26px;border-right:1px solid var(--rule-turf)}
+.plate:last-child{border-right:none}
+.plate .v{font-family:var(--num);font-size:30px;font-weight:700;color:var(--sand-3);line-height:1}
+.plate .k{font-family:var(--ui);font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--on-turf-3);margin-top:9px}
+/* hero visual */
+.hero-vis{position:relative;border-left:1px solid var(--rule-turf);padding:0 0 0 44px;display:flex;flex-direction:column}
+.hero-vis image-slot{width:100%;flex:1;min-height:430px}
+.hero-plate{border-top:1px solid var(--rule-turf);display:flex;align-items:center;gap:0}
+.hero-plate div{padding:16px 18px;border-right:1px solid var(--rule-turf);font-family:var(--num);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-turf-2)}
+.hero-plate div:last-child{border-right:none}
+.hero-plate b{color:var(--sand-3);font-weight:700}
+
+/* ══ à propos ══ */
+.about{background:var(--sand);position:relative}
+.about-in{display:grid;grid-template-columns:.82fr 1.18fr;gap:0}
+.about-vis{position:relative;padding-right:52px}
+.about-vis image-slot{width:100%;height:540px}
+.about-vis .sig{margin-top:0;border-top:1px solid var(--rule);padding:18px 0 0;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.about-vis .sig .n{font-family:var(--display);font-size:24px;line-height:1}
+.about-vis .sig .t{font-family:var(--ui);font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);text-align:right}
+.about-txt{border-left:1px solid var(--rule);padding-left:52px}
+.about-txt p{font-size:15.5px;line-height:1.72;color:var(--ink-2);margin:0 0 18px;max-width:58ch}
+.about-txt p.about-lead{font-family:var(--display);font-size:clamp(22px,2.3vw,29px);line-height:1.42;margin:24px 0 22px;color:var(--ink);max-width:none}
+.about-txt p.about-lead::first-letter{initial-letter:2;-webkit-initial-letter:2;color:var(--flag);font-weight:500;margin-right:10px}
+/* ruled feature list */
+.feat{margin:34px 0 34px}
+.feat-row{display:grid;grid-template-columns:34px 1fr;gap:20px;padding:18px 0;border-top:1px solid var(--rule-2)}
+.feat-row:last-child{border-bottom:1px solid var(--rule-2)}
+.feat-row .n{font-family:var(--num);font-size:11px;font-weight:700;color:var(--flag);padding-top:5px}
+.feat-row h4{font-size:21px;line-height:1.2}
+.feat-row p{font-size:13.5px;line-height:1.55;color:var(--ink-3);margin:5px 0 0;max-width:52ch}
+
+/* ══ scorecard ══ */
+.score{background:var(--chalk);position:relative}
+.card-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:44px}
+.sc{border:1px solid var(--rule);background:var(--sand);position:relative}
+.sc-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 22px;border-bottom:1px solid var(--rule);background:var(--turf);color:var(--on-turf)}
+.sc-top .t{font-family:var(--display);font-size:19px;letter-spacing:.01em}
+.sc-top .r{font-family:var(--num);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-turf-3)}
+.sc-row{display:grid;grid-template-columns:64px 2.1fr 1fr 74px 74px 106px 118px 44px;align-items:center;border-bottom:1px solid var(--rule-2);transition:background .18s}
+.sc-row.hd{background:var(--sand-2);border-bottom:1px solid var(--rule)}
+.sc-row:not(.hd):hover{background:#fff}
+.sc-row:last-child{border-bottom:none}
+.sc-row>*{padding:0 12px}
+.sc-row.hd>*{padding:11px 12px;font-family:var(--ui);font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.sc-row:not(.hd)>*{padding-top:16px;padding-bottom:16px}
+.sc-thumb{padding:0!important}
+.sc-thumb image-slot{width:64px;height:64px}
+.sc-name{border-left:1px solid var(--rule-2)}
+.sc-name .n{font-family:var(--display);font-size:23px;line-height:1.05}
+.sc-name .s{font-family:var(--ui);font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
+.sc-city{font-family:var(--ui);font-size:13.5px;font-weight:500;color:var(--ink-2)}
+.sc-fig{font-family:var(--num);font-size:19px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.sc-len{font-family:var(--num);font-size:14px;text-align:right;color:var(--ink-2)}
+.sc-tees{display:flex;gap:5px;justify-content:flex-start}
+.tee{width:11px;height:11px;border-radius:2px;box-shadow:inset 0 0 0 1px rgba(18,33,26,.28)}
+.tee.k{background:#1A1A1A}.tee.b{background:#2F5C9E}.tee.w{background:#FBFAF6}.tee.y{background:#E3B93F}.tee.r{background:#C2402F}
+.sc-go{text-align:right;color:var(--flag)}
+.sc-foot{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 22px;border-top:1px solid var(--rule);font-family:var(--num);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);flex-wrap:wrap}
+.legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+
+/* ══ tee sheet (programme) ══ */
+.sheet{background:var(--turf);color:var(--on-turf);position:relative;overflow:hidden}
+.sheet .topo svg path{fill:none;stroke:rgba(241,237,225,.05);stroke-width:1}
+.sheet h2{color:var(--on-turf)}
+.sheet .h-sub{color:var(--on-turf-2)}
+.tee-sheet{position:relative;border-top:1px solid var(--rule-turf);margin-top:46px}
+.tee-row{display:grid;grid-template-columns:120px 100px 1fr auto;gap:28px;align-items:center;padding:26px 0;border-bottom:1px solid var(--rule-turf);transition:padding-left .22s,background .22s}
+.tee-row:hover{padding-left:14px;background:rgba(241,237,225,.03)}
+.tee-time{font-family:var(--num);font-size:26px;font-weight:700;color:var(--sand-3);line-height:1}
+.tee-time span{display:block;font-family:var(--ui);font-size:9.5px;font-weight:600;letter-spacing:.2em;color:var(--on-turf-3);margin-top:8px}
+.tee-date{font-family:var(--num);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-turf-2);line-height:1.6}
+.tee-info h3{font-size:25px;color:var(--on-turf);line-height:1.15}
+.tee-info .m{display:flex;gap:22px;flex-wrap:wrap;margin-top:9px;font-family:var(--ui);font-size:12.5px;color:var(--on-turf-2)}
+.tee-info .m span{display:inline-flex;align-items:center;gap:7px}
+.tee-info .m svg{opacity:.6}
+.notice{margin-top:38px;border:1px solid var(--rule-turf);padding:24px 26px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;position:relative}
+.notice .fl{flex-shrink:0}
+.notice .tx{flex:1;min-width:240px}
+.notice .tx .t{font-family:var(--display);font-size:22px;color:var(--on-turf);line-height:1.3}
+.notice .tx .s{font-size:13px;color:var(--on-turf-2);margin-top:5px}
+
+/* ══ témoignages ══ */
+.words{background:var(--sand)}
+.pull{display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:end;padding-bottom:44px;border-bottom:1px solid var(--rule)}
+.pull q{quotes:none}
+.pull .big{font-family:var(--display);font-style:italic;font-size:clamp(26px,3.3vw,44px);line-height:1.24;letter-spacing:-.015em;display:block}
+.pull .att{border-left:1px solid var(--rule);padding-left:26px}
+.pull .att .st{color:var(--flag);font-family:var(--num);font-size:12px;letter-spacing:3px}
+.pull .att .nm{font-family:var(--display);font-size:24px;margin-top:12px}
+.pull .att .dt{font-family:var(--num);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.words-list{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.wl{padding:30px 0;border-bottom:1px solid var(--rule-2)}
+.wl:first-child{border-right:1px solid var(--rule-2);padding-right:44px}
+.wl:last-child{padding-left:44px}
+.wl q{font-family:var(--display);font-size:19px;line-height:1.5;quotes:none;display:block;color:var(--ink)}
+.wl .who{display:flex;align-items:baseline;gap:12px;margin-top:16px;font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.wl .who b{color:var(--flag);font-family:var(--num);letter-spacing:2px}
+
+/* ══ contact ══ */
+.contact{background:var(--chalk)}
+.c-in{display:grid;grid-template-columns:1.05fr .95fr;gap:0}
+.c-form{padding-right:56px}
+.c-side{border-left:1px solid var(--rule);padding-left:56px}
+/* ruled entry fields — scorecard boxes */
+.fld{padding:0 0 4px;border-bottom:1px solid var(--rule);margin-bottom:26px;display:grid;grid-template-columns:150px 1fr;align-items:end;gap:16px;transition:border-color .18s}
+.fld:focus-within{border-color:var(--flag)}
+.fld label{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);padding-bottom:9px}
+.fld input,.fld textarea{width:100%;border:none;background:transparent;outline:none;font-family:var(--display);font-size:20px;color:var(--ink);padding:6px 0 8px;resize:none}
+.fld textarea{min-height:76px;font-size:17px;line-height:1.5}
+.fld input::placeholder,.fld textarea::placeholder{color:var(--ink-3);opacity:.5}
+.c-rows .r{display:grid;grid-template-columns:130px 1fr;gap:20px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--rule-2)}
+.c-rows .r:first-child{border-top:1px solid var(--rule-2)}
+.c-rows .k{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.c-rows .v{font-family:var(--display);font-size:22px;line-height:1.3}
+.c-rows .v small{display:block;font-family:var(--ui);font-size:13px;color:var(--ink-2);margin-top:5px}
+.c-rows .v.mono{font-family:var(--num);font-size:17px;letter-spacing:.02em}
+
+/* ══ footer ══ */
+footer{background:var(--turf);color:var(--on-turf);padding:72px 0 28px;position:relative;overflow:hidden}
+footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
+.f-top{position:relative;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:52px;padding-bottom:44px;border-bottom:1px solid var(--rule-turf)}
+.f-brand .wm{font-family:var(--display);font-size:30px;color:var(--on-turf);line-height:1}
+.f-brand .wm em{font-style:italic}
+.f-brand p{font-size:14px;line-height:1.65;color:var(--on-turf-2);margin:18px 0 26px;max-width:36ch}
+.f-soc{display:flex;gap:8px}
+.f-soc a{width:38px;height:38px;display:flex;align-items:center;justify-content:center;color:var(--on-turf-2);box-shadow:inset 0 0 0 1px var(--rule-turf);transition:all .18s}
+.f-soc a:hover{color:var(--turf);background:var(--sand-3);box-shadow:none}
+.f-col h5{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--sand-3);margin:0 0 16px}
+.f-col a{display:block;font-size:13.5px;color:var(--on-turf-2);padding:7px 0;transition:color .18s}
+.f-col a:hover{color:var(--on-turf)}
+.f-bot{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:24px;flex-wrap:wrap;font-family:var(--num);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-turf-3)}
+.f-bot .lg{display:flex;gap:22px;flex-wrap:wrap}
+.f-bot a:hover{color:var(--on-turf-2)}
+
+/* reveal */
+@media (prefers-reduced-motion:no-preference){
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+}
+
+@media (max-width:1080px){
+.sc-row{grid-template-columns:56px 1.8fr 1fr 62px 96px 100px 40px}
+.sc-row>.sc-len,.sc-row.hd>.h-len{display:none}
+}
+@media (max-width:960px){
+.hero-in,.about-in,.c-in,.pull{grid-template-columns:1fr}
+.hero-copy{padding-right:0;padding-bottom:56px}
+.hero-vis{display:none}
+.about-vis{padding-right:0;margin-bottom:44px}
+.about-txt,.c-side{border-left:none;padding-left:0}
+.c-form{padding-right:0;margin-bottom:52px}
+.c-side{border-top:1px solid var(--rule);padding-top:44px}
+.pull .att{border-left:none;border-top:1px solid var(--rule);padding-left:0;padding-top:22px}
+.words-list{grid-template-columns:1fr}
+.wl:first-child{border-right:none;padding-right:0}
+.wl:last-child{padding-left:0}
+.nav-links{display:none}
+.f-top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+.wrap,.nav-in,.hero-in,.cond-in{padding-left:22px;padding-right:22px}
+.pad{padding:68px 0}
+.sc-wrap{overflow-x:auto}
+.sc{min-width:620px}
+.tee-row{grid-template-columns:96px 1fr;gap:18px}
+.tee-row .tee-date,.tee-row .btn{display:none}
+.fld{grid-template-columns:1fr;gap:0}
+.fld label{padding-bottom:0}
+.f-top{grid-template-columns:1fr}
+.cond .sp{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- course conditions -->
+<div class="cond">
+  <div class="cond-in">
+    <span>Bouskoura <i>24°</i></span>
+    <span>Vent <i>12 km/h NO</i></span>
+    <span>Greens <i>rapides</i></span>
+    <span class="sp">Départs <i>07:00 — 18:30</i></span>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#top" class="brand">
+      <svg class="flagmark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 22V3" stroke="#E7DCC6" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M6 4l11 3.2L6 10.4z" fill="#C2402F"/>
+        <circle cx="17.5" cy="20.5" r="1.6" fill="#E7DCC6"/>
+      </svg>
+      <span class="wm">Golf with <em>Pinta</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#top" class="act">Accueil</a>
+      <a href="#apropos">Académie</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#departs">Départs</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="https://wa.me/212645585460" target="_blank" class="btn btn-flag">Réserver<svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</header>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="top">
+  <div class="topo" aria-hidden="true">
+    <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+      <path d="M-40 470C120 430 210 350 340 356s230 96 360 60 180-120 200-190"/>
+      <path d="M-40 430C130 386 220 306 348 312s226 96 356 62 176-118 196-188"/>
+      <path d="M-40 390C140 342 230 262 356 268s222 96 352 64 172-116 192-186"/>
+      <path d="M-40 350C150 298 240 218 364 224s218 96 348 66 168-114 188-184"/>
+      <path d="M-40 306C160 252 250 172 372 178s214 96 344 68 164-112 184-182"/>
+      <path d="M-40 258C170 202 260 122 380 128s210 96 340 70 160-110 180-180"/>
+      <path d="M-40 208C180 150 270 70 388 76s206 96 336 72 156-108 176-178"/>
+      <path d="M-40 540C110 506 200 430 332 436s234 96 364 58 184-122 204-192"/>
+    </svg>
+  </div>
+  <div class="hero-in">
+    <div class="hero-copy">
+      <div class="label"><b>01</b>Pinta Golf Academy · Maroc</div>
+      <h1>Le jeu s'apprend<br>sur le <em>green</em>.</h1>
+      <p class="lede">Cours individuels, collectifs et stages dans quatre parcours signature à Casablanca, Rabat et Marrakech. Encadrement professionnel, tous niveaux, adultes et enfants.</p>
+      <div class="hero-cta">
+        <a href="#parcours" class="btn btn-flag">Voir les parcours<svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="https://wa.me/212645585460" target="_blank" class="btn btn-line-turf">Réserver un départ</a>
+      </div>
+      <div class="plates">
+        <div class="plate"><div class="v">04</div><div class="k">Parcours</div></div>
+        <div class="plate"><div class="v">03</div><div class="k">Villes</div></div>
+        <div class="plate"><div class="v">63</div><div class="k">Trous</div></div>
+        <div class="plate"><div class="v">251</div><div class="k">Par cumulé</div></div>
+      </div>
+    </div>
+    <div class="hero-vis">
+      <image-slot id="v2-hero" shape="rect" placeholder="Déposez une photo du parcours (portrait)"></image-slot>
+      <div class="hero-plate">
+        <div>Trou <b>01</b></div>
+        <div>Par <b>4</b></div>
+        <div>Blanc <b>384 m</b></div>
+        <div>Index <b>7</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ À PROPOS ══════ -->
+<section class="about pad" id="apropos">
+  <div class="wrap">
+    <div class="about-in">
+      <div class="about-vis rv">
+        <image-slot id="v2-pinta" shape="rect" placeholder="Déposez une photo de Mustapha Pinta"></image-slot>
+        <div class="sig">
+          <div class="n">Mustapha Pinta</div>
+          <div class="t">Fondateur<br>Coach professionnel</div>
+        </div>
+      </div>
+      <div class="about-txt rv">
+        <div class="label"><b>02</b>L'académie</div>
+        <h2>Une pédagogie du geste juste.</h2>
+        <p class="about-lead">Dirigée par M. Mustapha Pinta, coach et joueur professionnel, l'académie forme adultes et enfants à Casablanca, Marrakech et Rabat.</p>
+        <p>Nos coachs certifiés proposent des cours individuels, collectifs et des stages adaptés à tous les niveaux, avec une pédagogie moderne et conviviale. Notre mission : rendre le golf accessible, ludique et performant pour chacun.</p>
+        <div class="feat">
+          <div class="feat-row"><div class="n">01</div><div><h4>Coachs certifiés</h4><p>Des professionnels passionnés, formés aux méthodes d'enseignement les plus actuelles.</p></div></div>
+          <div class="feat-row"><div class="n">02</div><div><h4>Adultes & enfants</h4><p>Des programmes pensés pour chaque âge, du premier swing à la compétition.</p></div></div>
+          <div class="feat-row"><div class="n">03</div><div><h4>Quatre parcours signature</h4><p>Montgomerie et Tony Jacklin, parmi les plus beaux tracés du Royaume.</p></div></div>
+        </div>
+        <a href="#contact" class="btn btn-turf">Rencontrer nos coachs<svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SCORECARD ══════ -->
+<section class="score pad" id="parcours">
+  <div class="wrap">
+    <div class="card-head rv">
+      <div>
+        <div class="label"><b>03</b>Nos parcours</div>
+        <h2>La carte de scores.</h2>
+        <p class="h-sub">Quatre académies, trois villes. Choisissez votre tracé — nous vous y accueillons pour un cours, un stage ou un simple départ.</p>
+      </div>
+      <a href="https://wa.me/212645585460" target="_blank" class="btn btn-line">Réserver un départ</a>
+    </div>
+
+    <div class="sc-wrap rv">
+      <div class="sc">
+        <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+        <div class="sc-top">
+          <div class="t">Pinta Golf Academy — Carte des parcours</div>
+          <div class="r">Saison 2026</div>
+        </div>
+
+        <div class="sc-row hd">
+          <div></div>
+          <div>Parcours</div>
+          <div>Ville</div>
+          <div style="text-align:right">Trous</div>
+          <div style="text-align:right">Par</div>
+          <div class="h-len" style="text-align:right">Longueur</div>
+          <div>Départs</div>
+          <div></div>
+        </div>
+
+        <a class="sc-row" href="#contact">
+          <div class="sc-thumb"><image-slot id="v2-cas" shape="rect" placeholder="Photo"></image-slot></div>
+          <div class="sc-name"><div class="n">Tony Jacklin</div><div class="s">Bouskoura</div></div>
+          <div class="sc-city">Casablanca</div>
+          <div class="sc-fig">9</div>
+          <div class="sc-fig">36</div>
+          <div class="sc-len">3 240 m</div>
+          <div class="sc-tees"><span class="tee w"></span><span class="tee y"></span><span class="tee r"></span></div>
+          <div class="sc-go"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+
+        <a class="sc-row" href="#contact">
+          <div class="sc-thumb"><image-slot id="v2-rab" shape="rect" placeholder="Photo"></image-slot></div>
+          <div class="sc-name"><div class="n">Montgomerie</div><div class="s">Signature Montgomerie</div></div>
+          <div class="sc-city">Rabat</div>
+          <div class="sc-fig">18</div>
+          <div class="sc-fig">72</div>
+          <div class="sc-len">6 604 m</div>
+          <div class="sc-tees"><span class="tee k"></span><span class="tee b"></span><span class="tee w"></span><span class="tee y"></span><span class="tee r"></span></div>
+          <div class="sc-go"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+
+        <a class="sc-row" href="#contact">
+          <div class="sc-thumb"><image-slot id="v2-marT" shape="rect" placeholder="Photo"></image-slot></div>
+          <div class="sc-name"><div class="n">Tony Jacklin</div><div class="s">Route de Tahanaout</div></div>
+          <div class="sc-city">Marrakech</div>
+          <div class="sc-fig">18</div>
+          <div class="sc-fig">71</div>
+          <div class="sc-len">6 320 m</div>
+          <div class="sc-tees"><span class="tee k"></span><span class="tee w"></span><span class="tee y"></span><span class="tee r"></span></div>
+          <div class="sc-go"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+
+        <a class="sc-row" href="#contact">
+          <div class="sc-thumb"><image-slot id="v2-marM" shape="rect" placeholder="Photo"></image-slot></div>
+          <div class="sc-name"><div class="n">Montgomerie</div><div class="s">Signature Montgomerie</div></div>
+          <div class="sc-city">Marrakech</div>
+          <div class="sc-fig">18</div>
+          <div class="sc-fig">72</div>
+          <div class="sc-len">6 500 m</div>
+          <div class="sc-tees"><span class="tee k"></span><span class="tee b"></span><span class="tee w"></span><span class="tee r"></span></div>
+          <div class="sc-go"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+
+        <div class="sc-foot">
+          <div class="legend">
+            <span><span class="tee k"></span>Noir</span>
+            <span><span class="tee b"></span>Bleu</span>
+            <span><span class="tee w"></span>Blanc</span>
+            <span><span class="tee y"></span>Jaune</span>
+            <span><span class="tee r"></span>Rouge</span>
+          </div>
+          <div>Total — 63 trous · Par 251</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TEE SHEET ══════ -->
+<section class="sheet pad" id="departs">
+  <div class="topo" aria-hidden="true">
+    <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+      <path d="M-40 120C160 176 250 256 372 250s214-96 344-68 164 112 184 182"/>
+      <path d="M-40 170C170 224 260 304 380 298s210-96 340-70 160 110 180 180"/>
+      <path d="M-40 222C180 274 270 354 388 348s206-96 336-72 156 108 176 178"/>
+      <path d="M-40 276C190 324 280 404 396 398s202-96 332-74 152 106 172 176"/>
+      <path d="M-40 332C200 376 290 456 404 450s198-96 328-76 148 104 168 174"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="label on-turf rv"><b>04</b>Feuille de départs</div>
+    <h2 class="rv" style="margin-top:16px">Événements & portes ouvertes.</h2>
+    <p class="h-sub rv">Découvrez le golf, rencontrez nos coachs et vivez l'expérience Pinta lors de nos rendez-vous de la saison.</p>
+
+    <div class="tee-sheet rv">
+      <div class="tee-row">
+        <div class="tee-time">10:00<span>→ 17:00</span></div>
+        <div class="tee-date">Dim.<br>14 sept.</div>
+        <div class="tee-info">
+          <h3>Portes ouvertes — The Tony Jacklin Marrakech</h3>
+          <div class="m">
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.5-7-12a7 7 0 1114 0c0 5.5-7 12-7 12z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.2" fill="currentColor"/></svg>Km 4 route de Tahanaout, Marrakech</span>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Entrée libre · tous niveaux</span>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-line-turf">S'inscrire</a>
+      </div>
+    </div>
+
+    <div class="notice rv">
+      <span class="tick tl" style="border-color:var(--rule-turf)"></span><span class="tick br" style="border-color:var(--rule-turf)"></span>
+      <svg class="fl" width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M6 22V3" stroke="#CFC0A0" stroke-width="1.4" stroke-linecap="round"/><path d="M6 4l11 3.2L6 10.4z" fill="#C2402F"/></svg>
+      <div class="tx">
+        <div class="t">Le calendrier complet de la saison arrive bientôt.</div>
+        <div class="s">Contactez-nous pour être informé des prochaines dates, stages et compétitions internes.</div>
+      </div>
+      <a href="https://wa.me/212645585460" target="_blank" class="btn btn-line-turf">M'avertir</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TÉMOIGNAGES ══════ -->
+<section class="words pad">
+  <div class="wrap">
+    <div class="label rv"><b>05</b>Nos joueurs</div>
+    <div class="pull rv" style="margin-top:26px">
+      <q class="big">« Les stages sont parfaitement organisés. On apprend tout en s'amusant, et le cadre est exceptionnel. »</q>
+      <div class="att">
+        <div class="st">★★★★★</div>
+        <div class="nm">Meriem L.</div>
+        <div class="dt">10 septembre 2025</div>
+      </div>
+    </div>
+    <div class="words-list rv">
+      <div class="wl">
+        <q>« Grâce à Pinta, j'ai corrigé mon swing rapidement. Une pédagogie claire et bienveillante. »</q>
+        <div class="who"><b>★★★★★</b>Yanis B. — 9 sept. 2025</div>
+      </div>
+      <div class="wl">
+        <q>« J'ai gagné mon premier tournoi. Merci à toute l'équipe pour l'accompagnement. »</q>
+        <div class="who"><b>★★★★★</b>Mohamed E. — 5 sept. 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section class="contact pad" id="contact">
+  <div class="wrap">
+    <div class="c-in">
+      <div class="c-form rv">
+        <div class="label"><b>06</b>Fiche d'inscription</div>
+        <h2 style="margin-top:16px">Réservez votre<br>première session.</h2>
+        <p class="h-sub" style="margin-bottom:44px">Remplissez la fiche ou joignez-nous directement par WhatsApp.</p>
+        <form onsubmit="event.preventDefault();this.querySelector('.ok').style.display='flex'">
+          <div class="fld"><label>Nom du joueur</label><input type="text" placeholder="Prénom Nom" /></div>
+          <div class="fld"><label>E-mail</label><input type="email" placeholder="vous@domaine.com" /></div>
+          <div class="fld"><label>Parcours souhaité</label><input type="text" placeholder="Casablanca · Rabat · Marrakech" /></div>
+          <div class="fld"><label>Index / niveau</label><input type="text" placeholder="Débutant, 36, 18…" /></div>
+          <div class="fld"><label>Message</label><textarea placeholder="Vos objectifs, vos disponibilités…"></textarea></div>
+          <button type="submit" class="btn btn-flag" style="width:100%">Envoyer la fiche<svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="ok" style="display:none;align-items:center;gap:10px;margin-top:18px;color:var(--flag);font-size:12.5px;font-weight:600;letter-spacing:.06em">
+            <svg width="17" height="17" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Fiche reçue — nous vous répondons rapidement.
+          </div>
+        </form>
+      </div>
+
+      <div class="c-side rv">
+        <div class="c-rows">
+          <div class="r"><div class="k">Académie principale</div><div class="v">Tony Jacklin Casablanca<small>27182 Bouskoura, Casablanca, Maroc</small></div></div>
+          <div class="r"><div class="k">Téléphone</div><a class="v mono" href="https://wa.me/212645585460" target="_blank">+212 645 585 460</a></div>
+          <div class="r"><div class="k">E-mail</div><a class="v mono" href="mailto:mustaphapinta@gmail.com" style="font-size:14px">mustaphapinta@gmail.com</a></div>
+          <div class="r"><div class="k">Villes</div><div class="v" style="font-size:19px">Casablanca · Rabat · Marrakech</div></div>
+          <div class="r"><div class="k">Départs</div><div class="v mono" style="font-size:16px">07:00 — 18:30</div></div>
+        </div>
+        <a href="https://wa.me/212645585460" target="_blank" class="btn btn-turf" style="width:100%;margin-top:32px">Réserver via WhatsApp<svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="topo" aria-hidden="true">
+    <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+      <path d="M-40 300C160 250 250 180 372 186s214 76 344 48 164-92 184-162"/>
+      <path d="M-40 344C170 292 260 222 380 228s210 76 340 50 160-90 180-160"/>
+      <path d="M-40 388C180 334 270 264 388 270s206 76 336 52 156-88 176-158"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <div style="display:flex;align-items:center;gap:12px">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M6 22V3" stroke="#E7DCC6" stroke-width="1.4" stroke-linecap="round"/><path d="M6 4l11 3.2L6 10.4z" fill="#C2402F"/><circle cx="17.5" cy="20.5" r="1.6" fill="#E7DCC6"/></svg>
+          <span class="wm">Golf with <em>Pinta</em></span>
+        </div>
+        <p>Rendre le golf accessible, ludique et performant — pour chacun, sur les plus beaux tracés du Royaume.</p>
+        <div class="f-soc">
+          <a href="https://www.facebook.com/share/1McN5GADyq/?mibextid=wwXIfr" target="_blank" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h2V5h-2c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.2l.8-3H14V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+          <a href="https://www.instagram.com/golfwithpinta" target="_blank" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.6" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="7" r="1.2" fill="currentColor"/></svg></a>
+          <a href="https://www.youtube.com/channel/UCy7ONifkKb8_cWLWgjub7Mg/featured" target="_blank" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 9.5l4.5 2.5L10 14.5z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col">
+        <h5>Navigation</h5>
+        <a href="#top">Accueil</a>
+        <a href="#apropos">Académie</a>
+        <a href="#parcours">Parcours</a>
+        <a href="#departs">Départs</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="f-col">
+        <h5>Parcours</h5>
+        <a href="#parcours">Tony Jacklin · Casablanca</a>
+        <a href="#parcours">Montgomerie · Rabat</a>
+        <a href="#parcours">Tony Jacklin · Marrakech</a>
+        <a href="#parcours">Montgomerie · Marrakech</a>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026 Golf with Pinta · Pinta Golf Academy</span>
+      <div class="lg">
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#0F2419"/>
+    <path d="M34 78V26" stroke="#E7DCC6" stroke-width="3" stroke-linecap="round"/>
+    <path d="M34 29l32 9-32 9z" fill="#C2402F"/>
+    <circle cx="66" cy="72" r="5" fill="#E7DCC6"/>
+  </svg>
+</template>
+
+<script>
+const nav=document.getElementById('nav');
+const s=()=>nav.classList.toggle('on',window.scrollY>40);s();
+window.addEventListener('scroll',s,{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const lk={};document.querySelectorAll('.nav-links a').forEach(a=>lk[a.getAttribute('href').slice(1)]=a);
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('act'));if(lk[e.target.id])lk[e.target.id].classList.add('act')}}),{threshold:.35});
+['top','apropos','parcours','departs','contact'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
+</script>
+</body>
+</html>
