@@ -966,3 +966,168 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .offer-facts div:last-child{border-bottom:none}
   .grp-hero .plates{margin-top:38px}
 }
+
+/* ══ nav : menu déroulant Académie ══
+   Le déclencheur est un <button> : il reste focusable au clavier et ne
+   promet pas une destination qu'il n'a pas. Le panneau s'ouvre au survol,
+   au focus (focus-within) et au clic (classe .open posée par main.js).
+   .nav-drop-m porte un padding-top transparent qui sert de pont : sans lui,
+   le curseur traverse un vide entre le bouton et le panneau et le referme. */
+.nav-links{align-items:center}
+.nav-drop{position:relative;display:flex;align-items:center}
+.nav-drop-t{font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--on-turf-2);padding:5px 0;background:none;border:none;
+  cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:color .18s}
+.nav-drop-t:hover,.nav-drop:hover .nav-drop-t,.nav-drop.open .nav-drop-t{color:var(--on-turf)}
+.nav-drop-t.act{color:var(--sand-3)}
+.nav-drop-t svg{width:9px;height:9px;flex-shrink:0;transition:transform .2s;margin-top:1px}
+.nav-drop:hover .nav-drop-t svg,.nav-drop:focus-within .nav-drop-t svg,
+.nav-drop.open .nav-drop-t svg{transform:rotate(180deg)}
+.nav-drop-m{position:absolute;top:100%;left:-20px;padding-top:20px;min-width:268px;
+  opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s,transform .18s,visibility .18s}
+.nav-drop:hover .nav-drop-m,.nav-drop:focus-within .nav-drop-m,.nav-drop.open .nav-drop-m{
+  opacity:1;visibility:visible;transform:none}
+.nav-drop-in{background:rgba(15,36,25,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--rule-turf);border-radius:2px;padding:8px;
+  box-shadow:0 22px 48px rgba(15,36,25,.4)}
+.nav-links .nav-drop-in a{display:block;padding:12px 14px;font-size:10.5px;letter-spacing:.16em;
+  color:var(--on-turf-2);border-radius:2px;transition:background .16s,color .16s}
+.nav-links .nav-drop-in a:hover{background:var(--turf-3);color:var(--on-turf)}
+.nav-links .nav-drop-in a.act{color:var(--sand-3)}
+.nav-links .nav-drop-in a.act::after{display:none}
+.nav-drop-in a .d{display:block;font-family:var(--ui);font-size:11px;font-weight:400;
+  letter-spacing:.02em;text-transform:none;color:var(--on-turf-3);margin-top:5px}
+.nav-drop-in .sep{height:1px;background:var(--rule-turf);margin:6px 10px}
+
+/* volet mobile : le groupe Académie garde ses villes sous un intitulé */
+.drawer-group{border-bottom:1px solid var(--rule-turf);padding-bottom:12px}
+.drawer .drawer-h{display:block;font-family:var(--display);font-size:28px;color:var(--on-turf);padding:16px 0 6px}
+.drawer-group a{display:block;font-size:19px;padding:11px 0 11px 20px;border-bottom:none;color:var(--on-turf-2)}
+.drawer-group a::before{content:'—';margin-right:12px;color:var(--on-turf-3)}
+@media (max-height:520px) and (max-width:960px){
+  .drawer .drawer-h{font-size:22px;padding:11px 0 4px}
+  .drawer-group a{font-size:17px;padding:8px 0 8px 16px}
+}
+
+/* ══ pages académie ══ */
+.acad-hero{background:var(--turf);color:var(--on-turf);position:relative;overflow:hidden;padding:180px 0 76px}
+.acad-hero .topo svg path{fill:none;stroke:rgba(241,237,225,.055);stroke-width:1}
+.acad-hero .wrap{position:relative}
+.acad-hero h1{font-size:clamp(38px,5vw,68px);line-height:1.05;margin:24px 0 0;color:var(--on-turf)}
+.acad-hero h1 em{font-style:italic;color:var(--sand-3)}
+.acad-hero .lede{font-size:17px;line-height:1.62;color:var(--on-turf-2);max-width:56ch;margin:24px 0 0}
+.acad-hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.acad-hero .plates{max-width:560px;margin-top:48px;border-top:1px solid var(--rule-turf);padding-top:4px}
+.acad-hero .plate .v small{font-size:16px;font-weight:400}
+.acad-page header.nav{background:rgba(15,36,25,.94);backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);border-bottom-color:var(--rule-turf)}
+
+/* offre adulte — une carte large, chiffre à gauche, faits à droite */
+.adult{background:var(--chalk)}
+.adult-card{display:grid;grid-template-columns:minmax(0,340px) 1fr;gap:0;margin-top:44px;
+  border:1px solid var(--rule);background:var(--sand)}
+.adult-price{background:var(--turf);color:var(--on-turf);padding:38px 34px;display:flex;flex-direction:column}
+.adult-price .r{font-family:var(--num);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sand-3)}
+.adult-price .v{font-family:var(--num);font-size:clamp(44px,5.4vw,62px);font-weight:700;line-height:1;margin-top:20px}
+.adult-price .v small{font-family:var(--ui);font-size:17px;font-weight:600;letter-spacing:.1em;margin-left:8px}
+.adult-price .u{font-size:13.5px;line-height:1.6;color:var(--on-turf-2);margin-top:14px;max-width:26ch}
+.adult-price .sig{margin-top:auto;padding-top:28px;font-family:var(--display);font-style:italic;
+  font-size:19px;line-height:1.4;color:var(--sand-3)}
+.adult-facts{padding:34px 34px 30px}
+.adult-facts .row{display:grid;grid-template-columns:44px 1fr;gap:18px;padding:20px 0;
+  border-bottom:1px solid var(--rule-2)}
+.adult-facts .row:first-child{padding-top:0}
+.adult-facts .row:last-child{border-bottom:none;padding-bottom:0}
+.adult-facts .ic{width:44px;height:44px;border-radius:50%;background:var(--turf);color:var(--sand-3);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.adult-facts .ic svg{width:20px;height:20px}
+.adult-facts .k{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-3)}
+.adult-facts .v{font-family:var(--display);font-size:24px;line-height:1.25;color:var(--ink);margin-top:7px}
+.adult-facts .v b{font-weight:500;font-style:italic;color:var(--fairway)}
+.adult-facts .s{font-size:14px;line-height:1.6;color:var(--ink-2);margin-top:7px}
+
+/* académie juniors — quatre niveaux, une carte par niveau */
+.lvl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:44px}
+.lvl{border:1px solid var(--rule);background:var(--chalk);display:flex;flex-direction:column;
+  border-top:3px solid var(--c,var(--fairway))}
+.lvl-top{padding:24px 22px 20px;border-bottom:1px solid var(--rule-2)}
+.lvl-top .r{font-family:var(--num);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.lvl-top .t{font-family:var(--display);font-size:27px;line-height:1.15;margin-top:9px;color:var(--c,var(--fairway))}
+.lvl-top .s{font-size:13.5px;line-height:1.6;color:var(--ink-2);margin-top:10px;min-height:4.8em}
+.lvl-cost{padding:20px 22px;background:var(--sand);border-bottom:1px solid var(--rule-2)}
+.lvl-cost .v{font-family:var(--num);font-size:29px;font-weight:700;color:var(--ink);line-height:1}
+.lvl-cost .v small{font-family:var(--ui);font-size:13px;font-weight:600;letter-spacing:.08em;margin-left:6px}
+.lvl-cost .k{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:9px}
+.lvl ul{list-style:none;margin:0;padding:22px;flex:1}
+.lvl li{position:relative;padding:0 0 0 22px;margin:0 0 13px;font-size:14px;line-height:1.55;color:var(--ink-2)}
+.lvl li:last-child{margin-bottom:0}
+.lvl li::before{content:'';position:absolute;left:0;top:8px;width:7px;height:7px;
+  background:var(--c,var(--fairway));border-radius:1px}
+.lvl li b{color:var(--ink);font-weight:600}
+.lvl-foot{margin:0 22px 22px;padding:14px 16px;background:var(--c,var(--fairway));color:var(--chalk);
+  font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  line-height:1.5;border-radius:2px;display:flex;align-items:center;gap:10px}
+.lvl-foot svg{width:15px;height:15px;flex-shrink:0}
+.lvl-note{font-size:14.5px;line-height:1.7;color:var(--ink-2);margin:34px 0 0;max-width:78ch}
+.lvl-note b{color:var(--ink)}
+
+/* planning — un bloc par niveau, une ligne par créneau */
+.plan{background:var(--turf);color:var(--on-turf);position:relative;overflow:hidden}
+.plan .topo svg path{fill:none;stroke:rgba(241,237,225,.055);stroke-width:1}
+.plan .wrap{position:relative}
+.plan h2{color:var(--on-turf)}
+.plan .h-sub{color:var(--on-turf-2)}
+.plan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;
+  border-top:1px solid var(--rule-turf)}
+.plan-col{padding:28px 24px 28px 0;border-right:1px solid var(--rule-turf)}
+.plan-col:last-child{border-right:none}
+.plan-col:not(:first-child){padding-left:24px}
+.plan-col .t{font-family:var(--display);font-size:23px;color:var(--c,var(--sand-3))}
+.plan-col .d{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--on-turf-3);margin-top:9px}
+.plan-slot{margin-top:20px;padding-top:16px;border-top:1px solid var(--rule-turf)}
+.plan-slot .day{font-family:var(--ui);font-size:12.5px;font-weight:600;color:var(--on-turf-2);line-height:1.5}
+.plan-slot .hr{font-family:var(--num);font-size:19px;font-weight:700;color:var(--on-turf);margin-top:6px}
+.plan-foot{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  margin-top:44px;padding-top:32px;border-top:1px solid var(--rule-turf)}
+.plan-foot p{font-family:var(--display);font-style:italic;font-size:22px;color:var(--sand-3);margin:0}
+
+/* page « bientôt » — Rabat, Marrakech */
+.soon{background:var(--chalk);text-align:center}
+.soon .wrap{max-width:760px}
+.soon h2{margin-top:18px}
+.soon .h-sub{margin-left:auto;margin-right:auto}
+.soon-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:38px}
+.soon-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:56px;text-align:left;
+  border-top:1px solid var(--rule)}
+.soon-list div{padding:26px 22px 0 0;border-right:1px solid var(--rule-2)}
+.soon-list div:last-child{border-right:none}
+.soon-list div:not(:first-child){padding-left:22px}
+.soon-list .t{font-family:var(--display);font-size:20px;color:var(--ink)}
+.soon-list p{font-size:14px;line-height:1.6;color:var(--ink-2);margin:10px 0 0}
+
+@media (max-width:1080px){
+  .lvl-grid{grid-template-columns:1fr 1fr}
+  .plan-grid{grid-template-columns:1fr 1fr}
+  .plan-col:nth-child(2n){border-right:none}
+  .plan-col{border-bottom:1px solid var(--rule-turf)}
+  .plan-col:nth-last-child(-n+2){border-bottom:none}
+}
+@media (max-width:960px){
+  .acad-hero{padding:150px 0 60px}
+  .adult-card{grid-template-columns:1fr}
+  .soon-list{grid-template-columns:1fr}
+  .soon-list div{border-right:none;border-bottom:1px solid var(--rule-2);padding:22px 0}
+  .soon-list div:last-child{border-bottom:none}
+}
+@media (max-width:760px){
+  .lvl-grid{grid-template-columns:1fr}
+  .plan-grid{grid-template-columns:1fr}
+  .plan-col,.plan-col:not(:first-child){border-right:none;padding-left:0;padding-right:0;
+    border-bottom:1px solid var(--rule-turf)}
+  .plan-col:last-child{border-bottom:none}
+  .adult-price,.adult-facts{padding-left:22px;padding-right:22px}
+  .acad-hero .plates{margin-top:38px}
+}

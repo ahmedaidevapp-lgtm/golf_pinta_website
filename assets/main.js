@@ -169,6 +169,44 @@
     });
   }
 
+  /* ── menu déroulant « Académie » ────────────────────────
+     Le survol suffit à la souris (CSS). Ce bloc ajoute le clic et le
+     clavier : utile au tactile, où il n'y a pas de survol, et à toute
+     personne qui navigue au Tab puis à Entrée. */
+  var drops = [].slice.call(document.querySelectorAll('.nav-drop'));
+  if (drops.length) {
+    var closeDrops = function (except) {
+      drops.forEach(function (d) {
+        if (d === except) return;
+        d.classList.remove('open');
+        var t = d.querySelector('.nav-drop-t');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+    };
+    drops.forEach(function (d) {
+      var trig = d.querySelector('.nav-drop-t');
+      if (!trig) return;
+      trig.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = !d.classList.contains('open');
+        closeDrops(d);
+        d.classList.toggle('open', open);
+        trig.setAttribute('aria-expanded', String(open));
+      });
+      d.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape' || !d.classList.contains('open')) return;
+        d.classList.remove('open');
+        trig.setAttribute('aria-expanded', 'false');
+        trig.focus();
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav-drop')) closeDrops(null);
+    });
+    // le panneau ne doit pas rester ouvert derrière la page qui défile
+    window.addEventListener('scroll', function () { closeDrops(null); }, { passive: true });
+  }
+
   /* ── photo frames ──────────────────────────────────────────
      Each .photo carries data-src / data-alt. If that file exists in
      assets/images/ it is swapped in; otherwise the on-brand placeholder
@@ -211,7 +249,16 @@
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         document.querySelectorAll('.nav-links a').forEach(function (a) { a.classList.remove('act'); });
-        if (links[e.target.id]) links[e.target.id].classList.add('act');
+        document.querySelectorAll('.nav-drop-t').forEach(function (t) { t.classList.remove('act'); });
+        var hit = links[e.target.id];
+        if (!hit) return;
+        hit.classList.add('act');
+        // une entrée du menu déroulant est repliée : c'est le déclencheur qui doit s'allumer
+        var host = hit.closest('.nav-drop');
+        if (host) {
+          var t = host.querySelector('.nav-drop-t');
+          if (t) t.classList.add('act');
+        }
       });
     }, { threshold: 0.35 });
     ['top', 'apropos', 'parcours', 'evenements', 'contact'].forEach(function (id) {
