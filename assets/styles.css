@@ -1057,7 +1057,7 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .lvl-top .s{font-size:13.5px;line-height:1.6;color:var(--ink-2);margin-top:10px;min-height:4.8em}
 /* le bandeau prix reprend le bloc sombre de l'offre adulte : le tarif est
    la même information et se lit du même geste, quel que soit le niveau */
-.lvl-cost{padding:20px 22px;background:var(--turf);border-bottom:1px solid rgba(18,33,26,.3)}
+.lvl-cost{padding:20px 22px;background:var(--turf-3);border-bottom:1px solid rgba(18,33,26,.3)}
 .lvl-cost .v{font-family:var(--num);font-size:29px;font-weight:700;color:var(--on-turf);line-height:1}
 .lvl-cost .v small{font-family:var(--ui);font-size:13px;font-weight:600;letter-spacing:.08em;
   margin-left:6px;color:var(--sand-3)}
