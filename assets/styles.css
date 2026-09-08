@@ -654,6 +654,20 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .coach-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 26px}
   .coaches-hero{padding:150px 0 72px;min-height:58vh}
 }
+/* sur téléphone, le cadrage « cover » coupait les deux coachs des extrémités.
+   La photo cesse donc d'être un fond : elle devient une bande à son propre
+   format (1800×1355), l'équipe entière tient dans l'écran, et le titre passe
+   dessous sur le fond turf — donc plus besoin du voile ni de l'ombre portée
+   qui servaient à décoller le texte de l'image. */
+@media (max-width:760px){
+  .coaches-hero{display:block;min-height:0;padding:calc(var(--cond-h,40px) + 86px) 0 56px}
+  .coaches-hero .ch-bg{position:relative;inset:auto;width:100%;aspect-ratio:1800/1355;
+    background:var(--turf) url('images/coaches-group.jpg') center/contain no-repeat}
+  .coaches-hero .ch-scrim{display:none}
+  .coaches-hero .wrap{text-shadow:none;padding-top:34px}
+  .coaches-hero h1{margin-top:18px}
+  .coaches-hero .lede{font-size:16px;margin-top:18px;color:var(--on-turf-2)}
+}
 @media (max-width:560px){
   /* two portraits still read at this width, and six full-bleed 4:5 cards
      would otherwise make the page a 3000px scroll */
@@ -828,14 +842,21 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
    ═══════════════════════════════════════════════════════════ */
 
 .grp-hero{background:var(--turf);color:var(--on-turf);position:relative;overflow:hidden;padding:180px 0 76px}
-.grp-hero .topo svg path{fill:none;stroke:rgba(241,237,225,.055);stroke-width:1}
-/* photo d'un offsite entreprise en fond d'en-tête, assombrie à 20 % (.gh-scrim)
-   pour poser le texte crème sans éteindre la pelouse. Le cadrage descend sous
-   l'horizon (center 62%) : le ciel clair reste hors du bloc de titre. */
+/* pas de courbes de niveau ici : elles texturent un aplat turf, mais sur la
+   photo elles se lisaient comme des rayures. L'en-tête n'a donc pas de .topo. */
+/* photo d'un offsite entreprise en fond d'en-tête. Le cadrage descend sous
+   l'horizon (center 62%), mais le haut de l'image reste du ciel clair : un
+   voile uniforme à 20 % y laissait le titre crème à peine lisible. Le voile
+   est donc dégradé — dense en haut, là où se posent l'intitulé, le titre et
+   le chapô, puis levé sur la pelouse pour ne pas éteindre la photo. La
+   seconde couche, latérale, tient le côté gauche où commence chaque ligne. */
 .grp-hero .gh-bg{position:absolute;inset:0;pointer-events:none;
   background:var(--turf) url('images/offsite-hero.jpg') center 62%/cover no-repeat}
 .grp-hero .gh-scrim{position:absolute;inset:0;pointer-events:none;
-  background:rgba(15,36,25,.2)}
+  background:
+    linear-gradient(180deg,rgba(15,36,25,.9) 0%,rgba(15,36,25,.86) 42%,
+      rgba(15,36,25,.6) 72%,rgba(15,36,25,.36) 100%),
+    linear-gradient(90deg,rgba(15,36,25,.44) 0%,rgba(15,36,25,0) 72%)}
 /* le fond turf de la nav est conservé en haut de page : les liens crème
    passeraient sinon sur la photo (même logique que .coaches-page) */
 .groupes-page header.nav{background:rgba(15,36,25,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom-color:var(--rule-turf)}
@@ -846,6 +867,8 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .grp-hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
 .grp-hero .plates{max-width:560px;margin-top:48px;border-top:1px solid var(--rule-turf);padding-top:4px}
 .grp-hero .plate .v small{font-size:16px;font-weight:400}
+/* sur la photo, l'intitulé des cartouches à 34 % d'opacité décrochait */
+.grp-hero .plate .k{color:var(--on-turf-2)}
 
 /* ── the two audiences ──
    One card per offer. Everything a card says lives in its own markup, so a
@@ -1002,14 +1025,34 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   letter-spacing:.02em;text-transform:none;color:var(--on-turf-3);margin-top:5px}
 .nav-drop-in .sep{height:1px;background:var(--rule-turf);margin:6px 10px}
 
-/* volet mobile : le groupe Académie garde ses villes sous un intitulé */
-.drawer-group{border-bottom:1px solid var(--rule-turf);padding-bottom:12px}
-.drawer .drawer-h{display:block;font-family:var(--display);font-size:28px;color:var(--on-turf);padding:16px 0 6px}
-.drawer-group a{display:block;font-size:19px;padding:11px 0 11px 20px;border-bottom:none;color:var(--on-turf-2)}
-.drawer-group a::before{content:'—';margin-right:12px;color:var(--on-turf-3)}
+/* volet mobile : le groupe Académie se replie sous son intitulé.
+   L'intitulé est un bouton qui se lit comme les autres entrées du volet ;
+   le chevron pivote à l'ouverture. Les villes ne portent plus de tiret :
+   un filet vertical les rattache à leur titre, ce qui dit la même chose
+   sans meubler le début de chaque ligne. */
+.drawer-group{border-bottom:1px solid var(--rule-turf)}
+.drawer .drawer-h{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  width:100%;padding:16px 0;background:none;border:none;text-align:left;cursor:pointer;
+  font-family:var(--display);font-size:28px;color:var(--on-turf)}
+.drawer .drawer-h svg{width:20px;height:20px;flex-shrink:0;color:var(--on-turf-3);
+  transition:transform .24s cubic-bezier(.2,.7,.3,1)}
+.drawer-group.open .drawer-h svg{transform:rotate(180deg)}
+/* replié par défaut ; l'ouverture se joue sur la hauteur pour rester animable */
+.drawer-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .26s cubic-bezier(.2,.7,.3,1)}
+.drawer-sub>*{overflow:hidden}
+.drawer-group.open .drawer-sub{grid-template-rows:1fr}
+.drawer-sub-in{display:flex;flex-direction:column;margin-left:2px;padding-left:18px;
+  border-left:1px solid var(--rule-turf)}
+.drawer-group .drawer-sub a{display:block;font-size:19px;padding:10px 0;border-bottom:none;
+  color:var(--on-turf-2)}
+.drawer-group .drawer-sub a:last-child{padding-bottom:16px}
+.drawer-group .drawer-sub a[aria-current]{color:var(--sand-3)}
+@media (prefers-reduced-motion:reduce){
+  .drawer-sub,.drawer .drawer-h svg{transition:none}
+}
 @media (max-height:520px) and (max-width:960px){
-  .drawer .drawer-h{font-size:22px;padding:11px 0 4px}
-  .drawer-group a{font-size:17px;padding:8px 0 8px 16px}
+  .drawer .drawer-h{font-size:22px;padding:11px 0}
+  .drawer-group .drawer-sub a{font-size:17px;padding:7px 0}
 }
 
 /* ══ pages académie ══ */
@@ -1072,12 +1115,46 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .lvl li::before{content:'';position:absolute;left:0;top:8px;width:7px;height:7px;
   background:var(--c,var(--fairway));border-radius:1px}
 .lvl li b{color:var(--ink);font-weight:600}
-.lvl-foot{margin:0 22px 22px;padding:14px 16px;background:var(--c,var(--fairway));color:var(--chalk);
+/* le bandeau tient sur une ou deux lignes selon le niveau ; la hauteur de
+   deux lignes est réservée dans tous les cas pour que les quatre bandeaux
+   commencent à la même hauteur — visible dès que deux cartes sont côte à
+   côte, et sur le rail où la carte voisine dépasse */
+.lvl-foot{margin:0 22px 22px;padding:14px 16px;min-height:calc(3em + 28px);
+  background:var(--c,var(--fairway));color:var(--chalk);
   font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   line-height:1.5;border-radius:2px;display:flex;align-items:center;gap:10px}
 .lvl-foot svg{width:15px;height:15px;flex-shrink:0}
 .lvl-note{font-size:14.5px;line-height:1.7;color:var(--ink-2);margin:34px 0 0;max-width:78ch}
 .lvl-note b{color:var(--ink)}
+
+/* les quatre niveaux au doigt — sur téléphone, quatre cartes empilées font
+   quatre écrans de défilement avant la suite de la page. La grille devient
+   donc un rail que l'on fait glisser : une carte par écran, la suivante qui
+   dépasse pour dire qu'il y en a d'autres, et des puces sous le rail qui
+   situent la lecture et servent de raccourci. Le rail déborde jusqu'aux
+   bords de l'écran ; le calage (scroll-padding) remet la carte dans la marge
+   du texte. Tout tient dans le CSS : sans JS, il reste un rail glissable. */
+.lvl-dots{display:none}
+@media (max-width:760px){
+  .lvl-grid{display:flex;grid-template-columns:none;gap:14px;margin-top:34px;
+    padding:2px 22px 4px;margin-left:-22px;margin-right:-22px;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+    scroll-padding-left:22px;scrollbar-width:none}
+  .lvl-grid::-webkit-scrollbar{display:none}
+  .lvl{flex:0 0 calc(100% - 62px);scroll-snap-align:start;scroll-snap-stop:always}
+  /* le rail masque ce qui n'est pas à l'écran : l'apparition au défilement
+     ne se déclencherait jamais pour les cartes 2 à 4 */
+  .lvl-grid .lvl{opacity:1;transform:none}
+  .lvl-dots{display:flex;gap:8px;align-items:center;margin-top:12px}
+  /* le trait fait 3px, la cible du doigt 24 : le bouton porte la hauteur,
+     le trait est peint dedans */
+  .lvl-dot{flex:1;max-width:70px;height:24px;padding:0;border:none;background:none;
+    cursor:pointer;display:flex;align-items:center}
+  .lvl-dot::before{content:'';display:block;width:100%;height:3px;
+    background:var(--rule);transition:background .25s}
+  .lvl-dot[aria-selected="true"]::before{background:var(--fairway)}
+  .lvl-note{margin-top:26px}
+}
 
 /* planning — un bloc par niveau, une ligne par créneau */
 .plan{background:var(--turf);color:var(--on-turf);position:relative;overflow:hidden}
@@ -1121,12 +1198,16 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 @media (max-width:960px){
   .acad-hero{padding:150px 0 60px}
   .adult-card{grid-template-columns:1fr}
+  /* empilés, les blocs n'ont plus de colonne voisine : le retrait de 22px
+     qui séparait les colonnes doit tomber avec elles. Il est repris sur le
+     même sélecteur qu'en large, sinon le :not() l'emporte et seul le premier
+     bloc revient à la marge. */
   .soon-list{grid-template-columns:1fr}
-  .soon-list div{border-right:none;border-bottom:1px solid var(--rule-2);padding:22px 0}
+  .soon-list div,.soon-list div:not(:first-child){border-right:none;
+    border-bottom:1px solid var(--rule-2);padding:22px 0}
   .soon-list div:last-child{border-bottom:none}
 }
 @media (max-width:760px){
-  .lvl-grid{grid-template-columns:1fr}
   .plan-grid{grid-template-columns:1fr}
   .adult-price,.adult-facts{padding-left:22px;padding-right:22px}
   .acad-hero .plates{margin-top:38px}

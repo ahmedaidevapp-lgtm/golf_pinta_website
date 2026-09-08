@@ -169,6 +169,20 @@
     });
   }
 
+  /* ── groupe repliable du volet mobile ──────────────────────
+     Le bouton « Académie » ouvre et ferme la liste des villes. L'état de
+     départ est posé dans le HTML (classe .open sur les pages de l'académie),
+     donc rien ne bouge au chargement ; ce bloc ne fait que le basculer. */
+  var acadT = document.getElementById('drawer-acad-t');
+  if (acadT) {
+    var acadGroup = acadT.closest('.drawer-group');
+    acadT.addEventListener('click', function () {
+      var open = !acadGroup.classList.contains('open');
+      acadGroup.classList.toggle('open', open);
+      acadT.setAttribute('aria-expanded', String(open));
+    });
+  }
+
   /* ── menu déroulant « Académie » ────────────────────────
      Le survol suffit à la souris (CSS). Ce bloc ajoute le clic et le
      clavier : utile au tactile, où il n'y a pas de survol, et à toute
@@ -225,6 +239,79 @@
     };
     probe.src = fig.dataset.src;
   });
+
+  /* ── rail des niveaux (academie-*.html) ────────────────────
+     Sur téléphone la grille des quatre niveaux devient un rail à faire
+     glisser (le calage est fait en CSS). Ce bloc n'ajoute que les puces :
+     elles disent où l'on en est et permettent d'aller droit à un niveau.
+     Elles n'existent qu'en dessous du point de rupture, et disparaissent
+     dès que la grille redevient une grille. */
+  var lvlRail = document.getElementById('lvl-grid');
+  var lvlDotsBox = document.getElementById('lvl-dots');
+  if (lvlRail && lvlDotsBox) {
+    var cards = [].slice.call(lvlRail.querySelectorAll('.lvl'));
+    var phone = window.matchMedia('(max-width:760px)');
+    var lvlDots = [];
+
+    function lvlLabel(card) {
+      var t = card.querySelector('.lvl-top .t');
+      return t ? t.textContent.trim() : '';
+    }
+
+    function lvlMark() {
+      if (!lvlDots.length) return;
+      // la carte active est celle dont le bord gauche est le plus proche du
+      // bord du rail : plus fiable qu'un calcul d'index sur la largeur
+      var ref = lvlRail.getBoundingClientRect().left;
+      var best = 0, gap = Infinity;
+      cards.forEach(function (c, i) {
+        var d = Math.abs(c.getBoundingClientRect().left - ref);
+        if (d < gap) { gap = d; best = i; }
+      });
+      lvlDots.forEach(function (d, i) {
+        d.setAttribute('aria-selected', i === best ? 'true' : 'false');
+      });
+    }
+
+    function buildDots() {
+      lvlDots = cards.map(function (card, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'lvl-dot';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', 'Niveau ' + (i + 1) + ' sur ' + cards.length + ' — ' + lvlLabel(card));
+        b.addEventListener('click', function () {
+          lvlRail.scrollTo({ left: card.offsetLeft - lvlRail.offsetLeft, behavior: 'smooth' });
+        });
+        lvlDotsBox.appendChild(b);
+        return b;
+      });
+      lvlMark();
+    }
+
+    function syncRail() {
+      if (phone.matches && !lvlDots.length) buildDots();
+      else if (!phone.matches && lvlDots.length) {
+        lvlDotsBox.textContent = '';
+        lvlDots = [];
+        lvlRail.scrollLeft = 0;
+      }
+    }
+
+    lvlRail.addEventListener('scroll', function () {
+      // un rAF suffit : le repère ne bouge qu'avec le rendu
+      if (lvlRail.dataset.tick) return;
+      lvlRail.dataset.tick = '1';
+      requestAnimationFrame(function () {
+        delete lvlRail.dataset.tick;
+        lvlMark();
+      });
+    }, { passive: true });
+
+    if (phone.addEventListener) phone.addEventListener('change', syncRail);
+    else phone.addListener(syncRail);
+    syncRail();
+  }
 
   /* ── scroll reveal ─────────────────────────────────────── */
   var reveals = document.querySelectorAll('.rv');

@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=10">
+<link rel="stylesheet" href="assets/styles.css?v=16">
 </head>
 <body class="acad-page">
 
@@ -70,12 +70,19 @@
 
 <nav class="drawer" id="drawer" aria-label="Menu mobile">
   <a href="index.html#top">Accueil</a>
-  <div class="drawer-group">
-    <span class="drawer-h">Académie</span>
-    <a href="index.html#apropos">Introduction</a>
-    <a href="academie-casablanca.html">Casablanca</a>
-    <a href="academie-rabat.html">Rabat — bientôt</a>
-    <a href="academie-marrakech.html">Marrakech — bientôt</a>
+  <!-- le groupe Académie se replie : quatre villes de plus dans un volet
+       déjà long, c'est le reste du menu qui recule. Il est déjà déplié sur
+       les pages de l'académie (.open), pour que la page courante se situe. -->
+  <div class="drawer-group open">
+    <button type="button" class="drawer-h" id="drawer-acad-t" aria-expanded="true" aria-controls="drawer-acad">Académie<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="drawer-sub" id="drawer-acad" role="group" aria-labelledby="drawer-acad-t">
+      <div class="drawer-sub-in">
+        <a href="index.html#apropos">Introduction</a>
+        <a href="academie-casablanca.html" aria-current="page">Casablanca</a>
+        <a href="academie-rabat.html">Rabat — bientôt</a>
+        <a href="academie-marrakech.html">Marrakech — bientôt</a>
+      </div>
+    </div>
   </div>
   <a href="coachs.html">Coachs</a>
   <a href="tarifs.html">Tarifs</a>
@@ -184,7 +191,9 @@
       </div>
     </div>
 
-    <div class="lvl-grid">
+    <!-- sur téléphone ce bloc devient un rail que l'on fait glisser ; les
+         puces sont ajoutées par main.js et n'existent qu'à cette largeur -->
+    <div class="lvl-grid" id="lvl-grid">
 
       <article class="lvl rv" style="--c:#2F5E3A">
         <div class="lvl-top">
@@ -274,6 +283,8 @@
       </article>
 
     </div>
+
+    <div class="lvl-dots" id="lvl-dots" role="tablist" aria-label="Niveaux juniors"></div>
 
     <p class="lvl-note">Les <b>drapeaux</b> sont les paliers de l'école de golf&nbsp;: chaque couleur valide un ensemble de gestes et de connaissances, et ouvre la porte au niveau suivant. Le <b>carnet du jeune golfeur</b> suit ces validations tout au long de l'année. Tarifs annuels, tenue de l'académie comprise.</p>
   </div>
@@ -439,6 +450,6 @@
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.2 1.26-1.97 1.42-.53.11-1.22.2-3.55-.76-2.98-1.24-4.9-4.27-5.05-4.47-.14-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37h.56c.18 0 .42-.07.66.5.24.58.83 2.02.9 2.17.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.3.15.47.12.64-.07.17-.2.74-.86.94-1.16.2-.3.4-.25.66-.15.27.1 1.7.8 1.99.95.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
 </a>
 
-<script src="assets/main.js?v=5"></script>
+<script src="assets/main.js?v=7"></script>
 </body>
 </html>
