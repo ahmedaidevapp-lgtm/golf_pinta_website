@@ -275,6 +275,8 @@ body.locked{overflow:hidden}
 /* ══ scorecard ══ */
 .score{background:var(--chalk);position:relative}
 .card-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:44px}
+/* deux actions côte à côte sans que space-between ne les écarte */
+.card-head-cta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 /* ══ course logo strip ══
    The four partner marks sit between the section heading and the scorecard,
    in the same order as the rows below. They are drawn in their own black and
@@ -542,6 +544,7 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .cond-in span:nth-child(3){display:none}
   .hero-cta .btn,.about-cta .btn{flex:1 1 100%}
   .card-head .btn{width:100%}
+  .card-head-cta{width:100%}
 }
 
 /* landscape phones: the fixed header stack eats most of a 380px-tall viewport */
