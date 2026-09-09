@@ -10,7 +10,7 @@ no code change, no build step.
 | `home-gal-video.jpg`         | Accueil « En images » — 2      | 1280 × 590 px         | Bandeau   |
 | `home-gal-juniors.jpg`       | Accueil « En images » — 3      | 1280 × 590 px         | Bandeau   |
 | `home-gal-swing.jpg`         | Accueil « En images » — 4      | 1280 × 590 px         | Bandeau   |
-| `home-section1.jpg`          | Hero, right-hand column       | 1000 × 1000 px        | Carré     |
+| `home-section1.jpg`          | Hero, right-hand column       | 540 × 590 px          | Portrait  |
 | `pinta-homepage.jpg`         | Section « L'académie »        | 1280 × 854 px         | Paysage   |
 | `mustapha-pinta.jpg`         | Coachs page — Mustapha Pinta  | 800 × 1000 px         | Portrait  |
 | `events_pic.jpg`             | Fond de la section Événements | 2000 × 1333 px        | Paysage   |
@@ -36,10 +36,11 @@ Notes:
   build time — what you drop in is what visitors download.
 - Alt text lives in the `data-alt` attribute next to `data-src` in
   `index.html`. Update it when the photo changes.
-- `home-section1.jpg` carries the hero: a coach and a student together in
-  frame — correcting a grip, a stance, a follow-through — not scenery. Two
-  people, faces or hands readable. The frame is close to square, so crop the
-  pair to the centre before dropping the file in.
+- `home-section1.jpg` carries the hero: a coach and at least one student
+  together in frame — a briefing, a grip, a stance, a follow-through — not
+  scenery. Faces or hands readable. The frame is portrait (roughly 9:10), so
+  crop the coach and the student they are addressing to the centre before
+  dropping the file in.
 - The coaches page shows nine cards; card 1 reuses `mustapha-pinta.jpg`. Every
   card already carries its real photo and name. What is still to complete is
   the `data-role`, `data-city` and `data-bio` on the matching
