@@ -4,8 +4,6 @@
 (function () {
   'use strict';
 
-  var WHATSAPP = '212665602209';
-
   function stampYear() {
     var yr = document.getElementById('yr');
     if (yr) yr.textContent = new Date().getFullYear();
@@ -627,10 +625,14 @@
   }
 
   /* ── booking form ──────────────────────────────────────────
-     No backend: a validated fiche is handed to WhatsApp, pre-composed. */
+     No backend: the fiche is posted to FormSubmit, which relays it by e-mail
+     to ENQUIRY_EMAIL — the same relay and the same one-time activation link
+     as the groups enquiry above. If the request fails, the composed fiche is
+     handed to the visitor's own mail client so nothing typed is ever lost. */
   var form = document.getElementById('fiche');
   var ok = document.getElementById('ok');
   var okTx = document.getElementById('ok-tx');
+  var send = document.getElementById('f-send');
 
   if (!form) { stampYear(); return; }
 
@@ -638,6 +640,7 @@
   var PHONE_RE = /^[+()\d][\d\s().-]{6,}$/;
 
   function field(id) { return document.getElementById(id); }
+  function val(id) { return (field(id).value || '').trim(); }
   function mark(input, bad) {
     input.closest('.fld').classList.toggle('err', bad);
     input.setAttribute('aria-invalid', bad ? 'true' : 'false');
@@ -661,6 +664,30 @@
     el.addEventListener('change', function () { el.closest('.fld').classList.remove('err'); });
   });
 
+  // one shape for both paths: the POST body and the mailto fallback read from
+  // the same list, so they can never drift apart
+  function ficheLines() {
+    var lines = [
+      'Joueur : ' + val('f-nom'),
+      'E-mail : ' + val('f-mail')
+    ];
+    if (val('f-tel'))   lines.push('Téléphone : ' + val('f-tel'));
+    lines.push('Parcours : ' + field('f-parcours').value);
+    if (val('f-index')) lines.push('Index / niveau : ' + val('f-index'));
+    if (val('f-msg'))   lines.push('', 'Message :', val('f-msg'));
+    return lines;
+  }
+
+  function ficheMailFallback() {
+    var body = ['Fiche d\'inscription — Golf with Pinta', ''].concat(ficheLines()).join('\n');
+    var href = 'mailto:' + ENQUIRY_EMAIL
+      + '?subject=' + encodeURIComponent('Fiche d\'inscription — ' + val('f-nom'))
+      + '&body=' + encodeURIComponent(body);
+    window.location.href = href;
+    okTx.textContent = 'Fiche prête dans votre logiciel de messagerie — terminez l\'envoi, ou écrivez-nous au +212 665 602 209.';
+    ok.classList.add('show');
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     ok.classList.remove('show');
@@ -671,28 +698,48 @@
       return;
     }
 
-    var lines = [
-      'Fiche d\'inscription — Golf with Pinta',
-      '',
-      'Joueur : ' + field('f-nom').value.trim(),
-      'E-mail : ' + field('f-mail').value.trim()
-    ];
-    if (field('f-tel').value.trim())   lines.push('Téléphone : ' + field('f-tel').value.trim());
-    lines.push('Parcours : ' + field('f-parcours').value);
-    if (field('f-index').value.trim()) lines.push('Index / niveau : ' + field('f-index').value.trim());
-    if (field('f-msg').value.trim())   lines.push('', field('f-msg').value.trim());
+    var label = send.innerHTML;
+    send.disabled = true;
+    send.textContent = 'Envoi…';
 
-    var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n'));
-    // No 'noopener' in the feature string: with it Chromium always returns
-    // null, so a successful open would be misreported as blocked. Sever the
-    // opener reference manually instead.
-    var win = window.open(url, '_blank');
-    if (win) { try { win.opener = null; } catch (e) {} }
+    var payload = {
+      _subject: 'Fiche d\'inscription — ' + val('f-nom'),
+      _template: 'table',
+      _captcha: 'false',
+      name: val('f-nom'),
+      email: val('f-mail'),
+      Telephone: val('f-tel'),
+      Parcours: field('f-parcours').value,
+      Niveau: val('f-index'),
+      Message: val('f-msg'),
+      Recapitulatif: ficheLines().join('\n')
+    };
 
-    okTx.textContent = win
-      ? 'Fiche prête — terminez l\'envoi dans WhatsApp.'
-      : 'Fiche prête. Autorisez les fenêtres pop-up, ou écrivez-nous au +212 665 602 209.';
-    ok.classList.add('show');
+    function done() {
+      send.disabled = false;
+      send.innerHTML = label;
+    }
+
+    if (!window.fetch) { done(); ficheMailFallback(); return; }
+
+    fetch(ENQUIRY_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }).then(function (data) {
+      // FormSubmit answers { success: "true" | false, message: … }
+      if (String(data && data.success) !== 'true') throw new Error(data && data.message || 'refusé');
+      done();
+      form.reset();
+      okTx.textContent = 'Fiche envoyée — nous vous répondons rapidement.';
+      ok.classList.add('show');
+    }).catch(function () {
+      done();
+      ficheMailFallback();
+    });
   });
 
   /* ── footer year ───────────────────────────────────────── */

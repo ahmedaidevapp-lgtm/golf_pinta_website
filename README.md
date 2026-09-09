@@ -47,8 +47,8 @@ The design was a static mockup. These were added to make it a working site:
   placeholder. Drop files into `assets/images/` to fill them —
   see `assets/images/README.md`.
 - **Working contact form.** Client-side validation with inline errors, then
-  the fiche is handed to WhatsApp pre-composed. There is no backend, so
-  nothing is stored or emailed automatically — see "Wiring the form" below.
+  the fiche is e-mailed to the academy through FormSubmit — the same relay as
+  the groups enquiry. See "The forms" below.
 - **Mobile menu.** The prototype hid the nav below 960px with nothing in its
   place; there is now a burger and a full-screen drawer.
 - **Course rows prefill the form.** Clicking a scorecard row or "S'inscrire"
@@ -87,16 +87,17 @@ The design was a static mockup. These were added to make it a working site:
 7. **Testimonials** — the three reviews carry real names and dates from the
    design. Confirm you have permission to publish them.
 
-## The groups enquiry form (groupes.html)
+## The forms (index.html fiche, groupes.html enquiry)
 
-Unlike the booking fiche, this one really sends an e-mail. It POSTs to
-[FormSubmit](https://formsubmit.co) — a free relay that needs no account and
-no server — which forwards the enquiry to `golfwithpinta@gmail.com`.
+Both send e-mail. Each POSTs to [FormSubmit](https://formsubmit.co) — a free
+relay that needs no account and no server — which forwards the submission to
+`golfwithpinta@gmail.com`.
 
 **One step is required before it delivers anything:** on the very first
 submission FormSubmit e-mails an activation link to that address. Until
 someone opens that mail and clicks the link, submissions are held, not
-delivered. Send one test enquiry from the live site, then activate.
+delivered. Send one test submission from the live site, then activate. The
+activation is per-address, so doing it once covers both forms.
 
 The endpoint is a single constant in `assets/main.js`:
 
@@ -105,24 +106,24 @@ var ENQUIRY_EMAIL    = 'golfwithpinta@gmail.com';
 var ENQUIRY_ENDPOINT = 'https://formsubmit.co/ajax/' + ENQUIRY_EMAIL;
 ```
 
-Change the address there and nowhere else. To move to another relay
-(Formspree, EmailJS, a function of your own), point `ENQUIRY_ENDPOINT` at it —
-it is sent a JSON body and expected to answer `{ success: "true" }`.
+Change the address there and nowhere else — both forms read it. To move to
+another relay (Formspree, EmailJS, a function of your own), point
+`ENQUIRY_ENDPOINT` at it — it is sent a JSON body and expected to answer
+`{ success: "true" }`.
 
 If the request fails for any reason — relay down, offline, blocked — the
-filled-in enquiry is handed to the visitor's own mail client, pre-composed and
+filled-in form is handed to the visitor's own mail client, pre-composed and
 addressed to the academy, so nobody loses what they typed.
 
-## Wiring the form to a real inbox
+WhatsApp is still offered alongside the fiche, as the sidebar's "Réserver via
+WhatsApp" button and the phone row.
 
-Today the form composes a WhatsApp message — functional with zero
-infrastructure. To collect submissions server-side instead, replace the
-`form.addEventListener('submit', …)` handler in `assets/main.js` with a
-`fetch()` POST to your endpoint. The validation above it stays as is.
+## Moving to a real backend
 
 Note there is an existing full booking backend for this client at
 `~/Desktop/Amandev Apps/pinta-golf` (Express + Prisma). If this site should
-feed that system rather than WhatsApp, point the form at its bookings route.
+feed that system rather than FormSubmit, point `ENQUIRY_ENDPOINT` at its
+bookings route.
 
 ## Deploying
 
