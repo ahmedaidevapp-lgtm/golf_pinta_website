@@ -518,7 +518,8 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .coaches{background:var(--sand);padding:88px 0 104px}
 .coach-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 34px}
 
-/* a card is a button: the whole tile opens the profile */
+/* la carte de Mustapha Pinta est un <button> : toute la tuile ouvre la fiche.
+   Les autres coachs sont des .coach-static — même mise en page, sans profil. */
 .coach{display:flex;flex-direction:column;height:100%;width:100%;text-align:left;
   background:none;border:none;padding:0;margin:0;
   font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -527,6 +528,10 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .coach:hover .photo::after,.coach[aria-expanded="true"] .photo::after{box-shadow:inset 0 0 0 2px var(--flag)}
 .coach .photo img{transition:transform .5s ease}
 .coach:hover .photo img{transform:scale(1.035)}
+/* fiches sans profil : carte photo simple, aucun affordance de clic */
+.coach-static{cursor:default}
+.coach-static:hover .photo::after{box-shadow:inset 0 0 0 1px var(--rule-turf)}
+.coach-static:hover .photo img{transform:none}
 
 /* the name block absorbs the leftover height, so a two-line name (« Abdellah
    Mantrach (Babel) ») pushes nothing out of line: the rule and the CTA below

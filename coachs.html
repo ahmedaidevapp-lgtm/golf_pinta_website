@@ -106,11 +106,13 @@
 </section>
 
 <!-- ══════ GRILLE ══════
-     Neuf coachs. Chaque carte : une photo dans assets/images/, un nom, un
-     rattachement, et la bio affichée dans la fiche (data-role / data-bio,
-     un paragraphe par bloc séparé par « | »).
-     TODO — les bios et les villes des coachs 02 à 09 restent à compléter :
-     éditez data-role, data-city, data-bio et la ligne .c visible sous la photo. -->
+     Neuf coachs. Chaque carte : une photo dans assets/images/, un nom et un
+     rattachement. Seule la carte de Mustapha Pinta est un <button> cliquable
+     qui ouvre la fiche (data-role / data-bio, un paragraphe par bloc séparé
+     par « | ») ; les autres sont des .coach-static, sans « Voir le profil ».
+     TODO — quand la bio d'un coach est rédigée, repassez sa carte en
+     <button type="button" class="coach"> et rendez-lui son <span
+     class="coach-more">Voir le profil…</span> : le script la reprend seul. -->
 <section class="coaches">
   <div class="wrap">
     <div class="coach-grid rv">
@@ -133,7 +135,7 @@
         <span class="coach-more">Voir le profil<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </button>
 
-      <button type="button" class="coach"
+      <div class="coach coach-static"
         data-name="Abdellah Mantrach (Babel)"
         data-role="Coach certifié"
         data-city="Golf with Pinta"
@@ -148,10 +150,9 @@
           <div class="n">Abdellah Mantrach (Babel)</div>
           <div class="c">Golf with Pinta</div>
         </div>
-        <span class="coach-more">Voir le profil<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
+      </div>
 
-      <button type="button" class="coach"
+      <div class="coach coach-static"
         data-name="Ayoub Id Omar"
         data-role="Coach certifié"
         data-city="Golf with Pinta"
@@ -166,10 +167,9 @@
           <div class="n">Ayoub Id Omar</div>
           <div class="c">Golf with Pinta</div>
         </div>
-        <span class="coach-more">Voir le profil<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
+      </div>
 
-      <button type="button" class="coach"
+      <div class="coach coach-static"
         data-name="Brahim Dkari"
         data-role="Coach certifié"
         data-city="Golf with Pinta"
@@ -184,10 +184,9 @@
           <div class="n">Brahim Dkari</div>
           <div class="c">Golf with Pinta</div>
         </div>
-        <span class="coach-more">Voir le profil<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
+      </div>
 
-      <button type="button" class="coach"
+      <div class="coach coach-static"
         data-name="Hamza Karroum"
         data-role="Coach certifié"
         data-city="Golf with Pinta"
@@ -202,10 +201,9 @@
           <div class="n">Hamza Karroum</div>
           <div class="c">Golf with Pinta</div>
         </div>
-        <span class="coach-more">Voir le profil<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
+      </div>
 
-      <button type="button" class="coach"
+      <div class="coach coach-static"
         data-name="Karim Ballouti"
         data-role="Coach certifié"
         data-city="Golf with Pinta"
@@ -220,10 +218,9 @@
           <div class="n">Karim Ballouti</div>
           <div class="c">Golf with Pinta</div>
         </div>
-        <span class="coach-more">Voir le profil<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
+      </div>
 
-      <button type="button" class="coach"
+      <div class="coach coach-static"
         data-name="Lahoucine Nid Taleb"
         data-role="Coach certifié"
         data-city="Golf with Pinta"
@@ -238,10 +235,9 @@
           <div class="n">Lahoucine Nid Taleb</div>
           <div class="c">Golf with Pinta</div>
         </div>
-        <span class="coach-more">Voir le profil<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
+      </div>
 
-      <button type="button" class="coach"
+      <div class="coach coach-static"
         data-name="Ahmed Marjan"
         data-role="Coach certifié"
         data-city="Golf with Pinta"
@@ -256,10 +252,9 @@
           <div class="n">Ahmed Marjan</div>
           <div class="c">Golf with Pinta</div>
         </div>
-        <span class="coach-more">Voir le profil<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
+      </div>
 
-      <button type="button" class="coach"
+      <div class="coach coach-static"
         data-name="Saïd Ouahmane"
         data-role="Coach certifié"
         data-city="Golf with Pinta"
@@ -274,8 +269,7 @@
           <div class="n">Saïd Ouahmane</div>
           <div class="c">Golf with Pinta</div>
         </div>
-        <span class="coach-more">Voir le profil<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
+      </div>
 
     </div>
   </div>
@@ -316,9 +310,7 @@
         </div>
         <p>Rendre le golf accessible, ludique et performant — pour chacun, sur les plus beaux tracés du Royaume.</p>
         <div class="f-soc">
-          <a href="https://www.facebook.com/share/1McN5GADyq/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h2V5h-2c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.2l.8-3H14V8.5c0-.3.2-.5.5-.5z"/></svg></a>
           <a href="https://www.instagram.com/golfwithpinta" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.6" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="7" r="1.2" fill="currentColor"/></svg></a>
-          <a href="https://www.youtube.com/channel/UCy7ONifkKb8_cWLWgjub7Mg/featured" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 9.5l4.5 2.5L10 14.5z" fill="currentColor"/></svg></a>
         </div>
       </div>
       <div class="f-col">

@@ -329,7 +329,9 @@
       cX.focus();
     }
 
-    document.querySelectorAll('.coach').forEach(function (card) {
+    // seules les fiches avec un profil rédigé sont cliquables (button.coach) ;
+    // les autres restent des .coach-static, simples cartes photo
+    document.querySelectorAll('button.coach').forEach(function (card) {
       card.setAttribute('aria-expanded', 'false');
       card.addEventListener('click', function () { openCoach(card); });
     });
