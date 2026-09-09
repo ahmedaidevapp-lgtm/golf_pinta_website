@@ -136,94 +136,9 @@ header.nav.on{background:rgba(15,36,25,.94);backdrop-filter:blur(12px);-webkit-b
 .drawer a.btn{font-family:var(--ui);font-size:11.5px;padding:18px 26px;border-bottom:none;margin-top:28px}
 body.locked{overflow:hidden}
 
-/* ══ diaporama plein écran (au-dessus du hero) ══
-   Full-bleed crossfading slideshow. Slides are stacked absolutely and only
-   opacity changes, so nothing reflows between photos. The darkening is a flat
-   20% black wash — enough to hold the type without draining the photo, so the
-   words carry a text-shadow rather than a heavier scrim. */
-.stage{position:relative;height:100svh;min-height:560px;background:var(--turf);
-  color:var(--on-turf);overflow:hidden;isolation:isolate}
-.stage-track{position:absolute;inset:0}
-
-.slide{position:absolute;inset:0;opacity:0;visibility:hidden;
-  transition:opacity 1.1s ease,visibility 0s linear 1.1s}
-.slide.is-on{opacity:1;visibility:visible;transition:opacity 1.1s ease,visibility 0s}
-
-/* the poster stands in until a stage-0N.jpg is dropped in assets/images/ —
-   main.js probes each file and overrides this background when it loads */
-.slide-bg{position:absolute;inset:0;background:var(--turf) url(video/hero-poster.jpg) center/cover no-repeat;
-  transform:scale(1.06);transition:transform 7s linear}
-.slide.is-on .slide-bg{transform:scale(1)}
-.slide-shade{position:absolute;inset:0;background:rgba(0,0,0,.20)}
-
-.slide-in{position:relative;z-index:2;height:100%;max-width:1280px;margin:0 auto;
-  padding:calc(var(--cond-h,33px) + 150px) 44px 190px;
-  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
-  text-shadow:0 2px 22px rgba(0,0,0,.5)}
-.slide-h{font-size:clamp(42px,6.6vw,92px);line-height:1.02;letter-spacing:-.024em;
-  margin:0;max-width:16ch;color:var(--on-turf)}
-.slide-h em{font-style:italic;color:var(--sand-3)}
-.slide-p{font-size:17px;line-height:1.6;margin:24px 0 0;max-width:42ch;color:rgba(241,237,225,.9)}
-
-/* the words ride in a beat behind the photo */
-.slide-in>*{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease}
-.slide.is-on .slide-in>*{opacity:1;transform:none}
-.slide.is-on .slide-in>.slide-h{transition-delay:.2s}
-.slide.is-on .slide-in>.slide-p{transition-delay:.32s}
-
-/* controls */
-.stage-ui{position:absolute;z-index:3;left:0;right:0;bottom:44px;
-  max-width:1280px;margin:0 auto;padding:0 44px;display:flex;align-items:center;gap:18px}
-.stage-arw{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  background:rgba(15,36,25,.42);color:var(--on-turf);border:1px solid var(--rule-turf);
-  border-radius:2px;cursor:pointer;padding:0;transition:background .18s,color .18s;
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.stage-arw:hover{background:var(--flag);border-color:var(--flag);color:var(--chalk)}
-.stage-arw svg{width:15px;height:15px}
-.stage-dots{display:flex;gap:10px}
-.stage-dot{width:62px;height:26px;background:none;border:none;padding:11px 0 0;cursor:pointer}
-.stage-dot i{display:block;height:2px;background:var(--rule-turf);position:relative;overflow:hidden}
-.stage-dot i::after{content:'';position:absolute;inset:0;background:var(--sand-3);
-  transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.stage-dot:hover i::after{transform:scaleX(.35)}
-.stage-dot[aria-selected="true"] i::after{transform:scaleX(1);
-  transition:transform var(--stage-hold,6.5s) linear}
-.stage-dot.jump[aria-selected="true"] i::after{transition:none}
-
-.stage-scroll{position:absolute;z-index:3;right:44px;top:50%;transform:translateY(-50%) rotate(180deg);
-  writing-mode:vertical-rl;display:flex;align-items:center;gap:12px;
-  font-family:var(--ui);font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--on-turf-2);transition:color .18s}
-.stage-scroll:hover{color:var(--on-turf)}
-.stage-scroll svg{width:14px;height:14px;transform:rotate(180deg);animation:stage-bob 2.4s ease-in-out infinite}
-@keyframes stage-bob{0%,100%{transform:rotate(180deg) translateY(0)}50%{transform:rotate(180deg) translateY(4px)}}
-
-@media (prefers-reduced-motion:reduce){
-  .slide,.slide-bg,.slide-in>*{transition:none}
-  .slide-bg{transform:none}
-  .stage-scroll svg{animation:none}
-  .stage-dot[aria-selected="true"] i::after{transition:none}
-}
-
-@media (max-width:960px){
-  .stage{height:88svh;min-height:520px}
-  .stage-scroll{display:none}
-}
-@media (max-width:760px){
-  .slide-in{padding-left:22px;padding-right:22px;padding-bottom:150px;
-    padding-top:calc(var(--cond-h,33px) + 120px)}
-  .slide-p{font-size:15.5px}
-  .stage-ui{padding:0 22px;bottom:34px;gap:12px}
-  .stage-dots{flex:1}
-  .stage-dot{width:auto;flex:1}
-}
-@media (max-width:420px){
-  .stage-arw{display:none}
-}
-@media print{.stage{display:none!important}}
-
 /* ══ hero ══ */
-.hero{position:relative;background:var(--turf);color:var(--on-turf);padding:150px 0;overflow:hidden}
+.hero{position:relative;background:var(--turf);color:var(--on-turf);
+  padding:calc(var(--cond-h,33px) + 150px) 0 150px;overflow:hidden}
 .hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;
   background:var(--turf) url(video/hero-poster.jpg) center/cover no-repeat}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
@@ -462,7 +377,7 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 @media (max-width:760px){
   .wrap,.nav-in,.hero-in,.cond-in{padding-left:22px;padding-right:22px}
   .pad{padding:68px 0}
-  .hero{padding-top:150px}
+  .hero{padding-top:calc(var(--cond-h,33px) + 120px)}
   .sc-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .sc{min-width:620px}
   /* the prototype dropped the date and the booking button here; on a phone
@@ -551,7 +466,7 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 @media (max-height:520px) and (max-width:960px){
   .drawer{padding-top:120px}
   .drawer a{font-size:22px;padding:11px 0}
-  .hero{padding-top:130px}
+  .hero{padding-top:calc(var(--cond-h,33px) + 100px)}
   .cdlg{padding:10px}
   .cdlg-box{padding:24px 20px}
 }
@@ -865,7 +780,7 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .grp-hero h1 em{font-style:italic;color:var(--sand-3)}
 .grp-hero .lede{font-size:17px;line-height:1.62;color:var(--on-turf);max-width:56ch;margin:24px 0 0}
 .grp-hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
-.grp-hero .plates{max-width:560px;margin-top:48px;border-top:1px solid var(--rule-turf);padding-top:4px}
+.grp-hero .plates{grid-template-columns:repeat(2,1fr);max-width:380px;margin-top:48px;border-top:1px solid var(--rule-turf);padding-top:4px}
 .grp-hero .plate .v small{font-size:16px;font-weight:400}
 /* sur la photo, l'intitulé des cartouches à 34 % d'opacité décrochait */
 .grp-hero .plate .k{color:var(--on-turf-2)}
@@ -953,6 +868,28 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   border-radius:2px;transition:background .18s}
 .gal-dot[aria-selected="true"]{background:var(--sand-3)}
 .gal-count{font-family:var(--num);font-size:11px;letter-spacing:.14em;color:var(--on-turf-3)}
+
+/* ══ shots — the home page's photo grid ══
+   Static 2×2 on the .gallery ground rather than a slideshow: with four frames
+   nothing gains from being hidden behind an arrow, and groupes.html already
+   carries the full carousel. The photos are wide phone shots, so they run as
+   2.17/1 bands — that ratio matches the files and needs no further crop.
+   Rows are spaced wider than columns so each caption reads with its own photo
+   rather than with the one below it. */
+.shots{margin-top:44px;display:grid;grid-template-columns:1fr 1fr;gap:44px 34px}
+.shot{margin:0}
+.shot-ph{aspect-ratio:1280/590}
+.shot-cap{font-size:14px;line-height:1.6;color:var(--on-turf-2);margin-top:14px}
+.shots-more{display:inline-flex;align-items:center;gap:10px;margin-top:38px;
+  font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sand-3);border-bottom:1px solid var(--rule-turf);padding-bottom:6px;transition:color .18s,border-color .18s}
+.shots-more:hover{color:var(--on-turf);border-color:var(--sand-3)}
+.shots-more svg{width:14px;height:14px}
+
+@media (max-width:760px){
+  .shots{grid-template-columns:1fr;gap:26px}
+}
+
 
 /* ── formulaire de demande ── */
 .enquiry{background:var(--chalk)}
@@ -1057,14 +994,31 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 
 /* ══ pages académie ══ */
 .acad-hero{background:var(--turf);color:var(--on-turf);position:relative;overflow:hidden;padding:180px 0 76px}
-.acad-hero .topo svg path{fill:none;stroke:rgba(241,237,225,.055);stroke-width:1}
-.acad-hero .wrap{position:relative}
+/* photo des juniors au practice en fond d'en-tête. Le haut de l'image est un
+   ciel très clair : le voile est donc dégradé comme sur l'en-tête groupes —
+   dense là où se posent l'intitulé, le titre et le chapô, levé sur la pelouse.
+   Le cadrage descend sous l'horizon (center 66%) pour garder les joueurs dans
+   le bloc, et l'en-tête n'a pas de courbes de niveau : sur une photo elles se
+   liraient comme des rayures. */
+.acad-hero .ah-bg{position:absolute;inset:0;pointer-events:none;
+  background:var(--turf) url('images/academie-hero.jpg') center 66%/cover no-repeat}
+.acad-hero .ah-scrim{position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(15,36,25,.9) 0%,rgba(15,36,25,.86) 52%,
+      rgba(15,36,25,.66) 78%,rgba(15,36,25,.4) 100%),
+    linear-gradient(90deg,rgba(15,36,25,.46) 0%,rgba(15,36,25,0) 72%)}
+/* le texte prend l'ombre portée des autres en-têtes photo : elle rattrape les
+   pixels clairs qui subsistent sous le voile (la nav, elle, a déjà son fond
+   turf plein via .acad-page) */
+.acad-hero .wrap{position:relative;text-shadow:0 2px 22px rgba(15,36,25,.7),0 1px 4px rgba(15,36,25,.55)}
 .acad-hero h1{font-size:clamp(38px,5vw,68px);line-height:1.05;margin:24px 0 0;color:var(--on-turf)}
 .acad-hero h1 em{font-style:italic;color:var(--sand-3)}
-.acad-hero .lede{font-size:17px;line-height:1.62;color:var(--on-turf-2);max-width:56ch;margin:24px 0 0}
+.acad-hero .lede{font-size:17px;line-height:1.62;color:var(--on-turf);max-width:56ch;margin:24px 0 0}
 .acad-hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
 .acad-hero .plates{max-width:560px;margin-top:48px;border-top:1px solid var(--rule-turf);padding-top:4px}
 .acad-hero .plate .v small{font-size:16px;font-weight:400}
+/* sur la photo, l'intitulé des cartouches à 34 % d'opacité décrochait */
+.acad-hero .plate .k{color:var(--on-turf-2)}
 .acad-page header.nav{background:rgba(15,36,25,.94);backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);border-bottom-color:var(--rule-turf)}
 

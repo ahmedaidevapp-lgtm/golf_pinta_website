@@ -6,11 +6,10 @@ no code change, no build step.
 
 | Filename                     | Where it appears              | Suggested size        | Crop      |
 |------------------------------|-------------------------------|-----------------------|-----------|
-| `stage-01.jpg`               | Diaporama plein écran — 1     | 2400 × 1600 px        | Paysage   |
-| `stage-02.jpg`               | Diaporama plein écran — 2     | 2400 × 1600 px        | Paysage   |
-| `stage-03.jpg`               | Diaporama plein écran — 3     | 2400 × 1600 px        | Paysage   |
-| `stage-04.jpg`               | Diaporama plein écran — 4     | 2400 × 1600 px        | Paysage   |
-| `stage-05.jpg`               | Diaporama plein écran — 5     | 2400 × 1600 px        | Paysage   |
+| `home-gal-adultes.jpg`       | Accueil « En images » — 1      | 1280 × 590 px         | Bandeau   |
+| `home-gal-video.jpg`         | Accueil « En images » — 2      | 1280 × 590 px         | Bandeau   |
+| `home-gal-juniors.jpg`       | Accueil « En images » — 3      | 1280 × 590 px         | Bandeau   |
+| `home-gal-swing.jpg`         | Accueil « En images » — 4      | 1280 × 590 px         | Bandeau   |
 | `home-section1.jpg`          | Hero, right-hand column       | 1000 × 1000 px        | Carré     |
 | `pinta-homepage.jpg`         | Section « L'académie »        | 1280 × 854 px         | Paysage   |
 | `mustapha-pinta.jpg`         | Coachs page — Mustapha Pinta  | 800 × 1000 px         | Portrait  |
@@ -48,16 +47,13 @@ Notes:
   the figure (currently « Golf with Pinta » in place of a city).
   The coach grid crops to 4:5, so portrait files fit without surprises.
 
-- The five `stage-0N.jpg` files are the full-screen slideshow at the very top
-  of the home page. Each one should *show a different thing* — the copy on
-  them reads, in order: l'académie / un cours individuel / l'école juniors /
-  le practice & putting / les événements. Until a file is dropped in, that
-  slide falls back to `assets/video/hero-poster.jpg`, so the section is never
-  empty. The words sit on the left over a flat 20% darkening, so keep the
-  left third of each frame free of busy detail and aim for a darker, less
-  contrasty left side. These are full-bleed backgrounds — budget ~400 KB each
-  and export progressive JPEG. The slide text lives in `index.html` inside
-  `<section class="stage">`; edit it there.
+- The four `home-gal-*.jpg` files are the « En images » grid on the home page,
+  just under the section « L'académie ». They run as 2.17/1 bands, so a wide
+  frame crops cleanly and a tall one does not. Keep the subjects big enough to
+  read at half the page width — a distant group on an empty fairway disappears
+  at that size. Pick four frames that show *different* things: they sit side by
+  side, so near-identical compositions read as a duplicate rather than a set.
+  Budget ~200 KB each and export progressive JPEG.
 
 ## Galerie « Groupes & offsite »
 
@@ -66,12 +62,12 @@ déposez le fichier, il apparaît au rechargement suivant.
 
 | Filename       | Où elle apparaît                     | Taille conseillée | Cadrage |
 |----------------|--------------------------------------|-------------------|---------|
-| `group-01.jpg` | Galerie groupes — 1                  | 2000 × 1125 px    | Paysage |
-| `group-02.jpg` | Galerie groupes — 2                  | 2000 × 1125 px    | Paysage |
-| `group-03.jpg` | Galerie groupes — 3                  | 2000 × 1125 px    | Paysage |
-| `group-04.jpg` | Galerie groupes — 4                  | 2000 × 1125 px    | Paysage |
-| `group-05.jpg` | Galerie groupes — 5                  | 2000 × 1125 px    | Paysage |
-| `group-06.jpg` | Galerie groupes — 6                  | 2000 × 1125 px    | Paysage |
+| `group-01.jpg` | Galerie groupes — 1 (entreprise, practice)   | 2000 × 1125 px    | Paysage |
+| `group-02.jpg` | Galerie groupes — 2 (échauffement)           | 2000 × 1125 px    | Paysage |
+| `group-03.jpg` | Galerie groupes — 3 (briefing vidéo)         | 2000 × 1125 px    | Paysage |
+| `group-04.jpg` | Galerie groupes — 4 (atelier, offsite)       | 2000 × 1125 px    | Paysage |
+| `group-05.jpg` | Galerie groupes — 5 (sortie scolaire)        | 2000 × 1125 px    | Paysage |
+| `group-06.jpg` | Galerie groupes — 6 (classe au practice)     | 2000 × 1125 px    | Paysage |
 
 - Le cadre est en 16/9 sur ordinateur et 4/3 sur téléphone, en `object-fit:
   cover` — gardez le sujet au centre.
