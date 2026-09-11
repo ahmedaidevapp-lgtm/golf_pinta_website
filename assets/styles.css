@@ -455,8 +455,6 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
      and pushes the whole document wider than the viewport */
   .c-rows .r{grid-template-columns:1fr;gap:7px;align-items:start}
   .c-rows .v.mono{font-size:15px}
-  /* the strip is clipped to one line; drop a reading rather than cut a word */
-  .cond-in span:nth-child(3){display:none}
   .hero-cta .btn,.about-cta .btn{flex:1 1 100%}
   .card-head .btn{width:100%}
   .card-head-cta{width:100%}

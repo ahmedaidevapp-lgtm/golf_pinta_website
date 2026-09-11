@@ -14,14 +14,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=19">
+<link rel="stylesheet" href="assets/styles.css?v=20">
 </head>
 <body>
 
 <div class="cond">
   <div class="cond-in">
-    <span>Bouskoura <i>24°</i></span>
-    <span>Greens <i>rapides</i></span>
+    <span data-wx="temp" hidden>Bouskoura <i></i></span>
+    <span data-wx="wind" hidden>Vent <i></i></span>
     <span class="sp">Départs <i>07:00 — 18:30</i></span>
   </div>
 </div>
@@ -71,7 +71,7 @@
 <footer>
   <div class="wrap">
     <div class="f-bot" style="border-top:none;padding-top:0">
-      <span>© <span id="yr">2026</span> Golf with Pinta</span>
+      <span>© <span id="yr">2026</span> Golf with Pinta · Météo <a href="https://www.met.no/en" target="_blank" rel="noopener">MET Norway</a>, <a href="https://creativecommons.org/licenses/by/4.0/deed.fr" target="_blank" rel="noopener">CC BY 4.0</a></span>
       <div class="lg">
         <a href="mentions-legales">Mentions légales</a>
         <a href="confidentialite">Confidentialité</a>
@@ -81,6 +81,6 @@
   </div>
 </footer>
 
-<script src="assets/main.js?v=9"></script>
+<script src="assets/main.js?v=10"></script>
 </body>
 </html>

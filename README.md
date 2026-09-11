@@ -87,9 +87,14 @@ The design was a static mockup. These were added to make it a working site:
    in and have the text reviewed.
 4. **Domain** — `golfwithpinta.ma` is assumed in the canonical URL,
    `sitemap.xml` and `robots.txt`. Change it if the domain differs.
-5. **Conditions strip** — the weather/greens values at the top of the page are
-   hard-coded in `index.html`. Either keep them as static brand copy or wire
-   them to a weather API.
+5. **Conditions strip** — the temperature and wind at the top of every page
+   are live, read from [MET Norway](https://api.met.no/)'s free forecast API
+   (commercial use allowed, CC BY 4.0 — hence the credit in the footer). The
+   reading is cached in the visitor's browser until the API's `Expires` time,
+   and the two cells stay hidden if no reading can be fetched. Their terms
+   allow direct browser calls for low-traffic sites only; if traffic grows
+   large, put a caching proxy in front (see `WX_URL` in `assets/main.js`).
+   Tee times (07:00 — 18:30) are static.
 6. **Tee sheet** — one event (portes ouvertes, 14 sept.) is hard-coded in the
    `#departs` section. Update or remove it as the season fills in.
 7. **Testimonials** — the three reviews carry real names and dates from the

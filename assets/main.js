@@ -26,6 +26,62 @@
   window.addEventListener('resize', measureCond);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureCond);
 
+  /* ── live weather in the conditions strip ──────────────────
+     Temperature and wind at Bouskoura come from MET Norway's locationforecast
+     API: free, commercial use allowed under CC BY 4.0 (the credit sits in the
+     footer). Their terms let a low-traffic site call it straight from the
+     browser, with two conditions: a plain GET only (no custom headers, so no
+     If-Modified-Since), and each answer reused until its Expires time. The
+     reading is therefore kept in localStorage and shared across pages.
+     Until a reading arrives — or if none can be had — the two cells stay
+     hidden rather than show a made-up number. */
+  var WX_URL = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=33.467&lon=-7.593';
+  var WX_KEY = 'gwp-wx';
+  var wxCells = document.querySelectorAll('.cond [data-wx]');
+
+  function showWx(r) {
+    var dirs = t(['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'], ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']);
+    var text = {
+      temp: Math.round(r.temp) + '°',
+      // MET gives m/s and the direction the wind blows from, as the strip reads it
+      wind: Math.round(r.wind * 3.6) + ' km/h' + (typeof r.dir === 'number' ? ' ' + dirs[Math.round(r.dir / 45) % 8] : '')
+    };
+    wxCells.forEach(function (cell) {
+      cell.querySelector('i').textContent = text[cell.dataset.wx];
+      cell.hidden = false;
+    });
+    measureCond();
+  }
+
+  // the series starts at the top of the current hour; take the last step
+  // that has already begun
+  function wxNow(series) {
+    var now = Date.now(), step = series[0];
+    for (var i = 1; i < series.length && Date.parse(series[i].time) <= now; i++) step = series[i];
+    return step.data.instant.details;
+  }
+
+  if (wxCells.length) {
+    var wxSaved = null;
+    try { wxSaved = JSON.parse(localStorage.getItem(WX_KEY)); } catch (e) { /* storage blocked */ }
+
+    if (wxSaved && wxSaved.exp > Date.now()) {
+      showWx(wxSaved);
+    } else if (window.fetch) {
+      fetch(WX_URL).then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        var exp = Date.parse(res.headers.get('Expires')) || Date.now() + 30 * 60 * 1000;
+        return res.json().then(function (data) {
+          var d = wxNow(data.properties.timeseries);
+          var r = { temp: d.air_temperature, wind: d.wind_speed, dir: d.wind_from_direction, exp: exp };
+          if (typeof r.temp !== 'number' || typeof r.wind !== 'number') throw new Error('no reading');
+          try { localStorage.setItem(WX_KEY, JSON.stringify(r)); } catch (e) { /* storage blocked */ }
+          showWx(r);
+        });
+      }).catch(function () { /* no reading: the cells stay hidden */ });
+    }
+  }
+
   /* ── hero video: wide screens only ─────────────────────────
      The clip is ~18 MB. On a phone that is a costly download for a
      background loop, so the source is attached only when the viewport is
