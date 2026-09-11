@@ -80,6 +80,15 @@
     });
   }
 
+  /* ── « Accueil » : remonte en haut sans laisser #top dans l'adresse ── */
+  document.querySelectorAll('a[href="#top"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo(0, 0); // défilement doux via le scroll-behavior du CSS
+      history.replaceState(null, '', location.pathname + location.search);
+    });
+  });
+
   /* ── groupe repliable du volet mobile ──────────────────────
      Le bouton « Académie » ouvre et ferme la liste des villes. L'état de
      départ est posé dans le HTML (classe .open sur les pages de l'académie),
