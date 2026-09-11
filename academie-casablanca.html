@@ -3,16 +3,20 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Académie Casablanca — Golf with Pinta · Tony Jacklin, Bouskoura</title>
-<meta name="description" content="L'académie de golf Golf with Pinta à Casablanca (Tony Jacklin, Bouskoura) : quatre niveaux juniors de la Découverte à l'Élite, offre adulte en pack de 8 séances, et le planning des cours 2026-2027." />
+<title>Cours de golf à Casablanca — Académie Golf with Pinta · Bouskoura</title>
+<meta name="description" content="Apprendre le golf à Casablanca : école de golf juniors dès 6 ans sur quatre niveaux, cours adultes débutants en petit groupe (8 séances, 1500 DH) et cours individuels au Tony Jacklin, Bouskoura." />
 <meta name="theme-color" content="#0F2419" />
 <link rel="canonical" href="https://golfwithpinta.ma/academie-casablanca" />
+<link rel="alternate" hreflang="fr" href="https://golfwithpinta.ma/academie-casablanca" />
+<link rel="alternate" hreflang="en" href="https://golfwithpinta.ma/en/golf-academy-casablanca" />
+<link rel="alternate" hreflang="x-default" href="https://golfwithpinta.ma/academie-casablanca" />
 
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="fr_MA" />
+<meta property="og:locale:alternate" content="en_GB" />
 <meta property="og:site_name" content="Golf with Pinta" />
-<meta property="og:title" content="Académie Casablanca — Golf with Pinta" />
-<meta property="og:description" content="Quatre niveaux juniors, une offre adulte en groupe et le planning 2026-2027, au Tony Jacklin Casablanca." />
+<meta property="og:title" content="Cours de golf à Casablanca — Golf with Pinta" />
+<meta property="og:description" content="École de golf juniors, cours adultes débutants et cours individuels au Tony Jacklin Casablanca, Bouskoura." />
 <meta name="twitter:card" content="summary_large_image" />
 
 <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48" />
@@ -23,7 +27,83 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=18">
+<link rel="stylesheet" href="assets/styles.css?v=19">
+
+<!-- Données structurées. La fiche de l'académie est la même que sur
+     index.html (même @id) : modifier l'une = modifier l'autre. Les réponses
+     de la FAQ reprennent mot pour mot celles de la section #faq plus bas. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SportsActivityLocation",
+      "@id": "https://golfwithpinta.ma/academie-casablanca#academie",
+      "name": "Golf with Pinta",
+      "description": "Académie de golf de Casablanca : école de golf juniors dès 6 ans, cours adultes débutants et cours individuels au Tony Jacklin Casablanca.",
+      "url": "https://golfwithpinta.ma/academie-casablanca",
+      "image": "https://golfwithpinta.ma/assets/images/home-section1.jpg",
+      "telephone": "+212665602209",
+      "email": "golfwithpinta@gmail.com",
+      "priceRange": "150 – 7 600 MAD",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "The Tony Jacklin Casablanca, Prestigia Golf City",
+        "postalCode": "27182",
+        "addressLocality": "Bouskoura",
+        "addressRegion": "Casablanca-Settat",
+        "addressCountry": "MA"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 33.46706, "longitude": -7.59322 },
+      "openingHours": "Mo-Su 07:00-18:30",
+      "containedInPlace": { "@type": "GolfCourse", "name": "The Tony Jacklin Casablanca", "url": "https://prestigia-morocco.com/en/golf/the-tony-jacklin-casablanca/" },
+      "parentOrganization": { "@type": "Organization", "@id": "https://golfwithpinta.ma/#organization", "name": "Golf with Pinta", "url": "https://golfwithpinta.ma/" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://golfwithpinta.ma/academie-casablanca#faq",
+      "inLanguage": "fr",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Combien coûte un cours de golf à Casablanca ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Un cours individuel de 55 minutes coûte 300 MAD avec un coach de l'équipe et 400 MAD avec Mustapha Pinta ; la séance de 25 minutes démarre à 200 MAD. À plusieurs, le prix se partage : 600 MAD la séance de 55 minutes pour quatre joueurs, soit 150 MAD par personne. Les juniors bénéficient de tarifs réduits, et le pack adulte de huit séances en groupe revient à 1500 DH." }
+        },
+        {
+          "@type": "Question",
+          "name": "À quel âge peut-on commencer le golf ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "L'école de golf accueille les enfants dès 6 ans, avec des clubs et des cibles adaptés à leur taille. Côté adultes, il n'y a pas d'âge pour commencer : le pack du samedi matin est pensé pour débuter ou reprendre le golf." }
+        },
+        {
+          "@type": "Question",
+          "name": "Faut-il déjà savoir jouer pour s'inscrire ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Non, tous les niveaux sont accueillis. Le pack adulte et le niveau Découverte chez les juniors sont conçus pour des débutants complets. Les joueurs confirmés rejoignent les niveaux Performance et Élite, ou prennent des cours individuels pour travailler un point précis." }
+        },
+        {
+          "@type": "Question",
+          "name": "Faut-il son propre matériel pour débuter ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Non. Dans le pack adulte, le matériel de practice est fourni : vous n'avez rien à acheter pour commencer. Pour les autres formules, dites-nous à l'inscription si vous n'avez pas de clubs." }
+        },
+        {
+          "@type": "Question",
+          "name": "Quand ont lieu les cours ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Les adultes jouent le samedi, de 9h à 10h30 ou de 10h30 à 12h. Les juniors ont cours le mercredi et le samedi après-midi, avec des créneaux le samedi et le dimanche matin pour certains niveaux. Les cours individuels se calent selon les disponibilités du coach." }
+        },
+        {
+          "@type": "Question",
+          "name": "Peut-on annuler une séance ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui : une séance annulée plus de 48 heures avant l'heure prévue est remboursée intégralement." }
+        },
+        {
+          "@type": "Question",
+          "name": "Où se trouve l'académie de golf de Casablanca ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Au Tony Jacklin Casablanca — Prestigia Golf, à Bouskoura (27182), au sud de Casablanca. Nos coachs enseignent aussi à Rabat, sur le parcours Montgomerie, et à Marrakech, sur les parcours Tony Jacklin et Montgomerie." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body class="acad-page">
 
@@ -35,6 +115,7 @@
     <span>Vent <i>12 km/h NO</i></span>
     <span>Greens <i>rapides</i></span>
     <span class="sp">Départs <i>07:00 — 18:30</i></span>
+    <a class="lang" href="en/golf-academy-casablanca" hreflang="en" lang="en">English</a>
   </div>
 </div>
 
@@ -99,8 +180,7 @@
   <div class="ah-bg" aria-hidden="true"></div>
   <div class="ah-scrim" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="label on-turf">Académie · Casablanca</div>
-    <h1>L'excellence,<br><em>à portée</em>.</h1>
+    <h1 class="kick"><span class="h1-k">Académie de golf à Casablanca</span>L'excellence,<br><em>à portée</em>.</h1>
     <p class="lede">Au Tony Jacklin Casablanca, l'académie forme les enfants sur quatre niveaux — de la découverte à la compétition — et accueille les adultes en petits groupes le samedi matin.</p>
     <div class="cta">
       <a href="#juniors" class="btn btn-flag">Les quatre niveaux<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -122,7 +202,7 @@
   <div class="wrap">
     <div class="card-head">
       <div>
-        <div class="label">Offre adulte</div>
+        <div class="label">Cours de golf pour adultes</div>
         <h2 style="margin-top:16px">Le samedi matin,<br>en petit groupe.</h2>
         <p class="h-sub">Un cycle complet pour débuter ou reprendre le golf sans se presser : huit séances d'une heure trente, encadrées par un coach de l'académie, avec le même groupe d'une séance à l'autre.</p>
       </div>
@@ -173,7 +253,7 @@
   <div class="wrap">
     <div class="card-head">
       <div>
-        <div class="label">Académie juniors</div>
+        <div class="label">École de golf pour enfants</div>
         <h2 style="margin-top:16px">Quatre niveaux,<br>une progression.</h2>
         <p class="h-sub">De la première prise en main du club à la préparation des compétitions. Chaque enfant avance à son rythme et change de niveau quand son jeu — et ses drapeaux — le disent.</p>
       </div>
@@ -356,6 +436,71 @@
   </div>
 </section>
 
+<!-- ══════ DÉBUTER + FAQ ══════
+     Le texte que les moteurs de recherche lisent pour « apprendre le golf à
+     Casablanca » ou « cours de golf Casablanca ». Tous les chiffres viennent
+     des blocs ci-dessus et de tarifs.html : un tarif qui change doit changer
+     ici aussi, et dans le JSON-LD FAQPage de l'en-tête. -->
+<section class="guide pad" id="debuter">
+  <div class="wrap">
+    <div class="guide-in">
+      <div class="guide-head">
+        <div class="label">Débuter le golf à Casablanca</div>
+        <h2>Apprendre le golf<br>à Casablanca.</h2>
+        <p class="h-sub">Que vous n'ayez jamais tenu un club ou que vous repreniez après des années, l'académie Golf with Pinta vous accueille au Tony Jacklin Casablanca, à Bouskoura, avec une formule adaptée à votre âge et à votre niveau.</p>
+      </div>
+      <div class="guide-body">
+        <h3>Cours de golf pour adultes débutants</h3>
+        <p>Le plus simple pour commencer est le pack adulte&nbsp;: huit séances d'une heure trente le samedi matin, en groupe de quatre à six personnes, pour 1500&nbsp;DH. Le matériel de practice est fourni, vous n'avez rien à acheter pour débuter. Si vous préférez avancer seul avec un coach, les cours individuels démarrent à 200&nbsp;MAD la séance de 25&nbsp;minutes, à l'unité ou en pack de 10&nbsp;— <a href="tarifs">voir tous les tarifs</a>.</p>
+
+        <h3>École de golf pour enfants, dès 6 ans</h3>
+        <p>Les juniors suivent un cursus annuel sur quatre niveaux&nbsp;— Découverte, Maîtrise, Performance et Élite&nbsp;— à raison de deux séances par semaine, en groupes de six à huit enfants. Chaque étape se valide par des drapeaux de couleur, suivis dans le carnet du jeune golfeur. L'année démarre à 4&nbsp;200&nbsp;DH, polos et casquette de l'académie compris.</p>
+
+        <h3>Comment s'inscrire</h3>
+        <p>Écrivez-nous sur <a href="https://wa.me/212665602209" target="_blank" rel="noopener">WhatsApp au +212&nbsp;665&nbsp;602&nbsp;209</a> ou remplissez la <a href="./#contact">fiche d'inscription</a>. Indiquez l'âge du joueur, son expérience et vos disponibilités&nbsp;: nous vous orientons vers la formule et le créneau qui conviennent, dans la limite des places disponibles.</p>
+
+        <h3>Où ont lieu les cours</h3>
+        <p>Au Tony Jacklin Casablanca&nbsp;— Prestigia Golf, à Bouskoura (27182), au sud de Casablanca, en bordure de la forêt de Bouskoura. Le parcours compte 18&nbsp;trous, par&nbsp;72, et les départs sont possibles tous les jours de 7h à 18h30.</p>
+      </div>
+    </div>
+
+    <div class="faq" id="faq">
+      <div class="label">Questions fréquentes</div>
+      <h2>Vos questions,<br>nos réponses.</h2>
+      <div class="faq-list">
+        <details>
+          <summary><h3>Combien coûte un cours de golf à Casablanca&nbsp;?</h3></summary>
+          <p>Un cours individuel de 55&nbsp;minutes coûte 300&nbsp;MAD avec un coach de l'équipe et 400&nbsp;MAD avec Mustapha Pinta&nbsp;; la séance de 25&nbsp;minutes démarre à 200&nbsp;MAD. À plusieurs, le prix se partage&nbsp;: 600&nbsp;MAD la séance de 55&nbsp;minutes pour quatre joueurs, soit 150&nbsp;MAD par personne. Les juniors bénéficient de tarifs réduits, et le pack adulte de huit séances en groupe revient à 1500&nbsp;DH. <a href="tarifs">La grille complète</a>.</p>
+        </details>
+        <details>
+          <summary><h3>À quel âge peut-on commencer le golf&nbsp;?</h3></summary>
+          <p>L'école de golf accueille les enfants dès 6&nbsp;ans, avec des clubs et des cibles adaptés à leur taille. Côté adultes, il n'y a pas d'âge pour commencer&nbsp;: le pack du samedi matin est pensé pour débuter ou reprendre le golf.</p>
+        </details>
+        <details>
+          <summary><h3>Faut-il déjà savoir jouer pour s'inscrire&nbsp;?</h3></summary>
+          <p>Non, tous les niveaux sont accueillis. Le pack adulte et le niveau Découverte chez les juniors sont conçus pour des débutants complets. Les joueurs confirmés rejoignent les niveaux Performance et Élite, ou prennent des cours individuels pour travailler un point précis.</p>
+        </details>
+        <details>
+          <summary><h3>Faut-il son propre matériel pour débuter&nbsp;?</h3></summary>
+          <p>Non. Dans le pack adulte, le matériel de practice est fourni&nbsp;: vous n'avez rien à acheter pour commencer. Pour les autres formules, dites-nous à l'inscription si vous n'avez pas de clubs.</p>
+        </details>
+        <details>
+          <summary><h3>Quand ont lieu les cours&nbsp;?</h3></summary>
+          <p>Les adultes jouent le samedi, de 9h à 10h30 ou de 10h30 à 12h. Les juniors ont cours le mercredi et le samedi après-midi, avec des créneaux le samedi et le dimanche matin pour certains niveaux&nbsp;— voir le <a href="#planning">planning 2026-2027</a>. Les cours individuels se calent selon les disponibilités du coach.</p>
+        </details>
+        <details>
+          <summary><h3>Peut-on annuler une séance&nbsp;?</h3></summary>
+          <p>Oui&nbsp;: une séance annulée plus de 48&nbsp;heures avant l'heure prévue est remboursée intégralement.</p>
+        </details>
+        <details>
+          <summary><h3>Où se trouve l'académie de golf de Casablanca&nbsp;?</h3></summary>
+          <p>Au Tony Jacklin Casablanca&nbsp;— Prestigia Golf, à Bouskoura (27182), au sud de Casablanca. Nos coachs enseignent aussi à <a href="academie-rabat">Rabat</a>, sur le parcours Montgomerie, et à <a href="academie-marrakech">Marrakech</a>, sur les parcours Tony Jacklin et Montgomerie.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══════ RÉSERVER ══════ -->
 <section class="soon pad">
   <div class="wrap">
@@ -440,6 +585,6 @@
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.2 1.26-1.97 1.42-.53.11-1.22.2-3.55-.76-2.98-1.24-4.9-4.27-5.05-4.47-.14-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37h.56c.18 0 .42-.07.66.5.24.58.83 2.02.9 2.17.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.3.15.47.12.64-.07.17-.2.74-.86.94-1.16.2-.3.4-.25.66-.15.27.1 1.7.8 1.99.95.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
 </a>
 
-<script src="assets/main.js?v=8"></script>
+<script src="assets/main.js?v=9"></script>
 </body>
 </html>

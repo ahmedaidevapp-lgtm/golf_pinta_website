@@ -30,6 +30,13 @@ site/
 │                          enquiry form that e-mails the academy
 ├── mentions-legales.html   legal notice   (has TODO fields — see below)
 ├── confidentialite.html    privacy policy (accurate as shipped)
+├── academie-casablanca.html  Casablanca academy + beginner guide and FAQ
+├── academie-rabat.html     Rabat — coming soon
+├── academie-marrakech.html Marrakech — coming soon
+├── en/                     English versions, for searches in English
+│   ├── index.html                   → /en/
+│   ├── golf-academy-casablanca.html → twin of academie-casablanca
+│   └── prices.html                  → twin of tarifs
 ├── robots.txt
 ├── sitemap.xml
 └── assets/
@@ -87,6 +94,31 @@ The design was a static mockup. These were added to make it a working site:
    `#departs` section. Update or remove it as the season fills in.
 7. **Testimonials** — the three reviews carry real names and dates from the
    design. Confirm you have permission to publish them.
+
+## Search (SEO)
+
+- **Titles and h1s lead with the search words** ("Cours de golf à
+  Casablanca", "Académie de golf au Maroc"). The small eyebrow above each hero
+  title is part of the `<h1>` (`<span class="h1-k">`), so the slogan keeps its
+  look while the heading Google reads carries the keywords.
+- **English pages** live in `en/` and cover the home page, the Casablanca
+  academy and the prices. Each French page and its English twin point at
+  each other with `hreflang` links in `<head>`, and with the "English" /
+  "Français" link in the top strip. Pages without a twin (coachs, groupes,
+  Rabat, Marrakech) link to `/en/`. `main.js` reads `<html lang>` to show its
+  own messages in English; what it e-mails to the academy stays in French.
+- **Keep facts in sync.** Prices, times and the address appear in several
+  places: the visible page, its English twin, the JSON-LD in `<head>`
+  (including the `FAQPage` answers on the Casablanca pages) and the
+  Casablanca guide/FAQ text. Change a price → search for it across all of
+  them.
+- **GPS coordinates** of the Tony Jacklin Casablanca in the JSON-LD come
+  from golf course directories. Check them against Google Maps and the
+  Google Business Profile.
+- **sitemap.xml** — bump a page's `<lastmod>` when its content changes, and
+  add any new page. The legal pages are left out of search with
+  `<meta name="robots" content="noindex">`, not with `robots.txt` (a blocked
+  page is never fetched, so Google would never see the tag).
 
 ## The forms (index.html fiche, groupes.html enquiry)
 

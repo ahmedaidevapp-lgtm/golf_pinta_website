@@ -4,6 +4,11 @@
 (function () {
   'use strict';
 
+  /* The /en/ pages share this script. Visitor-facing text picks its language
+     from <html lang>; what is e-mailed to the academy stays in French. */
+  var EN = document.documentElement.lang === 'en';
+  function t(fr, en) { return EN ? en : fr; }
+
   function stampYear() {
     var yr = document.getElementById('yr');
     if (yr) yr.textContent = new Date().getFullYear();
@@ -58,7 +63,7 @@
   function setDrawer(open) {
     drawer.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    burger.setAttribute('aria-label', open ? t('Fermer le menu', 'Close menu') : t('Ouvrir le menu', 'Open menu'));
     document.body.classList.toggle('locked', open);
   }
   if (burger && drawer) {
@@ -199,7 +204,7 @@
         b.type = 'button';
         b.className = 'lvl-dot';
         b.setAttribute('role', 'tab');
-        b.setAttribute('aria-label', 'Niveau ' + (i + 1) + ' sur ' + cards.length + ' — ' + lvlLabel(card));
+        b.setAttribute('aria-label', t('Niveau ', 'Level ') + (i + 1) + t(' sur ', ' of ') + cards.length + ' — ' + lvlLabel(card));
         b.addEventListener('click', function () {
           lvlRail.scrollTo({ left: card.offsetLeft - lvlRail.offsetLeft, behavior: 'smooth' });
         });
@@ -370,7 +375,7 @@
     var prows = document.querySelectorAll('.prow[data-p]');
 
     function fmt(n) {
-      return Math.round(n).toLocaleString('fr-FR');
+      return Math.round(n).toLocaleString(t('fr-FR', 'en-GB'));
     }
     // an exact split is stated as such; a rounded one is flagged
     function split(total, parts) {
@@ -389,19 +394,19 @@
         row.querySelector('.amt').textContent = fmt(price);
 
         var bits = [];
-        if (pack) bits.push(fmt(price / 10) + ' MAD la séance');
+        if (pack) bits.push(fmt(price / 10) + t(' MAD la séance', ' MAD per lesson'));
         if (group > 1) {
           // in a pack the per-séance figure is already stated, so the split
           // that follows it needs no second unit
-          bits.push(split(pack ? price / 10 : price, group) + (pack ? ' / joueur' : ' MAD / joueur'));
+          bits.push(split(pack ? price / 10 : price, group) + (pack ? t(' / joueur', ' / player') : t(' MAD / joueur', ' MAD / player')));
         }
         row.querySelector('.per').textContent = bits.join(' · ');
       });
 
       if (pnote) {
         pnote.textContent = pack
-          ? 'Prix du pack de 10 séances, en dirhams (MAD).'
-          : 'Prix d\'une séance, en dirhams (MAD).';
+          ? t('Prix du pack de 10 séances, en dirhams (MAD).', 'Price of the 10-lesson pack, in Moroccan dirhams (MAD).')
+          : t('Prix d\'une séance, en dirhams (MAD).', 'Price of one lesson, in Moroccan dirhams (MAD).');
       }
     }
 
@@ -693,7 +698,8 @@
       + '?subject=' + encodeURIComponent('Fiche d\'inscription — ' + val('f-nom'))
       + '&body=' + encodeURIComponent(body);
     window.location.href = href;
-    okTx.textContent = 'Fiche prête dans votre logiciel de messagerie — terminez l\'envoi, ou écrivez-nous au +212 665 602 209.';
+    okTx.textContent = t('Fiche prête dans votre logiciel de messagerie — terminez l\'envoi, ou écrivez-nous au +212 665 602 209.',
+      'Your form is ready in your e-mail app — send it from there, or message us on +212 665 602 209.');
     ok.classList.add('show');
   }
 
@@ -709,7 +715,7 @@
 
     var label = send.innerHTML;
     send.disabled = true;
-    send.textContent = 'Envoi…';
+    send.textContent = t('Envoi…', 'Sending…');
 
     var payload = {
       _subject: 'Fiche d\'inscription — ' + val('f-nom'),
@@ -743,7 +749,7 @@
       if (String(data && data.success) !== 'true') throw new Error(data && data.message || 'refusé');
       done();
       form.reset();
-      okTx.textContent = 'Fiche envoyée — nous vous répondons rapidement.';
+      okTx.textContent = t('Fiche envoyée — nous vous répondons rapidement.', 'Form sent — we will get back to you shortly.');
       ok.classList.add('show');
     }).catch(function () {
       done();

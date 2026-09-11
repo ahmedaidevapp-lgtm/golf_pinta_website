@@ -1171,3 +1171,54 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .adult-price,.adult-facts{padding-left:22px;padding-right:22px}
   .acad-hero .plates{margin-top:38px}
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Search — keyword eyebrow inside the h1, language switch,
+   beginner guide and FAQ (academie-casablanca)
+   ═══════════════════════════════════════════════════════════ */
+
+/* The eyebrow that used to sit above each hero title as a .label now lives
+   inside the h1, so the heading Google reads carries the search words
+   ("Académie de golf à Casablanca") while the slogan keeps its place. It is
+   drawn exactly like .label.on-turf; the h1 loses its top margin because the
+   eyebrow now provides the gap. */
+h1 .h1-k{display:block;margin:0 0 24px;font-family:var(--ui);font-size:10.5px;font-weight:600;
+  line-height:1.7;letter-spacing:.3em;text-transform:uppercase;font-style:normal;color:var(--on-turf-3)}
+.hero h1.kick,.acad-hero h1.kick,.coaches-hero h1.kick,.tarifs-hero h1.kick,.grp-hero h1.kick{margin-top:0}
+
+/* language switch — rides in the conditions strip so the full nav keeps its
+   width, and stays visible above the open mobile drawer */
+.cond .lang{margin-left:30px;padding:4px 0;color:var(--sand-3);text-decoration:underline;text-underline-offset:3px}
+.cond .lang:hover{color:var(--on-turf)}
+@media (max-width:760px){.cond .lang{margin-left:auto}}
+
+.guide{background:var(--sand)}
+.guide-in{display:grid;grid-template-columns:.8fr 1.2fr;gap:0}
+.guide-head{padding-right:52px}
+/* the column is narrow: at the full h2 size "Apprendre le golf" breaks after "le" */
+.guide-head h2{margin-top:16px;font-size:clamp(30px,3.3vw,44px)}
+.guide-body{border-left:1px solid var(--rule);padding-left:52px}
+.guide-body h3{font-size:24px;line-height:1.2;margin:36px 0 0}
+.guide-body h3:first-child{margin-top:0}
+.guide-body p{font-size:15.5px;line-height:1.72;color:var(--ink-2);margin:12px 0 0;max-width:62ch}
+.guide a,.faq a{color:var(--flag);text-decoration:underline;text-underline-offset:3px}
+.faq{margin-top:104px}
+.faq h2{margin-top:16px}
+.faq-list{margin-top:40px;border-top:1px solid var(--rule)}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary h3{font-size:clamp(19px,1.9vw,23px);line-height:1.3;color:var(--ink);transition:color .18s}
+.faq summary:hover h3{color:var(--flag)}
+.faq summary::after{content:'+';flex-shrink:0;font-family:var(--num);font-size:22px;line-height:1;color:var(--flag);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{font-size:15px;line-height:1.72;color:var(--ink-2);margin:0 0 24px;max-width:70ch}
+@media (max-width:960px){
+  .guide-in{grid-template-columns:1fr}
+  .guide-head{padding-right:0;margin-bottom:36px}
+  .guide-body{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:36px}
+}
+@media (max-width:760px){
+  .faq{margin-top:68px}
+  .faq summary{padding:18px 0}
+}

@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /mentions-legales.html
-Disallow: /confidentialite.html
+
+# The legal pages are kept out of search by <meta name="robots" content="noindex">.
+# They are deliberately not blocked here: a blocked page is never fetched, so
+# Google would never see that tag.
 
 Sitemap: https://golfwithpinta.ma/sitemap.xml

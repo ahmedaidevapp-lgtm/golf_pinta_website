@@ -3,16 +3,20 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Golf with Pinta — Académies de golf · Casablanca, Rabat, Marrakech</title>
-<meta name="description" content="Golf with Pinta — cours individuels, collectifs et stages de golf sur quatre parcours signature à Casablanca, Rabat et Marrakech. Coachs certifiés, adultes et enfants, tous niveaux." />
+<title>Académie de golf au Maroc · Cours de golf à Casablanca | Golf with Pinta</title>
+<meta name="description" content="Apprendre le golf au Maroc avec Golf with Pinta : cours de golf à Casablanca (Tony Jacklin, Bouskoura), Rabat et Marrakech. Coachs certifiés, adultes et enfants dès 6 ans, tous niveaux." />
 <meta name="theme-color" content="#0F2419" />
 <link rel="canonical" href="https://golfwithpinta.ma/" />
+<link rel="alternate" hreflang="fr" href="https://golfwithpinta.ma/" />
+<link rel="alternate" hreflang="en" href="https://golfwithpinta.ma/en/" />
+<link rel="alternate" hreflang="x-default" href="https://golfwithpinta.ma/" />
 
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="fr_MA" />
+<meta property="og:locale:alternate" content="en_GB" />
 <meta property="og:site_name" content="Golf with Pinta" />
-<meta property="og:title" content="Golf with Pinta — Académies de golf · Maroc" />
-<meta property="og:description" content="Cours individuels, collectifs et stages dans quatre parcours signature à Casablanca, Rabat et Marrakech." />
+<meta property="og:title" content="Académie de golf au Maroc — Golf with Pinta" />
+<meta property="og:description" content="Cours de golf à Casablanca, Rabat et Marrakech : adultes et enfants, tous niveaux, avec des coachs certifiés." />
 <meta name="twitter:card" content="summary_large_image" />
 
 <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48" />
@@ -23,29 +27,63 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=18">
+<link rel="stylesheet" href="assets/styles.css?v=19">
 
+<!-- Données structurées. La fiche Casablanca (@id …/academie-casablanca#academie)
+     est reprise à l'identique sur academie-casablanca.html : modifier l'une =
+     modifier l'autre. Coordonnées GPS du Tony Jacklin Casablanca d'après les
+     annuaires de golf — à vérifier sur Google Maps. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SportsActivityLocation",
-  "name": "Golf with Pinta",
-  "description": "Académie de golf au Maroc : cours individuels, collectifs et stages sur quatre parcours signature.",
-  "telephone": "+212665602209",
-  "email": "golfwithpinta@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Tony Jacklin Casablanca, Bouskoura",
-    "postalCode": "27182",
-    "addressLocality": "Casablanca",
-    "addressCountry": "MA"
-  },
-  "areaServed": ["Casablanca", "Rabat", "Marrakech"],
-  "openingHours": "Mo-Su 07:00-18:30",
-  "sameAs": [
-    "https://www.instagram.com/golfwithpinta",
-    "https://www.facebook.com/share/1McN5GADyq/?mibextid=wwXIfr",
-    "https://www.youtube.com/channel/UCy7ONifkKb8_cWLWgjub7Mg/featured"
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://golfwithpinta.ma/#organization",
+      "name": "Golf with Pinta",
+      "url": "https://golfwithpinta.ma/",
+      "logo": "https://golfwithpinta.ma/assets/icon-512.png",
+      "description": "Académie de golf au Maroc : cours individuels, collectifs et stages à Casablanca, Rabat et Marrakech.",
+      "telephone": "+212665602209",
+      "email": "golfwithpinta@gmail.com",
+      "areaServed": ["Casablanca", "Rabat", "Marrakech"],
+      "sameAs": [
+        "https://www.instagram.com/golfwithpinta",
+        "https://www.facebook.com/share/1McN5GADyq/?mibextid=wwXIfr",
+        "https://www.youtube.com/channel/UCy7ONifkKb8_cWLWgjub7Mg/featured"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://golfwithpinta.ma/#website",
+      "url": "https://golfwithpinta.ma/",
+      "name": "Golf with Pinta",
+      "inLanguage": ["fr", "en"],
+      "publisher": { "@id": "https://golfwithpinta.ma/#organization" }
+    },
+    {
+      "@type": "SportsActivityLocation",
+      "@id": "https://golfwithpinta.ma/academie-casablanca#academie",
+      "name": "Golf with Pinta",
+      "description": "Académie de golf de Casablanca : école de golf juniors dès 6 ans, cours adultes débutants et cours individuels au Tony Jacklin Casablanca.",
+      "url": "https://golfwithpinta.ma/academie-casablanca",
+      "image": "https://golfwithpinta.ma/assets/images/home-section1.jpg",
+      "telephone": "+212665602209",
+      "email": "golfwithpinta@gmail.com",
+      "priceRange": "150 – 7 600 MAD",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "The Tony Jacklin Casablanca, Prestigia Golf City",
+        "postalCode": "27182",
+        "addressLocality": "Bouskoura",
+        "addressRegion": "Casablanca-Settat",
+        "addressCountry": "MA"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 33.46706, "longitude": -7.59322 },
+      "openingHours": "Mo-Su 07:00-18:30",
+      "containedInPlace": { "@type": "GolfCourse", "name": "The Tony Jacklin Casablanca", "url": "https://prestigia-morocco.com/en/golf/the-tony-jacklin-casablanca/" },
+      "parentOrganization": { "@id": "https://golfwithpinta.ma/#organization" }
+    }
   ]
 }
 </script>
@@ -61,6 +99,7 @@
     <span>Vent <i>12 km/h NO</i></span>
     <span>Greens <i>rapides</i></span>
     <span class="sp">Départs <i>07:00 — 18:30</i></span>
+    <a class="lang" href="en/" hreflang="en" lang="en">English</a>
   </div>
 </div>
 
@@ -131,8 +170,7 @@
   </div>
   <div class="hero-in">
     <div class="hero-copy">
-      <div class="label">Golf with Pinta · Maroc</div>
-      <h1>Le jeu s'apprend<br>sur le <em>green</em>.</h1>
+      <h1 class="kick"><span class="h1-k">Académie de golf au Maroc · Casablanca, Rabat, Marrakech</span>Le jeu s'apprend<br>sur le <em>green</em>.</h1>
       <p class="lede">Cours individuels, collectifs et stages dans quatre parcours signature à Casablanca, Rabat et Marrakech. Encadrement professionnel, tous niveaux, adultes et enfants.</p>
       <div class="hero-cta">
         <a href="coachs" class="btn btn-flag">Voir les coachs<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -553,6 +591,6 @@
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.2 1.26-1.97 1.42-.53.11-1.22.2-3.55-.76-2.98-1.24-4.9-4.27-5.05-4.47-.14-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37h.56c.18 0 .42-.07.66.5.24.58.83 2.02.9 2.17.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.3.15.47.12.64-.07.17-.2.74-.86.94-1.16.2-.3.4-.25.66-.15.27.1 1.7.8 1.99.95.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
 </a>
 
-<script src="assets/main.js?v=8"></script>
+<script src="assets/main.js?v=9"></script>
 </body>
 </html>
