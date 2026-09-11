@@ -9,14 +9,15 @@ No build step, no dependencies. Plain HTML, CSS and one JS file.
 ## Run locally
 
 ```sh
-cd site
-python3 -m http.server 5173
+npx serve -l 5173
 ```
 
 Then open <http://localhost:5173>.
 
-Opening `index.html` directly by double-click also works, but serving it is
-closer to production (correct relative paths, working `robots.txt`).
+Internal links have no `.html` extension (`tarifs`, not `tarifs.html`), and
+the logo links to `./`. GitHub Pages resolves both, and so does `serve`.
+`python3 -m http.server` and double-clicking `index.html` do not — pages
+open, but links between them break.
 
 ## Files
 
@@ -77,7 +78,7 @@ The design was a static mockup. These were added to make it a working site:
 3. **Legal notice** — `mentions-legales.html` has `…` placeholders for the
    company registration details (RC, ICE, legal form) and the host. Fill them
    in and have the text reviewed.
-4. **Domain** — `golfwithpinta.com` is assumed in the canonical URL,
+4. **Domain** — `golfwithpinta.ma` is assumed in the canonical URL,
    `sitemap.xml` and `robots.txt`. Change it if the domain differs.
 5. **Conditions strip** — the weather/greens values at the top of the page are
    hard-coded in `index.html`. Either keep them as static brand copy or wire

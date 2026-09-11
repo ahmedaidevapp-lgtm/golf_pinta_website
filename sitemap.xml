@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://golfwithpinta.com/</loc>
+    <loc>https://golfwithpinta.ma/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://golfwithpinta.com/coachs.html</loc>
+    <loc>https://golfwithpinta.ma/coachs</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://golfwithpinta.com/tarifs.html</loc>
+    <loc>https://golfwithpinta.ma/tarifs</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://golfwithpinta.com/groupes.html</loc>
+    <loc>https://golfwithpinta.ma/groupes</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://golfwithpinta.com/academie-casablanca.html</loc>
+    <loc>https://golfwithpinta.ma/academie-casablanca</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://golfwithpinta.com/academie-rabat.html</loc>
+    <loc>https://golfwithpinta.ma/academie-rabat</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://golfwithpinta.com/academie-marrakech.html</loc>
+    <loc>https://golfwithpinta.ma/academie-marrakech</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
