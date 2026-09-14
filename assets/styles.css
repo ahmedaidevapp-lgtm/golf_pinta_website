@@ -362,7 +362,10 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .about-vis{padding-right:0;margin-bottom:44px}
   .about-txt,.c-side{border-left:none;padding-left:0}
   .c-form{padding-right:0;margin-bottom:52px}
-  .c-side{border-top:1px solid var(--rule);padding-top:44px}
+  /* la bordure de section et le filet du premier contact se doublaient
+     une fois la colonne passée sous le formulaire : on n'en garde qu'un */
+  .c-side{border-top:1px solid var(--rule);padding-top:0}
+  .c-side .c-rows .r:first-child{border-top:none}
   .pull .att{border-left:none;border-top:1px solid var(--rule);padding-left:0;padding-top:22px}
   .words-list{grid-template-columns:1fr}
   .wl:first-child{border-right:none;padding-right:0}
@@ -389,6 +392,19 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .tee-date{font-size:11.5px}
   .tee-info h3{font-size:22px}
   .tee-row .btn{width:100%}
+  /* la citation mise en avant lisait comme un autre composant sur mobile :
+     même taille de texte et même ligne d'attribution que les deux avis suivants */
+  .pull{gap:16px;padding-bottom:30px}
+  .pull .big{font-style:normal;font-size:19px;line-height:1.5}
+  .pull .att{display:flex;align-items:baseline;flex-wrap:wrap;
+    border-top:none;padding-top:16px;
+    font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-3)}
+  .pull .att .st{font-size:11px;letter-spacing:2px;margin-right:12px}
+  .pull .att .nm{font:inherit;letter-spacing:inherit;margin-top:0}
+  .pull .att .nm::after{content:" \2014"}
+  .pull .att .dt{font:inherit;letter-spacing:inherit;font-size:11px;margin-top:0}
+  .pull .att .dt::before{content:"\00a0"}
   .notice{flex-direction:column;align-items:flex-start;gap:16px;padding:22px 20px}
   .notice .tx{min-width:0}
   .fld{grid-template-columns:1fr;gap:0}
