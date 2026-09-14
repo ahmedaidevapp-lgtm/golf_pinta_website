@@ -5,4 +5,4 @@ Allow: /
 # They are deliberately not blocked here: a blocked page is never fetched, so
 # Google would never see that tag.
 
-Sitemap: https://golfwithpinta.ma/sitemap.xml
+Sitemap: https://www.golfwithpinta.ma/sitemap.xml

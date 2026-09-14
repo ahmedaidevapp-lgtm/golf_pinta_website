@@ -85,8 +85,11 @@ The design was a static mockup. These were added to make it a working site:
 3. **Legal notice** — `mentions-legales.html` has `…` placeholders for the
    company registration details (RC, ICE, legal form) and the host. Fill them
    in and have the text reviewed.
-4. **Domain** — `golfwithpinta.ma` is assumed in the canonical URL,
-   `sitemap.xml` and `robots.txt`. Change it if the domain differs.
+4. **Domain** — `www.golfwithpinta.ma` is the canonical host, set by `CNAME`
+   and repeated in every canonical URL, `hreflang`, `sitemap.xml`, `robots.txt`
+   and JSON-LD `@id`. The apex redirects to it. The two must agree: if `CNAME`
+   moves, every one of those URLs moves with it, or each page ends up naming a
+   canonical that redirects somewhere else.
 5. **Conditions strip** — the temperature and wind at the top of every page
    are live, read from [MET Norway](https://api.met.no/)'s free forecast API
    (commercial use allowed, CC BY 4.0 — hence the credit in the footer). The
