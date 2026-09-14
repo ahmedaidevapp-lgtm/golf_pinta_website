@@ -767,16 +767,21 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .prow .amt{font-size:19px}
   .pcard-top,.pcard-foot{padding-left:18px;padding-right:18px}
 
-  /* the directory needs a horizontal scroll below this width;
-     one card per coach keeps the phone number a tap away instead */
+  /* the directory needs a horizontal scroll below this width; one card per
+     coach keeps the phone number a tap away instead. Two lines per coach —
+     name, then grade and number side by side: the stacked version spent a
+     third of a screen on each of the nine coaches. The tag and the number
+     say what they are, so the column labels stay hidden with the header. */
   .tr-row.hd{display:none}
-  .tr-row:not(.hd){grid-template-columns:1fr;padding:20px 18px 18px;gap:0}
+  .tr-row:not(.hd){display:flex;flex-wrap:wrap;align-items:center;
+    gap:2px 14px;padding:12px 18px}
   .tr-row:not(.hd)>*{padding:0}
-  .tr-row:not(.hd)>*+*{margin-top:14px}
-  .tr-row [data-k]:not(.nm)::before{content:attr(data-k);display:block;margin-bottom:5px;
-    font-family:var(--ui);font-size:9px;font-weight:700;letter-spacing:.2em;
-    text-transform:uppercase;color:var(--ink-3)}
-  .tr-row .lk a{display:inline-flex;align-items:center;min-height:44px}
+  .tr-row:not(.hd) .nm{flex:1 0 100%;font-size:17px}
+  .tr-row [data-k]:not(.nm)::before{display:none}
+  /* the grade sets the second line's height so a coach without a number
+     keeps the same card rhythm as one with a tappable link */
+  .tr-row:not(.hd) [data-k]:not(.nm){display:flex;align-items:center;min-height:40px}
+  .tr-row .lk a{display:inline-flex;align-items:center;min-height:40px}
   .tr-row .lk:empty{display:none}
 }
 @media (max-width:560px){
