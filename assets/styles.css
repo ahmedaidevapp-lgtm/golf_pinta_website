@@ -416,8 +416,14 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .crs-logos{grid-template-columns:repeat(2,1fr);gap:6px 16px;margin-bottom:38px}
 }
 @media (max-width:560px){
-  .crs-logos{grid-template-columns:1fr;gap:2px;padding:10px 0;margin-bottom:32px}
-  .crs-logos img{max-width:230px}
+  /* les quatre marques restent en quadrant : empilées, elles repoussaient la
+     carte de score d'un écran entier, et le max-width de 230px laissait
+     chaque mark au tiers de la largeur disponible. En 2×2 chaque colonne
+     remplit sa part, donc le plafond de largeur saute et le rembourrage
+     latéral se resserre. */
+  .crs-logos{grid-template-columns:repeat(2,1fr);gap:4px 10px;padding:10px 0;margin-bottom:32px}
+  .crs-logo{padding:10px 4px}
+  .crs-logos img{max-width:none}
 }
 
 /* ══ scorecard → stacked cards on phones ══
@@ -431,23 +437,31 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .sc-top{padding:14px 18px;flex-wrap:wrap;gap:6px 16px}
   .sc-top .t{font-size:16px;line-height:1.25}
   .sc-row.hd{display:none}
-  .sc-row:not(.hd){grid-template-columns:1fr 1fr;gap:0 16px;padding:22px 18px 20px;align-items:start}
+  /* les quatre chiffres tiennent sur une seule ligne : en 2 colonnes la carte
+     faisait quatre bandes et ~250px de haut, soit un écran entier pour les
+     quatre parcours. Les colonnes sont pondérées — Ville et Longueur portent
+     du texte, Trous et Par deux chiffres. */
+  .sc-row:not(.hd){grid-template-columns:1.5fr .62fr .62fr 1.15fr;gap:0 10px;
+    padding:15px 18px 14px;align-items:start}
   .sc-row:not(.hd)>*{padding:0}
   .sc-name{grid-column:1/-1;border-left:none}
-  .sc-row:not(.hd) [data-k]{margin-top:16px;text-align:left}
+  .sc-row:not(.hd) [data-k]{margin-top:12px;text-align:left}
   /* one shared value size + line box: the labels above them already match, so
      top-aligned cells put every label and every value on the same baseline */
   .sc-row:not(.hd) .sc-city,
   .sc-row:not(.hd) .sc-fig,
-  .sc-row:not(.hd) .sc-len{font-size:17px;line-height:1.3}
+  .sc-row:not(.hd) .sc-len{font-size:15.5px;line-height:1.3}
   .sc-row:not(.hd) [data-k]::before{content:attr(data-k);display:block;margin-bottom:5px;
     font-family:var(--ui);font-size:9px;font-weight:700;letter-spacing:.2em;
     text-transform:uppercase;color:var(--ink-3)}
   .sc-row:not(.hd)>.sc-len,.sc-row.hd>.h-len{display:block}
-  .sc-tees{grid-column:1/-1;display:block}
+  /* départs : pastille et légende sur la même ligne plutôt qu'empilées —
+     l'étiquette seule occupait une bande pour cinq carrés de 9px. */
+  .sc-tees{grid-column:1/-1;display:flex;align-items:center;gap:9px}
+  .sc-tees::before{margin-bottom:0}
   .sc-tees .tee{margin-right:5px}
-  .sc-go{position:absolute;top:20px;right:18px;padding:0}
-  .sc-foot{padding:14px 18px}
+  .sc-go{position:absolute;top:16px;right:18px;padding:0}
+  .sc-foot{padding:12px 18px}
 }
 
 @media (max-width:560px){
@@ -799,14 +813,18 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .offer-top .t{font-family:var(--display);font-size:27px;line-height:1.15;margin-top:10px}
 .offer-top .s{font-size:13px;line-height:1.6;color:var(--on-turf-2);margin-top:9px;max-width:40ch}
 .offer-body{padding:24px 26px 8px;flex:1}
+/* Trois chiffres sur une ligne, centrés, sans filet vertical entre eux.
+   Le sélecteur vise les cellules (> div) et non tous les div : en frappant
+   aussi .v et .k, il leur donnait le padding de la cellule et un filet à
+   droite — d'où le vide et les traits verticaux collés aux chiffres.
+   Les line-height sont explicites : laissés à « normal », Space Mono et
+   Archivo réservent bien plus que leur corps. */
 .offer-facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-top:1px solid var(--rule-2);
-  border-bottom:1px solid var(--rule-2);margin-bottom:22px}
-.offer-facts div{padding:16px 12px 16px 0;border-right:1px solid var(--rule-2)}
-.offer-facts div:last-child{border-right:none}
-.offer-facts div:not(:first-child){padding-left:12px}
-.offer-facts .v{font-family:var(--num);font-size:17px;font-weight:700;color:var(--ink)}
-.offer-facts .k{font-family:var(--ui);font-size:8.5px;font-weight:700;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+  border-bottom:1px solid var(--rule-2);margin-bottom:22px;text-align:center}
+.offer-facts>div{padding:13px 10px}
+.offer-facts .v{font-family:var(--num);font-size:17px;line-height:1.15;font-weight:700;color:var(--ink)}
+.offer-facts .k{font-family:var(--ui);font-size:8.5px;line-height:1.3;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:6px}
 .offer ul{list-style:none;margin:0;padding:0}
 .offer li{position:relative;padding:0 0 0 26px;margin:0 0 13px;font-size:14.5px;line-height:1.6;color:var(--ink-2)}
 .offer li::before{content:"";position:absolute;left:2px;top:8px;width:9px;height:9px;
@@ -928,11 +946,8 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .incl-grid,.step-list{grid-template-columns:1fr}
   .inc,.step,.inc:nth-child(2n),.step:nth-child(2n){padding-left:0;padding-right:0;border-right:none}
   /* les trois chiffres restent côte à côte : empilés, ils étiraient la carte
-     sur trois rangées presque vides — et le retrait de 12px qui sépare les
-     colonnes, plus spécifique que la remise à zéro, décalait la deuxième et
-     la troisième vers la droite. */
-  .offer-facts div{padding:12px 8px 12px 0}
-  .offer-facts div:not(:first-child){padding-left:8px}
+     sur trois rangées presque vides */
+  .offer-facts>div{padding:11px 5px}
   .offer-facts .v{font-size:15px}
   .offer-facts .k{letter-spacing:.1em}
   .grp-hero .plates{margin-top:38px}
@@ -1175,6 +1190,28 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .acad-hero .plates{margin-top:38px}
 }
 
+/* ══ pack adultes : resserrer la carte sur téléphone ══
+   Empilée, la carte occupait près de deux écrans. Le prix garde sa taille de
+   repère, mais les rembourrages dessinés pour deux colonnes hautes n'ont plus
+   de raison d'être une fois le bloc seul dans sa rangée. */
+@media (max-width:700px){
+  .adult-price{padding-top:26px;padding-bottom:26px}
+  .adult-price .v{font-size:40px;margin-top:14px}
+  .adult-price .u{margin-top:11px;max-width:none}
+  /* margin-top:auto collait la signature au bas d'une colonne aussi haute que
+     les faits d'à côté ; empilée, la colonne n'a plus ce voisin et l'auto ne
+     produisait qu'un vide. */
+  .adult-price .sig{margin-top:0;padding-top:18px}
+  .adult-facts{padding-top:22px;padding-bottom:20px}
+  .adult-facts .row{grid-template-columns:34px 1fr;gap:13px;padding:15px 0}
+  .adult-facts .ic{width:34px;height:34px}
+  .adult-facts .ic svg{width:16px;height:16px}
+  .adult-facts .v{font-size:19px;margin-top:5px}
+  /* les créneaux se cassaient entre l'heure de début et celle de fin */
+  .adult-facts .v b{white-space:nowrap}
+  .adult-facts .s{font-size:13.5px;line-height:1.55;margin-top:5px}
+}
+
 /* ═══════════════════════════════════════════════════════════
    Search — keyword eyebrow inside the h1, language switch,
    beginner guide and FAQ (academie-casablanca)
@@ -1188,6 +1225,13 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 h1 .h1-k{display:block;margin:0 0 24px;font-family:var(--ui);font-size:10.5px;font-weight:600;
   line-height:1.7;letter-spacing:.3em;text-transform:uppercase;font-style:normal;color:var(--on-turf-3)}
 .hero h1.kick,.acad-hero h1.kick,.coaches-hero h1.kick,.tarifs-hero h1.kick,.grp-hero h1.kick{margin-top:0}
+/* Laissée libre, la ligne casse au milieu de la liste (« CASABLANCA, RABAT, »
+   puis « MARRAKECH ») — sur téléphone comme sur la colonne étroite du héros en
+   grand écran. Les villes forment donc toujours leur propre ligne, et le point
+   médian qui les séparait disparaît avec elle. L'espace qui le précède reste
+   dans le texte : c'est lui qui sépare les deux groupes de mots pour Google. */
+h1 .h1-k .k-loc{display:block}
+h1 .h1-k .k-sep{display:none}
 
 /* language switch — rides in the conditions strip so the full nav keeps its
    width, and stays visible above the open mobile drawer */
