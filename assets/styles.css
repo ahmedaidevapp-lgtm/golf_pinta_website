@@ -927,9 +927,14 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 @media (max-width:560px){
   .incl-grid,.step-list{grid-template-columns:1fr}
   .inc,.step,.inc:nth-child(2n),.step:nth-child(2n){padding-left:0;padding-right:0;border-right:none}
-  .offer-facts{grid-template-columns:1fr}
-  .offer-facts div{border-right:none;border-bottom:1px solid var(--rule-2);padding-left:0;padding-right:0}
-  .offer-facts div:last-child{border-bottom:none}
+  /* les trois chiffres restent côte à côte : empilés, ils étiraient la carte
+     sur trois rangées presque vides — et le retrait de 12px qui sépare les
+     colonnes, plus spécifique que la remise à zéro, décalait la deuxième et
+     la troisième vers la droite. */
+  .offer-facts div{padding:12px 8px 12px 0}
+  .offer-facts div:not(:first-child){padding-left:8px}
+  .offer-facts .v{font-size:15px}
+  .offer-facts .k{letter-spacing:.1em}
   .grp-hero .plates{margin-top:38px}
 }
 
