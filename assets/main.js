@@ -497,8 +497,30 @@
       }
     }
 
-    pctl.addEventListener('change', paint);
+    /* ── ville ──
+       Chaque .pcard porte data-cities. À Marrakech un seul coach enseigne, et
+       c'est la carte de l'équipe qui le couvre : la carte du head coach sort
+       de la grille et la liste des prénoms se réduit à data-marrakech. */
+    var pcards = document.querySelectorAll('.price-grid .pcard[data-cities]');
+    var pgrid  = document.querySelector('.price-grid');
+    var teamS  = document.getElementById('pc-team-s');
+
+    function paintCity() {
+      var mk = document.getElementById('city-mk');
+      var city = mk && mk.checked ? 'marrakech' : 'casa';
+      var shown = 0;
+      pcards.forEach(function (card) {
+        var ok = (' ' + card.dataset.cities + ' ').indexOf(' ' + city + ' ') > -1;
+        card.hidden = !ok;
+        if (ok) shown++;
+      });
+      if (pgrid) pgrid.classList.toggle('solo', shown < 2);
+      if (teamS && teamS.dataset[city]) teamS.textContent = teamS.dataset[city];
+    }
+
+    pctl.addEventListener('change', function () { paint(); paintCity(); });
     paint();
+    paintCity();
   }
 
   /* ── galerie groupes (groupes.html) ────────────────────────

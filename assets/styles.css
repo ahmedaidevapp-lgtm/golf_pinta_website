@@ -688,6 +688,8 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   color:var(--ink-3);margin:0 0 14px}
 
 .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+/* une seule carte (Marrakech) : elle garde la largeur qu'elle avait à deux */
+.price-grid.solo{grid-template-columns:minmax(0,calc(50% - 13px))}
 .pcard{border:1px solid var(--rule);background:var(--chalk);position:relative}
 .pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
   padding:18px 24px;background:var(--turf);color:var(--on-turf)}
@@ -767,7 +769,7 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .tr-row{grid-template-columns:1.4fr 130px 170px}
 }
 @media (max-width:960px){
-  .price-grid{grid-template-columns:1fr}
+  .price-grid,.price-grid.solo{grid-template-columns:1fr}
   .place-grid{grid-template-columns:1fr 1fr}
   .place{border-bottom:1px solid var(--rule-2)}
   .place:nth-child(2n){border-right:none}
