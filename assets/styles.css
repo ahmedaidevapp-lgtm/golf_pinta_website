@@ -544,6 +544,24 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .coaches-hero .label.on-turf{color:var(--on-turf)}
 
 .coaches{background:var(--sand);padding:88px 0 104px}
+
+/* ── filtre ville ──
+   Une barre au-dessus de la grille : un libellé, quatre pastilles, le compte.
+   Les cartes portent data-cities ; le script se contente de masquer. */
+.coach-filter{display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;
+  margin:0 0 44px;padding-bottom:22px;border-bottom:1px solid var(--rule)}
+.cf-label{font-family:var(--num);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3)}
+.cf-btns{display:flex;flex-wrap:wrap;gap:8px}
+.cf{font-family:var(--ui);font-size:13px;font-weight:500;letter-spacing:.01em;color:var(--ink-2);
+  background:transparent;border:1px solid var(--rule);border-radius:999px;padding:9px 18px;
+  cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+.cf:hover{border-color:var(--turf-3);color:var(--ink)}
+.cf[aria-pressed="true"]{background:var(--turf);border-color:var(--turf);color:var(--on-turf)}
+.cf-count{margin:0 0 0 auto;font-family:var(--num);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3)}
+/* .coach est en display:flex : sans cette règle, [hidden] ne masquerait rien */
+.coach[hidden]{display:none}
 .coach-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 34px}
 
 /* la carte de Mustapha Pinta est un <button> : toute la tuile ouvre la fiche.
@@ -620,6 +638,9 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   /* two portraits still read at this width, and six full-bleed 4:5 cards
      would otherwise make the page a 3000px scroll */
   .coach-grid{gap:26px 16px}
+  .coach-filter{gap:12px;margin-bottom:32px}
+  .cf-count{margin-left:0;width:100%}
+  .cf{font-size:12.5px;padding:8px 15px}
   .coach-id{flex-direction:column;align-items:flex-start;gap:4px}
   .coach-id .n{font-size:19px}
   .coach-id .c{white-space:normal}

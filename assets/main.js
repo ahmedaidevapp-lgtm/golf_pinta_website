@@ -421,6 +421,37 @@
     });
   }
 
+  /* ── filtre ville des coachs (coachs.html) ─────────────────
+     Chaque carte porte data-cities, une ou plusieurs villes séparées par une
+     espace. Un coach s'ajoute ou change de ville dans le markup seul. */
+  var cfBox = document.getElementById('coach-filter');
+  if (cfBox) {
+    var cfBtns  = cfBox.querySelectorAll('.cf');
+    var cfCards = document.querySelectorAll('#coach-grid .coach');
+    var cfCount = document.getElementById('coach-count');
+
+    function applyCity(city) {
+      var shown = 0;
+      cfCards.forEach(function (card) {
+        var cities = ' ' + (card.getAttribute('data-cities') || '') + ' ';
+        var ok = city === 'all' || cities.indexOf(' ' + city + ' ') > -1;
+        card.hidden = !ok;
+        if (ok) shown++;
+      });
+      cfBtns.forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-city') === city));
+      });
+      if (cfCount) {
+        cfCount.textContent = shown + ' ' + (shown > 1 ? t('coachs', 'coaches') : t('coach', 'coach'));
+      }
+    }
+
+    cfBtns.forEach(function (b) {
+      b.addEventListener('click', function () { applyCity(b.getAttribute('data-city')); });
+    });
+    applyCity('all');
+  }
+
   /* ── grille tarifaire (tarifs.html) ────────────────────────
      Each .prow carries its four prices in data-p, in the order
      adulte-unité, adulte-pack, junior-unité, junior-pack. The segments only
