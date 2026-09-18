@@ -491,17 +491,23 @@
       });
 
       if (pnote) {
+        // à Marrakech le pack est un carnet de 10 h valable 3 mois
+        var mkNote = document.getElementById('city-mk');
+        var carnet = mkNote && mkNote.checked;
         pnote.textContent = pack
-          ? t('Prix du pack de 10 séances, en dirhams (MAD).', 'Price of the 10-lesson pack, in Moroccan dirhams (MAD).')
+          ? (carnet
+              ? t('Prix du carnet de 10 h, valable 3 mois, en dirhams (MAD).', 'Price of the 10-hour booklet, valid 3 months, in Moroccan dirhams (MAD).')
+              : t('Prix du pack de 10 séances, en dirhams (MAD).', 'Price of the 10-lesson pack, in Moroccan dirhams (MAD).'))
           : t('Prix d\'une séance, en dirhams (MAD).', 'Price of one lesson, in Moroccan dirhams (MAD).');
       }
     }
 
     /* ── ville ──
-       Chaque .pcard porte data-cities. À Marrakech un seul coach enseigne, et
-       c'est la carte de l'équipe qui le couvre : la carte du head coach sort
-       de la grille et la liste des prénoms se réduit à data-marrakech. */
+       Chaque .pcard porte data-cities, comme la légende sous la grille :
+       Casablanca et Rabat partagent la grille des coachs, Marrakech affiche
+       celle de l'académie Prestigia. Une ville s'ajoute dans le markup seul. */
     var pcards = document.querySelectorAll('.price-grid .pcard[data-cities]');
+    var plegs  = document.querySelectorAll('.price-legend[data-cities]');
     var pgrid  = document.querySelector('.price-grid');
     var teamS  = document.getElementById('pc-team-s');
 
@@ -513,6 +519,9 @@
         var ok = (' ' + card.dataset.cities + ' ').indexOf(' ' + city + ' ') > -1;
         card.hidden = !ok;
         if (ok) shown++;
+      });
+      plegs.forEach(function (leg) {
+        leg.hidden = (' ' + leg.dataset.cities + ' ').indexOf(' ' + city + ' ') < 0;
       });
       if (pgrid) pgrid.classList.toggle('solo', shown < 2);
       if (teamS && teamS.dataset[city]) teamS.textContent = teamS.dataset[city];

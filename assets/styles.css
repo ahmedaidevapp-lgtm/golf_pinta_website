@@ -690,7 +690,9 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
 /* une seule carte (Marrakech) : elle garde la largeur qu'elle avait à deux */
 .price-grid.solo{grid-template-columns:minmax(0,calc(50% - 13px))}
-.pcard{border:1px solid var(--rule);background:var(--chalk);position:relative}
+/* align-self : une carte plus courte que sa voisine s'arrête sur sa
+   dernière ligne au lieu d'être étirée à la hauteur de la rangée */
+.pcard{border:1px solid var(--rule);background:var(--chalk);position:relative;align-self:start}
 .pcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
   padding:18px 24px;background:var(--turf);color:var(--on-turf)}
 .pcard-top .t{font-family:var(--display);font-size:22px;line-height:1.2}
