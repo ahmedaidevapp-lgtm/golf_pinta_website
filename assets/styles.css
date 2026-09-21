@@ -721,6 +721,20 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 .price-legend{font-size:13.5px;line-height:1.7;color:var(--ink-3);margin:26px 0 0;max-width:78ch}
 .price-legend b{color:var(--ink-2)}
 
+/* ── grille groupée par parcours (Marrakech) ──
+   Un parcours = un titre et sa propre grille. Le groupe porte data-cities et
+   le reveal ; les cartes qu'il contient ne sont plus filtrées une à une. */
+.pgroup{grid-column:1/-1}
+.pgroup+.pgroup{margin-top:14px}
+.pgroup-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+  border-top:1px solid var(--rule);padding-top:14px;margin-bottom:20px}
+.pgroup-head h3{font-family:var(--display);font-size:25px;line-height:1.2;margin:0;color:var(--ink)}
+.pgroup-head p{font-family:var(--num);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin:0}
+/* une seule carte dans un groupe : elle garde la demi-largeur des autres */
+.pgroup-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.pgroup-dots{display:none}
+
 /* ── coach → tier ── */
 .team-rates{background:var(--chalk)}
 .tr-tbl{border:1px solid var(--rule);background:var(--sand)}
@@ -771,7 +785,7 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .tr-row{grid-template-columns:1.4fr 130px 170px}
 }
 @media (max-width:960px){
-  .price-grid,.price-grid.solo{grid-template-columns:1fr}
+  .price-grid,.price-grid.solo,.pgroup-grid{grid-template-columns:1fr}
   .place-grid{grid-template-columns:1fr 1fr}
   .place{border-bottom:1px solid var(--rule-2)}
   .place:nth-child(2n){border-right:none}
@@ -787,6 +801,33 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .pctl{gap:22px}
   .pctl-note{width:100%;margin-bottom:0}
   .seg-in label{padding:0 16px;font-size:10.5px;letter-spacing:.14em}
+  /* ── diaporama d'un parcours ──
+     Deux grilles empilées font défiler un écran entier avant d'arriver à la
+     seconde. Sous 760px, un groupe marqué data-rail devient donc un
+     diaporama : une carte par écran, aimantée, qu'on fait glisser du pouce,
+     avec des puces sous le rail (construites par main.js). Un groupe sans
+     data-rail — le Montgomerie, une seule grille — reste empilé. */
+  .pgroup+.pgroup{margin-top:6px}
+  .pgroup-head{margin-bottom:16px}
+  .pgroup-head h3{font-size:22px}
+  .pgroup-grid[data-rail]{display:flex;gap:16px;overflow-x:auto;
+    overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    margin:0 -22px;padding:2px 22px 4px;scroll-padding:0 22px}
+  .pgroup-grid[data-rail]::-webkit-scrollbar{display:none}
+  .pgroup-grid[data-rail] .pcard{flex:0 0 min(86%,340px);scroll-snap-align:start}
+  /* le rail défile à l'horizontale : le reveal ne verrait jamais passer la
+     carte voisine, elle resterait blanche */
+  .pgroup-grid[data-rail] .pcard.rv{opacity:1;transform:none}
+  .pgroup-dots{display:flex;justify-content:center;gap:9px;margin-top:14px}
+  /* puce de 8px, cible tactile de 24px */
+  .pgroup-dots button{width:24px;height:24px;padding:0;border:0;background:transparent;
+    cursor:pointer;position:relative}
+  .pgroup-dots button::before{content:"";position:absolute;inset:8px;border-radius:50%;
+    border:1px solid var(--rule-2);background:var(--sand-2);transition:background .2s,border-color .2s}
+  .pgroup-dots button[aria-current="true"]::before{background:var(--turf);border-color:var(--turf)}
+  .pgroup-dots button:focus-visible{outline:2px solid var(--flag);outline-offset:-4px}
+
   .prow{grid-template-columns:70px 1fr auto;padding:14px 18px;gap:10px}
   .prow .grp{font-size:12.5px}
   .prow .amt{font-size:19px}

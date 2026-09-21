@@ -491,12 +491,13 @@
       });
 
       if (pnote) {
-        // à Marrakech le pack est un carnet de 10 h valable 3 mois
+        // à Marrakech, le pack du Tony Jacklin est un carnet de 10 h valable
+        // 3 mois ; le Montgomerie suit le pack de 10 séances des autres villes
         var mkNote = document.getElementById('city-mk');
         var carnet = mkNote && mkNote.checked;
         pnote.textContent = pack
           ? (carnet
-              ? t('Prix du carnet de 10 h, valable 3 mois, en dirhams (MAD).', 'Price of the 10-hour booklet, valid 3 months, in Moroccan dirhams (MAD).')
+              ? t('Prix du pack de 10 séances — carnet de 10 h valable 3 mois au Tony Jacklin —, en dirhams (MAD).', 'Price of the 10-lesson pack — a 10-hour booklet valid 3 months at The Tony Jacklin —, in Moroccan dirhams (MAD).')
               : t('Prix du pack de 10 séances, en dirhams (MAD).', 'Price of the 10-lesson pack, in Moroccan dirhams (MAD).'))
           : t('Prix d\'une séance, en dirhams (MAD).', 'Price of one lesson, in Moroccan dirhams (MAD).');
       }
@@ -504,9 +505,10 @@
 
     /* ── ville ──
        Chaque .pcard porte data-cities, comme la légende sous la grille :
-       Casablanca et Rabat partagent la grille des coachs, Marrakech affiche
-       celle de l'académie Prestigia. Une ville s'ajoute dans le markup seul. */
-    var pcards = document.querySelectorAll('.price-grid .pcard[data-cities]');
+       Casablanca et Rabat partagent la grille des coachs ; Marrakech affiche
+       un groupe par parcours (.pgroup), qui porte lui-même data-cities. Une
+       ville s'ajoute dans le markup seul. */
+    var pcards = document.querySelectorAll('.price-grid > [data-cities]');
     var plegs  = document.querySelectorAll('.price-legend[data-cities]');
     var pgrid  = document.querySelector('.price-grid');
     var teamS  = document.getElementById('pc-team-s');
@@ -526,6 +528,46 @@
       if (pgrid) pgrid.classList.toggle('solo', shown < 2);
       if (teamS && teamS.dataset[city]) teamS.textContent = teamS.dataset[city];
     }
+
+    /* ── diaporama d'un parcours (mobile) ──
+       Sous 760px, .pgroup-grid[data-rail] défile à l'horizontale, une carte
+       par écran. Les puces disent où l'on en est et y emmènent ; en grille
+       (desktop) le CSS les masque et ce code ne coûte rien. */
+    document.querySelectorAll('.pgroup-grid[data-rail]').forEach(function (rail) {
+      var slides = rail.querySelectorAll('.pcard');
+      if (slides.length < 2) return;
+      var dots = document.createElement('div');
+      dots.className = 'pgroup-dots';
+      dots.setAttribute('role', 'group');
+      dots.setAttribute('aria-label', t('Grilles de ce parcours', 'Rate cards for this course'));
+      slides.forEach(function (slide, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', t('Grille ', 'Rate card ') + (i + 1) + t(' sur ', ' of ') + slides.length);
+        b.addEventListener('click', function () {
+          rail.scrollTo({ left: slide.offsetLeft - slides[0].offsetLeft, behavior: 'smooth' });
+        });
+        dots.appendChild(b);
+      });
+      rail.parentNode.insertBefore(dots, rail.nextSibling);
+
+      var marks = dots.querySelectorAll('button');
+      function markDots() {
+        var x = rail.scrollLeft + slides[0].offsetLeft;
+        var near = 0, best = Infinity;
+        slides.forEach(function (slide, i) {
+          var d = Math.abs(slide.offsetLeft - x);
+          if (d < best) { best = d; near = i; }
+        });
+        marks.forEach(function (m, i) { m.setAttribute('aria-current', String(i === near)); });
+      }
+      var tick;
+      rail.addEventListener('scroll', function () {
+        clearTimeout(tick);
+        tick = setTimeout(markDots, 60);
+      }, { passive: true });
+      markDots();
+    });
 
     pctl.addEventListener('change', function () { paint(); paintCity(); });
     paint();
