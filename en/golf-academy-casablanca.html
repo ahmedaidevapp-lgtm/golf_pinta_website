@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css?v=27">
+<link rel="stylesheet" href="/assets/styles.css?v=33">
 
 <!-- English twin of /academie-casablanca.html. The FAQ answers below repeat
      the visible #faq section word for word; prices must match /tarifs. -->
@@ -67,27 +67,27 @@
         {
           "@type": "Question",
           "name": "How much does a golf lesson cost in Casablanca?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A 55-minute private lesson costs 300 MAD with a team coach and 400 MAD with Mustapha Pinta; 25-minute lessons start at 200 MAD. Groups share the price: a 55-minute lesson for four players is 600 MAD, or 150 MAD each. Juniors pay reduced rates, and the adult pack of eight group sessions is 1,500 MAD." }
+          "acceptedAnswer": { "@type": "Answer", "text": "A 55-minute private lesson costs 300 MAD with a team coach and 400 MAD with Mustapha Pinta; 25-minute lessons start at 200 MAD. Groups share the price: a 55-minute lesson for four players is 600 MAD, or 150 MAD each. Juniors pay reduced rates; for adults, a group lesson is 250 MAD on its own, or 1,500 MAD for a pack of eight." }
         },
         {
           "@type": "Question",
           "name": "What age can you start golf?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The golf school takes children from age 6, with clubs and targets sized for them. For adults there is no age to start: the Saturday-morning pack is designed for people taking up golf or coming back to it." }
+          "acceptedAnswer": { "@type": "Answer", "text": "The golf school takes children from age 6, with clubs and targets sized for them. For adults there is no age to start: the group lessons are designed for people taking up golf or coming back to it." }
         },
         {
           "@type": "Question",
           "name": "Do I need to know how to play before signing up?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No, every level is welcome. The adult pack and the juniors' Discovery level are built for complete beginners. Experienced players join the Performance and Elite levels, or take private lessons to work on something specific." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No, every level is welcome. The adult group lessons and the juniors' Discovery level are built for complete beginners. Experienced players join the Performance and Elite levels, or take private lessons to work on something specific." }
         },
         {
           "@type": "Question",
           "name": "Do I need my own golf clubs to start?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. In the adult pack, practice equipment is provided, so there is nothing to buy to get started. For other lessons, just tell us when you book if you don't have clubs." }
+          "acceptedAnswer": { "@type": "Answer", "text": "No. In the adult group lessons, practice equipment is provided, so there is nothing to buy to get started. For other lessons, just tell us when you book if you don't have clubs." }
         },
         {
           "@type": "Question",
           "name": "When do lessons take place?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Adults play on Saturdays, from 9:00 to 10:30 or from 10:30 to 12:00. Juniors train on Wednesday and Saturday afternoons, with Saturday and Sunday morning slots for some levels. Private lessons are scheduled around the coach's availability." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Adult group-lesson slots are announced in the academy's WhatsApp group as each course opens. Juniors train on Wednesday and Saturday afternoons, with Saturday and Sunday morning slots for some levels. Private lessons are scheduled around the coach's availability." }
         },
         {
           "@type": "Question",
@@ -177,12 +177,26 @@
   <div class="ah-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <h1 class="kick"><span class="h1-k">Golf academy in Casablanca</span>Excellence,<br><em>within reach</em>.</h1>
-    <p class="lede">At The Tony Jacklin Casablanca, the academy coaches children across four levels — from first swing to competition — and welcomes adults in small groups on Saturday mornings.</p>
-    <div class="cta">
-      <a href="#juniors" class="btn btn-flag">The four levels<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="lede">At The Tony Jacklin Casablanca, the academy coaches children across four levels — from first swing to competition — and welcomes adults in small groups whose dates are announced in the academy's WhatsApp group.</p>
+    <!-- one pair of buttons per audience: the switch below swaps them, so
+         they always lead into the half that is showing -->
+    <div class="cta" data-aud="adultes">
+      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" data-wa-group class="btn btn-flag">Join the WhatsApp group<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#adultes" class="btn btn-line-turf">Adult lesson options</a>
+    </div>
+    <div class="cta" data-aud="enfants">
+      <a href="#juniors" class="btn btn-flag">The four junior levels<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a href="#planning" class="btn btn-line-turf">2026-2027 schedule</a>
     </div>
-    <div class="plates">
+    <!-- one set of plates per audience: the switch below swaps them, so the
+         banner never promises the other half's numbers -->
+    <div class="plates plates-or" data-aud="adultes">
+      <div class="plate"><div class="v">8</div><div class="k">Sessions per pack</div></div>
+      <div class="plate no-rule"><div class="v">1,500<small>MAD</small></div><div class="k">The pack</div></div>
+      <div class="p-or" aria-hidden="true">or</div>
+      <div class="plate"><div class="v">250<small>MAD</small></div><div class="k">One session</div></div>
+    </div>
+    <div class="plates" data-aud="enfants">
       <div class="plate"><div class="v">4</div><div class="k">Junior levels</div></div>
       <div class="plate"><div class="v">2<small>/wk</small></div><div class="k">Sessions</div></div>
       <div class="plate"><div class="v">6<small>—8</small></div><div class="k">Per group</div></div>
@@ -190,57 +204,85 @@
   </div>
 </section>
 
-<!-- ══════ ADULTS ══════ -->
-<section class="adult pad" id="adultes">
+<!-- ══════ AUDIENCE: ADULTS OR CHILDREN ══════
+     The first choice on the page. Each section below carries data-aud
+     ("adultes", "enfants", or both); main.js hides the other half. A section
+     without data-aud stays visible either way. -->
+<div class="audbar" data-aud-switch>
+  <div class="wrap">
+    <p class="audbar-l">I'm looking for lessons for</p>
+    <div class="audbar-btns" role="group" aria-label="Choose audience">
+      <button type="button" class="audb" data-aud-btn="adultes" aria-pressed="true">Adults</button>
+      <button type="button" class="audb" data-aud-btn="enfants" aria-pressed="false">Children</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ ADULTS — THE WHATSAPP GROUP ══════
+     Adult group lessons no longer hold a fixed slot: they are announced in a
+     WhatsApp group, where people ask their questions before signing up. The
+     pack stays at 1,500 MAD for 8 sessions, a single session at 250 MAD.
+     TODO — replace the two hrefs marked data-wa-group with the group invite
+     link (https://chat.whatsapp.com/…). Until then they point at the
+     academy's WhatsApp, which adds people to the group. -->
+<section class="adult pad" id="adultes" data-aud="adultes">
   <div class="wrap">
     <div class="card-head">
       <div>
         <div class="label">Golf lessons for adults</div>
-        <h2 style="margin-top:16px">Saturday mornings,<br>in a small group.</h2>
-        <p class="h-sub">A complete course to take up golf or get back into it at your own pace: eight 90-minute sessions led by an academy coach, with the same group from one week to the next.</p>
+        <h2 style="margin-top:16px">Join the group,<br>then the practice range.</h2>
+        <p class="h-sub">Our adult group lessons are organised through a WhatsApp group: slots are announced there, you ask your questions, and you sign up for whichever course suits you. Joining the group commits you to nothing.</p>
       </div>
-      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" class="btn btn-flag">Book a place<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" data-wa-group class="btn btn-flag">Join the WhatsApp group<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
 
-    <div class="adult-card rv">
-      <div class="adult-price">
-        <div class="r">Full pack</div>
-        <div class="v">1,500<small>MAD</small></div>
-        <p class="u">All eight sessions, per person. Nothing extra to pay: practice equipment is provided.</p>
-        <p class="sig">Improve, share,<br>enjoy the game!</p>
+    <div class="adult-card duo rv">
+      <!-- the two options: the pack, or a single session -->
+      <div class="price-duo">
+        <div class="pd-cell">
+          <div class="r">Group pack</div>
+          <div class="v">1,500<small>MAD</small></div>
+          <div class="q">for <b>8 sessions</b></div>
+          <p class="u">Per person. Practice equipment is provided: nothing to buy to get started.</p>
+        </div>
+        <div class="pd-or"><span>or</span></div>
+        <div class="pd-cell">
+          <div class="r">Single pack</div>
+          <div class="v">250<small>MAD</small></div>
+          <div class="q">for <b>1 session</b></div>
+          <p class="u">No commitment: you can start with a single session.</p>
+        </div>
+        <p class="pd-sig">Improve, share, enjoy the game!</p>
       </div>
       <div class="adult-facts">
         <div class="row">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3.2" y="5.2" width="17.6" height="15.6" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3.2 10h17.6M8 3.2v4M16 3.2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.2 1.26-1.97 1.42-.53.11-1.22.2-3.55-.76-2.98-1.24-4.9-4.27-5.05-4.47-.14-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37h.56c.18 0 .42-.07.66.5.24.58.83 2.02.9 2.17.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.3.15.47.12.64-.07.17-.2.74-.86.94-1.16.2-.3.4-.25.66-.15.27.1 1.7.8 1.99.95.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/></svg></div>
           <div>
-            <div class="k">The pack</div>
-            <div class="v">8 sessions <b>of 90 min</b></div>
-            <p class="s">One session a week, at a fixed time, over eight consecutive weeks.</p>
+            <div class="k">The group</div>
+            <div class="v"><b>One click</b> to join us</div>
+            <p class="s">Inside, you'll find the group lessons on offer, can ask your questions and sign up for the slot that works for you. <a href="https://wa.me/212665602209" target="_blank" rel="noopener" data-wa-group style="color:var(--flag)">Click here to join the group</a>.</p>
           </div>
         </div>
         <div class="row">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3.2" stroke="currentColor" stroke-width="1.5"/><path d="M3 19c0-3 2.7-4.8 6-4.8s6 1.8 6 4.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16.2 6.4a3 3 0 010 5.6M18 19c0-2.3-1-3.9-2.6-4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.2l7.2 2.8v5.4c0 4.2-3 7.5-7.2 9.4-4.2-1.9-7.2-5.2-7.2-9.4V6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12.2l2.1 2.1L15.2 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
-            <div class="k">Group size</div>
-            <div class="v">Groups of <b>4 to 6 people</b></div>
-            <p class="s">Small enough for every swing to be corrected, big enough to keep each other going.</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.8" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5.2l3.4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div>
-            <div class="k">Time slots</div>
-            <div class="v">Saturdays<br><b>9:00 — 10:30</b> or <b>10:30 — 12:00</b></div>
-            <p class="s">Choose your slot when you sign up and keep it for the whole course.</p>
+            <div class="k">Commitment</div>
+            <div class="v"><b>None</b>, at any point</div>
+            <p class="s">Joining the group creates no obligation: you come to find out more, and you only sign up if a course suits you.</p>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="adult-alt">
+      <p>Would you rather work <b>one-to-one with a coach</b>? Private lessons are booked by the session or in packs of ten, in Casablanca as well as Rabat and Marrakech.</p>
+      <a href="prices" class="btn btn-line">See private lesson prices<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 </section>
 
 <!-- ══════ JUNIORS ══════ -->
-<section class="pad" id="juniors" style="background:var(--sand)">
+<section class="pad" id="juniors" data-aud="enfants" style="background:var(--sand)">
   <div class="wrap">
     <div class="card-head">
       <div>
@@ -352,7 +394,7 @@
 </section>
 
 <!-- ══════ SCHEDULE 2026-2027 ══════ -->
-<section class="plan pad" id="planning">
+<section class="plan pad" id="planning" data-aud="enfants">
   <div class="wrap">
     <div class="label on-turf">Lesson schedule 2026-2027</div>
     <h2 style="margin-top:16px">This season's<br>time slots.</h2>
@@ -423,6 +465,30 @@
   </div>
 </section>
 
+<!-- ══════ CHILDREN'S CAMPS ══════
+     The holiday-camp calendar isn't fixed yet: the section exists so parents
+     know camps are coming, and .soonbox holds the place until the dates are
+     known. -->
+<section class="pad" id="stages" data-aud="enfants" style="background:var(--chalk)">
+  <div class="wrap">
+    <div class="card-head">
+      <div>
+        <div class="label">Holiday camps</div>
+        <h2 style="margin-top:16px">Camps,<br>during the holidays.</h2>
+        <p class="h-sub">During the school holidays, the academy runs camps: several days in a row on the practice range and out on the course, in small groups, with the golf school's coaches.</p>
+      </div>
+      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" class="btn btn-flag">Get the dates<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <div class="soonbox rv">
+      <span class="soon-tag">Schedule to come</span>
+      <div class="t">Dates coming soon.</div>
+      <p>This season's camp calendar is being put together. Message us on WhatsApp and we'll let you know as soon as it's published, with the formats and prices.</p>
+      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" class="btn btn-line">Message us on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
 <!-- ══════ GETTING STARTED + FAQ ══════ -->
 <section class="guide pad" id="debuter">
   <div class="wrap">
@@ -434,7 +500,7 @@
       </div>
       <div class="guide-body">
         <h3>Golf lessons for adult beginners</h3>
-        <p>The easiest way to start is the adult pack: eight 90-minute sessions on Saturday mornings, in a group of four to six people, for 1,500&nbsp;MAD. Practice equipment is provided, so there is nothing to buy. If you would rather progress one-to-one with a coach, private lessons start at 200&nbsp;MAD for 25&nbsp;minutes, as single lessons or in packs of 10&nbsp;— <a href="prices">see all prices</a>.</p>
+        <p>The easiest way to start is a group lesson: a pack of eight sessions for 1,500&nbsp;MAD, or a single session at 250&nbsp;MAD if you'd rather try it first, with no commitment. Slots are announced in the <a href="#adultes">academy's WhatsApp group</a>, which you can join without any obligation. Practice equipment is provided, so there is nothing to buy. If you would rather progress one-to-one with a coach, private lessons start at 200&nbsp;MAD for 25&nbsp;minutes, as single lessons or in packs of 10&nbsp;— <a href="prices">see all prices</a>.</p>
 
         <h3>Golf school for children, from age 6</h3>
         <p>Juniors follow a year-long programme across four levels&nbsp;— Discovery, Mastery, Performance and Elite&nbsp;— with two sessions a week in groups of six to eight children. Each stage is signed off with coloured flags, tracked in the young golfer's logbook. A year starts at 4,200&nbsp;MAD, academy polo shirts and cap included.</p>
@@ -453,23 +519,23 @@
       <div class="faq-list">
         <details>
           <summary><h3>How much does a golf lesson cost in Casablanca?</h3></summary>
-          <p>A 55-minute private lesson costs 300&nbsp;MAD with a team coach and 400&nbsp;MAD with Mustapha Pinta; 25-minute lessons start at 200&nbsp;MAD. Groups share the price: a 55-minute lesson for four players is 600&nbsp;MAD, or 150&nbsp;MAD each. Juniors pay reduced rates, and the adult pack of eight group sessions is 1,500&nbsp;MAD. <a href="prices">Full price list</a>.</p>
+          <p>A 55-minute private lesson costs 300&nbsp;MAD with a team coach and 400&nbsp;MAD with Mustapha Pinta; 25-minute lessons start at 200&nbsp;MAD. Groups share the price: a 55-minute lesson for four players is 600&nbsp;MAD, or 150&nbsp;MAD each. Juniors pay reduced rates; for adults, a group lesson is 250&nbsp;MAD on its own, or 1,500&nbsp;MAD for a pack of eight. <a href="prices">Full price list</a>.</p>
         </details>
         <details>
           <summary><h3>What age can you start golf?</h3></summary>
-          <p>The golf school takes children from age 6, with clubs and targets sized for them. For adults there is no age to start: the Saturday-morning pack is designed for people taking up golf or coming back to it.</p>
+          <p>The golf school takes children from age 6, with clubs and targets sized for them. For adults there is no age to start: the group lessons are designed for people taking up golf or coming back to it.</p>
         </details>
         <details>
           <summary><h3>Do I need to know how to play before signing up?</h3></summary>
-          <p>No, every level is welcome. The adult pack and the juniors' Discovery level are built for complete beginners. Experienced players join the Performance and Elite levels, or take private lessons to work on something specific.</p>
+          <p>No, every level is welcome. The adult group lessons and the juniors' Discovery level are built for complete beginners. Experienced players join the Performance and Elite levels, or take private lessons to work on something specific.</p>
         </details>
         <details>
           <summary><h3>Do I need my own golf clubs to start?</h3></summary>
-          <p>No. In the adult pack, practice equipment is provided, so there is nothing to buy to get started. For other lessons, just tell us when you book if you don't have clubs.</p>
+          <p>No. In the adult group lessons, practice equipment is provided, so there is nothing to buy to get started. For other lessons, just tell us when you book if you don't have clubs.</p>
         </details>
         <details>
           <summary><h3>When do lessons take place?</h3></summary>
-          <p>Adults play on Saturdays, from 9:00 to 10:30 or from 10:30 to 12:00. Juniors train on Wednesday and Saturday afternoons, with Saturday and Sunday morning slots for some levels&nbsp;— see the <a href="#planning">2026-2027 schedule</a>. Private lessons are scheduled around the coach's availability.</p>
+          <p>Adult group-lesson slots are announced in the <a href="#adultes">WhatsApp group</a> as each course opens. Juniors train on Wednesday and Saturday afternoons, with Saturday and Sunday morning slots for some levels&nbsp;— see the <a href="#planning">2026-2027 schedule</a>. Private lessons are scheduled around the coach's availability.</p>
         </details>
         <details>
           <summary><h3>Can I cancel a lesson?</h3></summary>
@@ -489,7 +555,7 @@
   <div class="wrap">
     <div class="label" style="justify-content:center">Enrolment</div>
     <h2>Book your place<br>today.</h2>
-    <p class="h-sub">Groups are deliberately small: six to eight children depending on the level, four to six adults. One call or message is all it takes to check the places left in a slot.</p>
+    <p class="h-sub">Groups are deliberately small: six to eight children depending on the level, and small numbers for adults. One call or message is all it takes to check the places left in a slot.</p>
     <div class="soon-cta">
       <a href="https://wa.me/212665602209" target="_blank" rel="noopener" class="btn btn-flag">Message us on WhatsApp<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a href="./#contact" class="btn btn-line">Contact form</a>
@@ -568,6 +634,6 @@
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.2 1.26-1.97 1.42-.53.11-1.22.2-3.55-.76-2.98-1.24-4.9-4.27-5.05-4.47-.14-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37h.56c.18 0 .42-.07.66.5.24.58.83 2.02.9 2.17.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.3.15.47.12.64-.07.17-.2.74-.86.94-1.16.2-.3.4-.25.66-.15.27.1 1.7.8 1.99.95.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
 </a>
 
-<script src="../assets/main.js?v=12"></script>
+<script src="../assets/main.js?v=15"></script>
 </body>
 </html>

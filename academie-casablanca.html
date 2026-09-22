@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=27">
+<link rel="stylesheet" href="assets/styles.css?v=33">
 
 <!-- Données structurées. La fiche de l'académie est la même que sur
      index.html (même @id) : modifier l'une = modifier l'autre. Les réponses
@@ -68,27 +68,27 @@
         {
           "@type": "Question",
           "name": "Combien coûte un cours de golf à Casablanca ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Un cours individuel de 55 minutes coûte 300 MAD avec un coach de l'équipe et 400 MAD avec Mustapha Pinta ; la séance de 25 minutes démarre à 200 MAD. À plusieurs, le prix se partage : 600 MAD la séance de 55 minutes pour quatre joueurs, soit 150 MAD par personne. Les juniors bénéficient de tarifs réduits, et le pack adulte de huit séances en groupe revient à 1500 DH." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Un cours individuel de 55 minutes coûte 300 MAD avec un coach de l'équipe et 400 MAD avec Mustapha Pinta ; la séance de 25 minutes démarre à 200 MAD. À plusieurs, le prix se partage : 600 MAD la séance de 55 minutes pour quatre joueurs, soit 150 MAD par personne. Les juniors bénéficient de tarifs réduits ; côté adultes, le cours collectif revient à 250 MAD la séance à l'unité, ou 1500 DH le pack de huit." }
         },
         {
           "@type": "Question",
           "name": "À quel âge peut-on commencer le golf ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "L'école de golf accueille les enfants dès 6 ans, avec des clubs et des cibles adaptés à leur taille. Côté adultes, il n'y a pas d'âge pour commencer : le pack du samedi matin est pensé pour débuter ou reprendre le golf." }
+          "acceptedAnswer": { "@type": "Answer", "text": "L'école de golf accueille les enfants dès 6 ans, avec des clubs et des cibles adaptés à leur taille. Côté adultes, il n'y a pas d'âge pour commencer : les cours collectifs sont pensés pour débuter ou reprendre le golf." }
         },
         {
           "@type": "Question",
           "name": "Faut-il déjà savoir jouer pour s'inscrire ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Non, tous les niveaux sont accueillis. Le pack adulte et le niveau Découverte chez les juniors sont conçus pour des débutants complets. Les joueurs confirmés rejoignent les niveaux Performance et Élite, ou prennent des cours individuels pour travailler un point précis." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Non, tous les niveaux sont accueillis. Le cours collectif adulte et le niveau Découverte chez les juniors sont conçus pour des débutants complets. Les joueurs confirmés rejoignent les niveaux Performance et Élite, ou prennent des cours individuels pour travailler un point précis." }
         },
         {
           "@type": "Question",
           "name": "Faut-il son propre matériel pour débuter ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Non. Dans le pack adulte, le matériel de practice est fourni : vous n'avez rien à acheter pour commencer. Pour les autres formules, dites-nous à l'inscription si vous n'avez pas de clubs." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Non. Dans les cours collectifs adultes, le matériel de practice est fourni : vous n'avez rien à acheter pour commencer. Pour les autres formules, dites-nous à l'inscription si vous n'avez pas de clubs." }
         },
         {
           "@type": "Question",
           "name": "Quand ont lieu les cours ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Les adultes jouent le samedi, de 9h à 10h30 ou de 10h30 à 12h. Les juniors ont cours le mercredi et le samedi après-midi, avec des créneaux le samedi et le dimanche matin pour certains niveaux. Les cours individuels se calent selon les disponibilités du coach." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Les créneaux des cours collectifs adultes sont annoncés dans le groupe WhatsApp de l'académie, au fil des cycles. Les juniors ont cours le mercredi et le samedi après-midi, avec des créneaux le samedi et le dimanche matin pour certains niveaux. Les cours individuels se calent selon les disponibilités du coach." }
         },
         {
           "@type": "Question",
@@ -181,12 +181,26 @@
   <div class="ah-scrim" aria-hidden="true"></div>
   <div class="wrap">
     <h1 class="kick"><span class="h1-k">Académie de golf à Casablanca</span>L'excellence,<br><em>à portée</em>.</h1>
-    <p class="lede">Au Tony Jacklin Casablanca, l'académie forme les enfants sur quatre niveaux — de la découverte à la compétition — et accueille les adultes en petits groupes le samedi matin.</p>
-    <div class="cta">
-      <a href="#juniors" class="btn btn-flag">Les quatre niveaux<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="lede">Au Tony Jacklin Casablanca, l'académie forme les enfants sur quatre niveaux — de la découverte à la compétition — et accueille les adultes en cours collectifs, annoncés dans le groupe WhatsApp de l'académie.</p>
+    <!-- une paire de boutons par public : la bascule plus bas les échange,
+         pour qu'ils mènent toujours dans la moitié affichée -->
+    <div class="cta" data-aud="adultes">
+      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" data-wa-group class="btn btn-flag">Rejoindre le groupe WhatsApp<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#adultes" class="btn btn-line-turf">Les formules adultes</a>
+    </div>
+    <div class="cta" data-aud="enfants">
+      <a href="#juniors" class="btn btn-flag">Les quatre niveaux juniors<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a href="#planning" class="btn btn-line-turf">Planning 2026-2027</a>
     </div>
-    <div class="plates">
+    <!-- un jeu de cartouches par public : la bascule plus bas les échange,
+         pour que la bannière ne promette pas les chiffres de l'autre moitié -->
+    <div class="plates plates-or" data-aud="adultes">
+      <div class="plate"><div class="v">8</div><div class="k">Séances par pack</div></div>
+      <div class="plate no-rule"><div class="v">1500<small>DH</small></div><div class="k">Le pack</div></div>
+      <div class="p-or" aria-hidden="true">ou</div>
+      <div class="plate"><div class="v">250<small>DH</small></div><div class="k">La séance</div></div>
+    </div>
+    <div class="plates" data-aud="enfants">
       <div class="plate"><div class="v">4</div><div class="k">Niveaux juniors</div></div>
       <div class="plate"><div class="v">2<small>/sem</small></div><div class="k">Séances</div></div>
       <div class="plate"><div class="v">6<small>—8</small></div><div class="k">Par groupe</div></div>
@@ -194,54 +208,80 @@
   </div>
 </section>
 
-<!-- ══════ OFFRE ADULTE ══════
-     Les chiffres viennent de la fiche « Offre adulte » de l'académie :
-     pack de 8 séances d'1h30, 1500 DH, groupes de 4 à 6, le samedi matin.
-     Un seul bloc les porte — modifier l'offre = modifier cette carte. -->
-<section class="adult pad" id="adultes">
+<!-- ══════ PUBLIC : ADULTES OU ENFANTS ══════
+     Le premier choix de la page. Chaque section ci-dessous porte data-aud
+     (« adultes », « enfants », ou les deux) ; main.js masque l'autre moitié.
+     Une section sans data-aud reste visible dans les deux cas. -->
+<div class="audbar" data-aud-switch>
+  <div class="wrap">
+    <p class="audbar-l">Je cherche des cours pour</p>
+    <div class="audbar-btns" role="group" aria-label="Choisir le public">
+      <button type="button" class="audb" data-aud-btn="adultes" aria-pressed="true">Adultes</button>
+      <button type="button" class="audb" data-aud-btn="enfants" aria-pressed="false">Enfants</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ OFFRE ADULTE — LE GROUPE WHATSAPP ══════
+     Les cours collectifs adultes ne tiennent plus un créneau fixe : ils
+     s'annoncent dans un groupe WhatsApp, où l'on se renseigne avant de
+     s'inscrire. Le pack reste à 1500 DH les 8 séances, la séance à l'unité
+     à 250 DH.
+     À FAIRE — remplacer les deux href marqués data-wa-group par le lien
+     d'invitation du groupe (https://chat.whatsapp.com/…). En attendant ils
+     pointent vers le WhatsApp de l'académie, qui ajoute au groupe. -->
+<section class="adult pad" id="adultes" data-aud="adultes">
   <div class="wrap">
     <div class="card-head">
       <div>
         <div class="label">Cours de golf pour adultes</div>
-        <h2 style="margin-top:16px">Le samedi matin,<br>en petit groupe.</h2>
-        <p class="h-sub">Un cycle complet pour débuter ou reprendre le golf sans se presser : huit séances d'une heure trente, encadrées par un coach de l'académie, avec le même groupe d'une séance à l'autre.</p>
+        <h2 style="margin-top:16px">Rejoignez le groupe,<br>puis le practice.</h2>
+        <p class="h-sub">Nos cours collectifs adultes s'organisent dans un groupe WhatsApp&nbsp;: les créneaux y sont annoncés, vous posez vos questions, et vous vous inscrivez au cycle qui vous convient. Rejoindre le groupe n'engage à rien.</p>
       </div>
-      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" class="btn btn-flag">Réserver une place<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" data-wa-group class="btn btn-flag">Rejoindre le groupe WhatsApp<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
 
-    <div class="adult-card rv">
-      <div class="adult-price">
-        <div class="r">Pack complet</div>
-        <div class="v">1500<small>DH</small></div>
-        <p class="u">Les huit séances, par personne. Rien à ajouter : le matériel de practice est fourni.</p>
-        <p class="sig">Progressez, partagez,<br>prenez du plaisir&nbsp;!</p>
+    <div class="adult-card duo rv">
+      <!-- les deux formules : le pack, ou la séance à l'unité -->
+      <div class="price-duo">
+        <div class="pd-cell">
+          <div class="r">Pack collectif</div>
+          <div class="v">1500<small>DH</small></div>
+          <div class="q">pour <b>8 séances</b></div>
+          <p class="u">Par personne. Le matériel de practice est fourni&nbsp;: rien à acheter pour débuter.</p>
+        </div>
+        <div class="pd-or"><span>ou</span></div>
+        <div class="pd-cell">
+          <div class="r">Pack unique</div>
+          <div class="v">250<small>DH</small></div>
+          <div class="q">pour <b>1 séance</b></div>
+          <p class="u">Sans engagement&nbsp;: vous pouvez commencer par une seule séance.</p>
+        </div>
+        <p class="pd-sig">Progressez, partagez, prenez du plaisir&nbsp;!</p>
       </div>
       <div class="adult-facts">
         <div class="row">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3.2" y="5.2" width="17.6" height="15.6" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3.2 10h17.6M8 3.2v4M16 3.2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.2 1.26-1.97 1.42-.53.11-1.22.2-3.55-.76-2.98-1.24-4.9-4.27-5.05-4.47-.14-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37h.56c.18 0 .42-.07.66.5.24.58.83 2.02.9 2.17.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.3.15.47.12.64-.07.17-.2.74-.86.94-1.16.2-.3.4-.25.66-.15.27.1 1.7.8 1.99.95.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/></svg></div>
           <div>
-            <div class="k">Le pack</div>
-            <div class="v">8 séances <b>d'1h30</b></div>
-            <p class="s">Une séance par semaine, à heure fixe, sur huit semaines consécutives.</p>
+            <div class="k">Le groupe</div>
+            <div class="v"><b>Un clic</b> pour nous rejoindre</div>
+            <p class="s">Vous y découvrez les cours collectifs proposés, posez vos questions et vous inscrivez au créneau qui vous arrange. <a href="https://wa.me/212665602209" target="_blank" rel="noopener" data-wa-group style="color:var(--flag)">Cliquez ici pour rejoindre le groupe</a>.</p>
           </div>
         </div>
         <div class="row">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3.2" stroke="currentColor" stroke-width="1.5"/><path d="M3 19c0-3 2.7-4.8 6-4.8s6 1.8 6 4.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16.2 6.4a3 3 0 010 5.6M18 19c0-2.3-1-3.9-2.6-4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.2l7.2 2.8v5.4c0 4.2-3 7.5-7.2 9.4-4.2-1.9-7.2-5.2-7.2-9.4V6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12.2l2.1 2.1L15.2 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
-            <div class="k">L'effectif</div>
-            <div class="v">Groupe de <b>4 à 6 personnes</b></div>
-            <p class="s">Assez petit pour que chaque swing soit corrigé, assez grand pour l'émulation.</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.8" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5.2l3.4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div>
-            <div class="k">Les créneaux</div>
-            <div class="v">Les samedis<br><b>9h — 10h30</b> ou <b>10h30 — 12h</b></div>
-            <p class="s">Vous choisissez votre créneau à l'inscription et le gardez pour tout le cycle.</p>
+            <div class="k">L'engagement</div>
+            <div class="v"><b>Aucun</b>, à aucun moment</div>
+            <p class="s">Rejoindre le groupe ne crée aucune obligation&nbsp;: vous venez vous renseigner, et vous vous inscrivez seulement si une formule vous convient.</p>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="adult-alt">
+      <p>Vous préférez avancer <b>seul avec un coach</b>&nbsp;? Les cours individuels se réservent à la séance ou en pack de dix, à Casablanca comme à Rabat et Marrakech.</p>
+      <a href="tarifs" class="btn btn-line">Voir les tarifs des cours individuels<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 </section>
@@ -249,7 +289,7 @@
 <!-- ══════ ACADÉMIE JUNIORS ══════
      Une carte par niveau. Chaque carte porte sa propre couleur via --c :
      changer la couleur d'un niveau = changer cette variable, rien d'autre. -->
-<section class="pad" id="juniors" style="background:var(--sand)">
+<section class="pad" id="juniors" data-aud="enfants" style="background:var(--sand)">
   <div class="wrap">
     <div class="card-head">
       <div>
@@ -365,7 +405,7 @@
 <!-- ══════ PLANNING 2026-2027 ══════
      Une colonne par niveau, un bloc .plan-slot par créneau proposé.
      Ajouter un créneau = ajouter un .plan-slot dans la bonne colonne. -->
-<section class="plan pad" id="planning">
+<section class="plan pad" id="planning" data-aud="enfants">
   <div class="wrap">
     <div class="label on-turf">Planning des cours 2026-2027</div>
     <h2 style="margin-top:16px">Les créneaux<br>de la saison.</h2>
@@ -436,6 +476,30 @@
   </div>
 </section>
 
+<!-- ══════ STAGES ENFANTS ══════
+     Le planning des stages de vacances n'est pas arrêté : la section existe
+     pour que les parents sachent qu'il y en aura, et le bloc .soonbox tient
+     la place jusqu'à ce que les dates soient connues. -->
+<section class="pad" id="stages" data-aud="enfants" style="background:var(--chalk)">
+  <div class="wrap">
+    <div class="card-head">
+      <div>
+        <div class="label">Stages de vacances</div>
+        <h2 style="margin-top:16px">Les stages,<br>pendant les vacances.</h2>
+        <p class="h-sub">Pendant les vacances scolaires, l'académie ouvre des stages&nbsp;: plusieurs jours de suite au practice et sur le parcours, en petit groupe, avec les coachs de l'école de golf.</p>
+      </div>
+      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" class="btn btn-flag">Être prévenu des dates<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <div class="soonbox rv">
+      <span class="soon-tag">Planning à venir</span>
+      <div class="t">Les dates arrivent bientôt.</div>
+      <p>Le calendrier des stages de la saison est en cours de préparation. Écrivez-nous sur WhatsApp&nbsp;: nous vous prévenons dès qu'il est publié, avec les formules et les tarifs.</p>
+      <a href="https://wa.me/212665602209" target="_blank" rel="noopener" class="btn btn-line">Écrire sur WhatsApp</a>
+    </div>
+  </div>
+</section>
+
 <!-- ══════ DÉBUTER + FAQ ══════
      Le texte que les moteurs de recherche lisent pour « apprendre le golf à
      Casablanca » ou « cours de golf Casablanca ». Tous les chiffres viennent
@@ -451,7 +515,7 @@
       </div>
       <div class="guide-body">
         <h3>Cours de golf pour adultes débutants</h3>
-        <p>Le plus simple pour commencer est le pack adulte&nbsp;: huit séances d'une heure trente le samedi matin, en groupe de quatre à six personnes, pour 1500&nbsp;DH. Le matériel de practice est fourni, vous n'avez rien à acheter pour débuter. Si vous préférez avancer seul avec un coach, les cours individuels démarrent à 200&nbsp;MAD la séance de 25&nbsp;minutes, à l'unité ou en pack de 10&nbsp;— <a href="tarifs">voir tous les tarifs</a>.</p>
+        <p>Le plus simple pour commencer est le cours collectif&nbsp;: un pack de huit séances à 1500&nbsp;DH, ou une seule séance à 250&nbsp;DH si vous voulez d'abord essayer, sans engagement. Les créneaux sont annoncés dans le <a href="#adultes">groupe WhatsApp de l'académie</a>, que vous pouvez rejoindre sans aucune obligation. Le matériel de practice est fourni, vous n'avez rien à acheter pour débuter. Si vous préférez avancer seul avec un coach, les cours individuels démarrent à 200&nbsp;MAD la séance de 25&nbsp;minutes, à l'unité ou en pack de 10&nbsp;— <a href="tarifs">voir tous les tarifs</a>.</p>
 
         <h3>École de golf pour enfants, dès 6 ans</h3>
         <p>Les juniors suivent un cursus annuel sur quatre niveaux&nbsp;— Découverte, Maîtrise, Performance et Élite&nbsp;— à raison de deux séances par semaine, en groupes de six à huit enfants. Chaque étape se valide par des drapeaux de couleur, suivis dans le carnet du jeune golfeur. L'année démarre à 4&nbsp;200&nbsp;DH, polos et casquette de l'académie compris.</p>
@@ -470,23 +534,23 @@
       <div class="faq-list">
         <details>
           <summary><h3>Combien coûte un cours de golf à Casablanca&nbsp;?</h3></summary>
-          <p>Un cours individuel de 55&nbsp;minutes coûte 300&nbsp;MAD avec un coach de l'équipe et 400&nbsp;MAD avec Mustapha Pinta&nbsp;; la séance de 25&nbsp;minutes démarre à 200&nbsp;MAD. À plusieurs, le prix se partage&nbsp;: 600&nbsp;MAD la séance de 55&nbsp;minutes pour quatre joueurs, soit 150&nbsp;MAD par personne. Les juniors bénéficient de tarifs réduits, et le pack adulte de huit séances en groupe revient à 1500&nbsp;DH. <a href="tarifs">La grille complète</a>.</p>
+          <p>Un cours individuel de 55&nbsp;minutes coûte 300&nbsp;MAD avec un coach de l'équipe et 400&nbsp;MAD avec Mustapha Pinta&nbsp;; la séance de 25&nbsp;minutes démarre à 200&nbsp;MAD. À plusieurs, le prix se partage&nbsp;: 600&nbsp;MAD la séance de 55&nbsp;minutes pour quatre joueurs, soit 150&nbsp;MAD par personne. Les juniors bénéficient de tarifs réduits&nbsp;; côté adultes, le cours collectif revient à 250&nbsp;MAD la séance à l'unité, ou 1500&nbsp;DH le pack de huit. <a href="tarifs">La grille complète</a>.</p>
         </details>
         <details>
           <summary><h3>À quel âge peut-on commencer le golf&nbsp;?</h3></summary>
-          <p>L'école de golf accueille les enfants dès 6&nbsp;ans, avec des clubs et des cibles adaptés à leur taille. Côté adultes, il n'y a pas d'âge pour commencer&nbsp;: le pack du samedi matin est pensé pour débuter ou reprendre le golf.</p>
+          <p>L'école de golf accueille les enfants dès 6&nbsp;ans, avec des clubs et des cibles adaptés à leur taille. Côté adultes, il n'y a pas d'âge pour commencer&nbsp;: les cours collectifs sont pensés pour débuter ou reprendre le golf.</p>
         </details>
         <details>
           <summary><h3>Faut-il déjà savoir jouer pour s'inscrire&nbsp;?</h3></summary>
-          <p>Non, tous les niveaux sont accueillis. Le pack adulte et le niveau Découverte chez les juniors sont conçus pour des débutants complets. Les joueurs confirmés rejoignent les niveaux Performance et Élite, ou prennent des cours individuels pour travailler un point précis.</p>
+          <p>Non, tous les niveaux sont accueillis. Le cours collectif adulte et le niveau Découverte chez les juniors sont conçus pour des débutants complets. Les joueurs confirmés rejoignent les niveaux Performance et Élite, ou prennent des cours individuels pour travailler un point précis.</p>
         </details>
         <details>
           <summary><h3>Faut-il son propre matériel pour débuter&nbsp;?</h3></summary>
-          <p>Non. Dans le pack adulte, le matériel de practice est fourni&nbsp;: vous n'avez rien à acheter pour commencer. Pour les autres formules, dites-nous à l'inscription si vous n'avez pas de clubs.</p>
+          <p>Non. Dans les cours collectifs adultes, le matériel de practice est fourni&nbsp;: vous n'avez rien à acheter pour commencer. Pour les autres formules, dites-nous à l'inscription si vous n'avez pas de clubs.</p>
         </details>
         <details>
           <summary><h3>Quand ont lieu les cours&nbsp;?</h3></summary>
-          <p>Les adultes jouent le samedi, de 9h à 10h30 ou de 10h30 à 12h. Les juniors ont cours le mercredi et le samedi après-midi, avec des créneaux le samedi et le dimanche matin pour certains niveaux&nbsp;— voir le <a href="#planning">planning 2026-2027</a>. Les cours individuels se calent selon les disponibilités du coach.</p>
+          <p>Les créneaux des cours collectifs adultes sont annoncés dans le <a href="#adultes">groupe WhatsApp</a>, au fil des cycles. Les juniors ont cours le mercredi et le samedi après-midi, avec des créneaux le samedi et le dimanche matin pour certains niveaux&nbsp;— voir le <a href="#planning">planning 2026-2027</a>. Les cours individuels se calent selon les disponibilités du coach.</p>
         </details>
         <details>
           <summary><h3>Peut-on annuler une séance&nbsp;?</h3></summary>
@@ -506,7 +570,7 @@
   <div class="wrap">
     <div class="label" style="justify-content:center">Inscriptions</div>
     <h2>Réservez votre place<br>dès maintenant.</h2>
-    <p class="h-sub">Les groupes sont volontairement courts&nbsp;: six à huit enfants selon le niveau, quatre à six adultes. Un appel ou un message suffit pour connaître les places restantes sur un créneau.</p>
+    <p class="h-sub">Les groupes sont volontairement courts&nbsp;: six à huit enfants selon le niveau, et de petits effectifs côté adultes. Un appel ou un message suffit pour connaître les places restantes sur un créneau.</p>
     <div class="soon-cta">
       <a href="https://wa.me/212665602209" target="_blank" rel="noopener" class="btn btn-flag">Écrire sur WhatsApp<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a href="./#contact" class="btn btn-line">Formulaire de contact</a>
@@ -585,6 +649,6 @@
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.2 1.26-1.97 1.42-.53.11-1.22.2-3.55-.76-2.98-1.24-4.9-4.27-5.05-4.47-.14-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.78-.37h.56c.18 0 .42-.07.66.5.24.58.83 2.02.9 2.17.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.3.15.47.12.64-.07.17-.2.74-.86.94-1.16.2-.3.4-.25.66-.15.27.1 1.7.8 1.99.95.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
 </a>
 
-<script src="assets/main.js?v=12"></script>
+<script src="assets/main.js?v=15"></script>
 </body>
 </html>

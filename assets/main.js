@@ -452,6 +452,79 @@
     applyCity('all');
   }
 
+  /* ── bascule adultes / enfants (pages académie) ────────────
+     Les sections portent data-aud : « adultes », « enfants », ou les deux
+     séparés par une espace. Celles qui n'en portent pas restent visibles
+     dans les deux cas. Rattacher une section à un public = poser l'attribut,
+     rien d'autre. Le choix se garde dans l'URL (?public=…) pour être
+     partageable, et un lien d'ancre vers une section de l'autre public
+     bascule avant de défiler — sinon le lien ne mènerait nulle part. */
+  var audBox = document.querySelector('[data-aud-switch]');
+  if (audBox) {
+    var audBtns = audBox.querySelectorAll('.audb');
+    /* tout élément peut se rattacher à un public, pas seulement une section :
+       les cartouches de la bannière en sont un. Les pastilles de la bascule
+       portent data-aud-btn, elles ne sont donc jamais prises ici. */
+    var audSecs = document.querySelectorAll('[data-aud]');
+
+    function audOf(el) { return ' ' + (el.getAttribute('data-aud') || '') + ' '; }
+
+    function applyAud(aud, remember) {
+      audSecs.forEach(function (sec) {
+        sec.hidden = audOf(sec).indexOf(' ' + aud + ' ') < 0;
+      });
+      audBtns.forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-aud-btn') === aud));
+      });
+      if (remember && window.history && history.replaceState) {
+        var u = new URL(window.location.href);
+        u.searchParams.set('public', aud);
+        history.replaceState(null, '', u);
+      }
+    }
+
+    /* le public d'une ancre : la section qui la porte, ou celle qui la
+       contient (les liens de la FAQ visent #planning, #juniors…) */
+    function audForHash(hash) {
+      if (!hash || hash.length < 2) return null;
+      var target;
+      try { target = document.querySelector(hash); } catch (err) { return null; }
+      if (!target) return null;
+      var sec = target.closest('[data-aud]');
+      return sec ? (sec.getAttribute('data-aud') || '').split(/\s+/)[0] : null;
+    }
+
+    audBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        applyAud(b.getAttribute('data-aud-btn'), true);
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href*="#"]');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      var hash = href.charAt(0) === '#' ? href : null;
+      if (!hash) return;
+      var want = audForHash(hash);
+      if (want) applyAud(want, true);
+    });
+
+    var wanted = new URLSearchParams(window.location.search).get('public');
+    if (wanted !== 'adultes' && wanted !== 'enfants') {
+      wanted = audForHash(window.location.hash) || 'adultes';
+    }
+    applyAud(wanted, false);
+
+    /* arrivé sur #planning alors que la section était encore masquée, le
+       navigateur n'avait rien trouvé où défiler : on le refait une fois la
+       bonne moitié affichée */
+    if (window.location.hash && audForHash(window.location.hash)) {
+      var landed = document.querySelector(window.location.hash);
+      if (landed) requestAnimationFrame(function () { landed.scrollIntoView(); });
+    }
+  }
+
   /* ── grille tarifaire (tarifs.html) ────────────────────────
      Each .prow carries its four prices in data-p, in the order
      adulte-unité, adulte-pack, junior-unité, junior-pack. The segments only
@@ -568,6 +641,18 @@
       }, { passive: true });
       markDots();
     });
+
+    /* ── ville présélectionnée par l'URL ──
+       Les pages d'une ville renvoient ici avec ?ville=marrakech (?city= côté
+       anglais) : la grille s'ouvre alors sur la bonne ville plutôt que sur
+       Casablanca. Une valeur inconnue est ignorée, la case cochée dans le
+       markup fait foi. */
+    var qs = new URLSearchParams(window.location.search);
+    var want = qs.get('ville') || qs.get('city');
+    if (want) {
+      var pick = pctl.querySelector('input[name="city"][value="' + CSS.escape(want) + '"]');
+      if (pick) pick.checked = true;
+    }
 
     pctl.addEventListener('change', function () { paint(); paintCity(); });
     paint();
