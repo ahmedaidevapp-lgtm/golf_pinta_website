@@ -1209,6 +1209,14 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--on-turf)}
 .pd-sig{grid-column:1/-1;border-top:1px solid var(--rule-turf);padding:19px 34px;margin:0;
   font-family:var(--display);font-style:italic;font-size:17px;color:var(--sand-3)}
+/* côte à côte, chaque formule flotte dans une colonne bien plus large que son
+   texte : on la centre sur son axe, de part et d'autre du « ou ». Empilées
+   (voir plus bas), elles reprennent le fil à gauche du reste de la page. */
+@media (min-width:701px){
+  .pd-cell{text-align:center}
+  .pd-cell .u{margin-inline:auto}
+  .pd-sig{text-align:center}
+}
 /* le renvoi qui suit la carte : « plutôt en individuel ? » */
 .adult-alt{display:flex;align-items:center;justify-content:space-between;gap:20px 30px;flex-wrap:wrap;
   margin-top:26px;padding:26px 34px;border:1px solid var(--rule);background:var(--sand)}
