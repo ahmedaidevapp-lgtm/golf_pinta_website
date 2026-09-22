@@ -1160,6 +1160,14 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
 /* les blocs masqués portent leur propre display (grid, flex…) : [hidden]
    seul ne suffirait pas à les faire disparaître */
 [data-aud][hidden]{display:none}
+/* la barre partage le fond crème de la section qui la suit : ses 26 px et
+   les 104 px de la section s'additionnent en un vide de 130 px avant le
+   premier titre. La première section visible se rapproche donc de la barre
+   — les [hidden] intercalés sont les sections de l'autre public, pour que
+   la vue enfants démarre comme la vue adultes. */
+.audbar + .pad,
+.audbar + [hidden] + .pad,
+.audbar + [hidden] + [hidden] + .pad{padding-top:56px}
 
 /* offre adulte — une carte large, chiffre à gauche, faits à droite */
 .adult{background:var(--chalk)}
@@ -1356,6 +1364,9 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
   .plates-or .plate{padding-left:8px;padding-right:8px}
   .plates-or .p-or{padding:20px 6px 0;font-size:9.5px;letter-spacing:.14em}
   .audbar{padding:20px 0}
+  .audbar + .pad,
+  .audbar + [hidden] + .pad,
+  .audbar + [hidden] + [hidden] + .pad{padding-top:40px}
   .audbar-btns{width:100%}
   /* les deux pastilles se partagent la largeur plutôt que de passer l'une
      sous l'autre : le choix reste lisible d'un coup d'œil */
