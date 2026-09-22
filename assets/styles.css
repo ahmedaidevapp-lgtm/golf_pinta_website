@@ -1192,23 +1192,23 @@ footer .topo svg path{fill:none;stroke:rgba(241,237,225,.045);stroke-width:1}
    que le prix, il est donc composé en gros, sous le chiffre. */
 .adult-card.duo{grid-template-columns:1fr}
 .price-duo{display:grid;grid-template-columns:1fr auto 1fr;background:var(--turf);color:var(--on-turf)}
-.pd-cell{padding:40px 34px}
+.pd-cell{padding:34px}
 .pd-cell .r{font-family:var(--num);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--sand-3)}
-.pd-cell .v{font-family:var(--num);font-size:clamp(52px,7.2vw,88px);font-weight:700;line-height:1;
-  margin-top:18px;font-variant-numeric:tabular-nums}
-.pd-cell .v small{font-family:var(--ui);font-size:20px;font-weight:600;letter-spacing:.1em;margin-left:10px}
-.pd-cell .q{font-family:var(--display);font-size:clamp(23px,2.7vw,32px);line-height:1.22;margin-top:14px}
+.pd-cell .v{font-family:var(--num);font-size:clamp(42px,4.9vw,62px);font-weight:700;line-height:1;
+  margin-top:15px;font-variant-numeric:tabular-nums}
+.pd-cell .v small{font-family:var(--ui);font-size:16px;font-weight:600;letter-spacing:.1em;margin-left:9px}
+.pd-cell .q{font-family:var(--display);font-size:clamp(20px,2.1vw,26px);line-height:1.22;margin-top:11px}
 .pd-cell .q b{font-weight:500;font-style:italic;color:var(--sand-3)}
 .pd-cell .u{font-size:13.5px;line-height:1.6;color:var(--on-turf-2);margin:14px 0 0;max-width:32ch}
 /* le mot s'assoit sur le filet et le coupe : son fond est celui du bloc */
 .pd-or{position:relative;display:flex;align-items:center;justify-content:center;width:86px}
-.pd-or::before{content:'';position:absolute;top:40px;bottom:40px;left:50%;width:1px;
+.pd-or::before{content:'';position:absolute;top:34px;bottom:34px;left:50%;width:1px;
   background:var(--rule-turf)}
-.pd-or span{position:relative;background:var(--turf);padding:14px 0;font-family:var(--num);
-  font-size:14px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--on-turf)}
-.pd-sig{grid-column:1/-1;border-top:1px solid var(--rule-turf);padding:22px 34px;margin:0;
-  font-family:var(--display);font-style:italic;font-size:19px;color:var(--sand-3)}
+.pd-or span{position:relative;background:var(--turf);padding:12px 0;font-family:var(--num);
+  font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--on-turf)}
+.pd-sig{grid-column:1/-1;border-top:1px solid var(--rule-turf);padding:19px 34px;margin:0;
+  font-family:var(--display);font-style:italic;font-size:17px;color:var(--sand-3)}
 /* le renvoi qui suit la carte : « plutôt en individuel ? » */
 .adult-alt{display:flex;align-items:center;justify-content:space-between;gap:20px 30px;flex-wrap:wrap;
   margin-top:26px;padding:26px 34px;border:1px solid var(--rule);background:var(--sand)}
