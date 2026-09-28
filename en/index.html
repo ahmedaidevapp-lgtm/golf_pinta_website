@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css?v=34">
+<link rel="stylesheet" href="/assets/styles.css?v=35">
 
 <!-- English twin of /index.html. The Casablanca entry shares its @id with the
      French pages: change the facts there and here together. -->
@@ -159,10 +159,26 @@
     <div class="hero-copy">
       <h1 class="kick"><span class="h1-k">Golf academy in Morocco <span class="k-sep">· </span><span class="k-loc">Casablanca, Rabat, Marrakech</span></span>Golf is learned<br>on the <em>green</em>.</h1>
       <p class="lede">Golf with Pinta manages Prestigia Golf Academy, present in Casablanca, Rabat and Marrakech. Private lessons, group lessons and clinics on four signature courses. Professional coaching for every level, adults and children.</p>
-      <div class="hero-cta">
-        <a href="golf-academy-casablanca" class="btn btn-flag">Casablanca academy<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="#contact" class="btn btn-line-turf">Book a lesson</a>
-      </div>
+      <!-- the site's three front doors: the academy (two cities open), the
+           private lesson and the group. Each row spans the column, so it stays
+           a clear tap target on a phone. -->
+      <nav class="hero-cta" aria-label="What we offer">
+        <div class="hcta hcta-split">
+          <span class="hcta-txt"><span class="hcta-t">Join the academy</span><span class="hcta-d">Juniors &amp; adults, all year round</span></span>
+          <span class="hcta-cities">
+            <a href="golf-academy-casablanca">Casablanca<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a href="golf-academy-marrakech">Marrakech<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </span>
+        </div>
+        <a class="hcta" href="prices">
+          <span class="hcta-txt"><span class="hcta-t">Private lesson</span><span class="hcta-d">Single sessions or packs of 10</span></span>
+          <svg class="hcta-go" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="hcta" href="../groupes" hreflang="fr">
+          <span class="hcta-txt"><span class="hcta-t">Golf as a group</span><span class="hcta-d">Schools, companies &amp; team building</span></span>
+          <svg class="hcta-go" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </nav>
       <div class="plates">
         <div class="plate"><div class="v">04</div><div class="k">Courses</div></div>
         <div class="plate"><div class="v">03</div><div class="k">Cities</div></div>
