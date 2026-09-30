@@ -179,8 +179,11 @@ a.hcta:hover .hcta-go{transform:translateX(3px)}
 .plate:last-child{border-right:none}
 .plate .v{font-family:var(--num);font-size:30px;font-weight:700;color:var(--sand-3);line-height:1}
 .plate .k{font-family:var(--ui);font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--on-turf-3);margin-top:9px}
-.hero-vis{position:relative;border-left:1px solid var(--rule-turf);padding:0 0 0 44px;display:flex;flex-direction:column}
-.hero-vis .photo{width:100%;flex:1;min-height:430px}
+/* la photo garde ses propres proportions (540×590) : étirée sur toute la
+   hauteur de la colonne de texte, elle devenait une bande étroite qui coupait
+   le coach. La colonne la centre face au texte. */
+.hero-vis{position:relative;border-left:1px solid var(--rule-turf);padding:0 0 0 44px;display:flex;flex-direction:column;justify-content:center}
+.hero-vis .photo{width:100%;aspect-ratio:540/590}
 .hero-plate{border-top:1px solid var(--rule-turf);display:grid;grid-template-columns:repeat(3,1fr);align-items:stretch;gap:0}
 .hero-plate div{padding:16px 10px;border-right:1px solid var(--rule-turf);display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;font-family:var(--num);font-size:clamp(9px,1.05vw,11px);letter-spacing:.06em;text-transform:uppercase;color:var(--on-turf-2)}
 .hero-plate div:last-child{border-right:none}
